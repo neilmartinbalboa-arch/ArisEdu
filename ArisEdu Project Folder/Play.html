@@ -117,5 +117,56 @@
     <h1>Play</h1>
     <p>WORK IN PROGRESS</p>
   </main>
+  <script>
+    // Taskbar Button Handlers
+    document.getElementById('homepage-button').addEventListener('click', () => {
+    
+    });
+
+    document.getElementById('course-button').addEventListener('click', () => {
+   
+    });
+
+    document.getElementById('play-button').addEventListener('click', () => {
+    
+    });
+
+    document.getElementById('search-button').addEventListener('click', () => {
+    
+    });
+
+    document.getElementById('login-signup-button').addEventListener('click', () => {
+    
+    });
+
+    document.getElementById('settings-button').addEventListener('click', () => {
+      // Toggle settings menu
+      const menu = document.getElementById('settings-menu');
+      const isHidden = menu.getAttribute('aria-hidden') === 'true';
+      menu.setAttribute('aria-hidden', !isHidden);
+      if (isHidden) {
+        menu.style.visibility = 'visible';
+        menu.style.opacity = '1';
+        menu.style.transform = 'translateY(0)';
+      } else {
+        menu.style.visibility = 'hidden';
+        menu.style.opacity = '0';
+        menu.style.transform = 'translateY(-6px)';
+      }
+    });
+
+    // Dark mode toggle
+    document.getElementById('dark-mode-checkbox').addEventListener('change', (e) => {
+      if (e.target.checked) {
+        document.body.classList.add('dark-mode');
+      } else {
+        document.body.classList.remove('dark-mode');
+      }
+    });
+
+    // Set dark mode active by default
+    document.body.classList.add('dark-mode');
+    document.getElementById('dark-mode-checkbox').checked = true;
+  </script>
  </body>
 </html>

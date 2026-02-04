@@ -227,8 +227,9 @@
 
     /* === COURSE BOXES === */
     .courses-container {
-      background: linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%);
-      border-radius: 1rem;
+      background: linear-gradient(#3b82f6 0%, #10b981 50%, #8b5cf6 100%);
+      border-radius: 2rem;
+      height:32rem;
       padding: 2rem;
       margin-bottom: 2rem;
     }
@@ -250,7 +251,7 @@
 
     .courses-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 1rem;
     }
 
@@ -334,14 +335,13 @@
           <h2 class="courses-section-title">Mathematics</h2>
           <div class="courses-grid">
             <div class="course-box">
-              <a href="http://127.0.0.1:3000/ArisEdu Project Folder/algebra1.html?serverWindowId=6c2eac1e-3f74-4fdb-ab45-3a28adbcfe0c">High School Algebra 1 WORK IN PROGRESS</a>
+              <a href="http://127.0.0.1:3000/ArisEdu Project Folder/algebra1.html?serverWindowId=6c2eac1e-3f74-4fdb-ab45-3a28adbcfe0c">High School Algebra 1(WIP)</a>
             </div>
             <div class="course-box">
-              <a href="http://127.0.0.1:3000/ArisEdu Project Folder/algebra2.html?serverWindowId=8231d1ee-d2d9-4a5f-96f4-ac73b759ad32">High School Algebra 2 WORK IN PROGRESS</a>
+              <a href="http://127.0.0.1:3000/ArisEdu Project Folder/algebra2.html?serverWindowId=8231d1ee-d2d9-4a5f-96f4-ac73b759ad32">High School Algebra 2(WIP)</a>
             </div>
             <div class="course-box">
-              <a href="http://127.0.0.1:3000/ArisEdu Project Folder/geometry.html?serverWindowId=658eae62-879f-4ebe-8293-30ef8121c735"> High School Geometry WORK IN PROGRESS</a>
-            </div>
+              <a href="http://127.0.0.1:3000/ArisEdu Project Folder/geometry.html?serverWindowId=658eae62-879f-4ebe-8293-30ef8121c735">High School Geometry (WIP)</a>
             </div>
           </div>
         </div>
@@ -356,10 +356,63 @@
               <a href="http://127.0.0.1:3000/ArisEdu Project Folder/chem.html?serverWindowId=92c8dd56-c50d-429f-acac-2e164ceec03e">High School Chemistry</a>
             </div>
             <div class="course-box">
-              <a href="http://127.0.0.1:3000/ArisEdu Project Folder/bio.html?serverWindowId=8e56fbed-02e4-4036-8e72-24c693f93898">High School Biology WORK IN PROGRESS</a>
+              <a href="http://127.0.0.1:3000/ArisEdu Project Folder/bio.html?serverWindowId=8e56fbed-02e4-4036-8e72-24c693f93898">High School Biology (WIP)</a>
             </div>
           </div>
         </div>
       </div>
     </div>
   </main>
+  <script>
+    // Taskbar Button Handlers
+    document.getElementById('homepage-button').addEventListener('click', () => {
+    
+    });
+
+    document.getElementById('course-button').addEventListener('click', () => {
+   
+    });
+
+    document.getElementById('play-button').addEventListener('click', () => {
+    
+    });
+
+    document.getElementById('search-button').addEventListener('click', () => {
+    
+    });
+
+    document.getElementById('login-signup-button').addEventListener('click', () => {
+    
+    });
+
+    document.getElementById('settings-button').addEventListener('click', () => {
+      // Toggle settings menu
+      const menu = document.getElementById('settings-menu');
+      const isHidden = menu.getAttribute('aria-hidden') === 'true';
+      menu.setAttribute('aria-hidden', !isHidden);
+      if (isHidden) {
+        menu.style.visibility = 'visible';
+        menu.style.opacity = '1';
+        menu.style.transform = 'translateY(0)';
+      } else {
+        menu.style.visibility = 'hidden';
+        menu.style.opacity = '0';
+        menu.style.transform = 'translateY(-6px)';
+      }
+    });
+
+    // Dark mode toggle
+    document.getElementById('dark-mode-checkbox').addEventListener('change', (e) => {
+      if (e.target.checked) {
+        document.body.classList.add('dark-mode');
+      } else {
+        document.body.classList.remove('dark-mode');
+      }
+    });
+
+    // Set dark mode active by default
+    document.body.classList.add('dark-mode');
+    document.getElementById('dark-mode-checkbox').checked = true;
+  </script>
+</body>
+</html>
