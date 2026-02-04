@@ -89,6 +89,72 @@
       color: #cbd5e1;
     }
 
+    .courses-container {
+      background: linear-gradient(#3b82f6 0%, #10b981 50%, #8b5cf6 100%);
+      border-radius: 2rem;
+      height:32rem;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .courses-section {
+      margin-bottom: 2rem;
+    }
+
+    .courses-section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 1rem;
+    }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .course-box {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .course-box:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+      background: white;
+    }
+
+    .course-box a {
+      text-decoration: none;
+      color: #1e293b;
+      font-size: 1.125rem;
+      font-weight: 600;
+      display: block;
+    }
+
+    .course-box a:hover {
+      color: #3b82f6;
+    }
+
+    body.dark-mode .course-box {
+      background: rgba(15, 23, 42, 0.8);
+      color: #cbd5e1;
+    }
+
+    body.dark-mode .course-box a {
+      color: #cbd5e1;
+    }
+
+    body.dark-mode .course-box a:hover {
+      color: #3b82f6;
+    }
+
   </style>
  </head>
  <body class="h-full">
@@ -114,8 +180,25 @@
     </div>
   </nav>
   <main class="main-container">
-    <h1>High School Chemistry</h1>
-    <p>WORK IN PROGRESS</p>
+    <div class="courses-container">
+      <div class="courses-section">
+        <h2 class="courses-section-title">Units</h2>
+        <div class="courses-grid">
+          <div class="course-box">Unit 1 (WIP)</div>
+          <div class="course-box">Unit 2 (WIP)</div>
+          <div class="course-box">Unit 3 (WIP)</div>
+          <div class="course-box">Unit 4 (WIP)</div>
+          <div class="course-box">Unit 5 (WIP)</div>
+          <div class="course-box">Unit 6 (WIP)</div>
+          <div class="course-box">Unit 7 (WIP)</div>
+          <div class="course-box">Unit 8 (WIP)</div>
+          <div class="course-box">Unit 9 (WIP)</div>
+          <div class="course-box">Unit 10 (WIP)</div>
+          <div class="course-box">Unit 11 (WIP)</div>
+          <div class="course-box">Unit 12 (WIP)</div>
+        </div>
+      </div>
+    </div>
   </main>
   <script>
     // Taskbar Button Handlers
