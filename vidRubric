@@ -34,7 +34,7 @@
       resize: both;
       overflow: auto;
 
-      /* ✅ Explicit dimensions so resize handles appear */
+      /* ✅ Explicit dimensions so resize handles appear! */
       width: 300px;
       height: 200px;
     }
