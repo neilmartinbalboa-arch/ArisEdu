@@ -1,15 +1,22 @@
- <!doctype html>
+<!doctype html>
 <html lang="en" class="h-full">
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ArisEdu Logo</title>
+  <title>Chemistry Unit 6: Chemical reactions</title>
   <script src="/_sdk/element_sdk.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&amp;display=swap" rel="stylesheet">
   <style>
+    body {
+      box-sizing: border-box;
+      background-color: white;
+    }
     
-    /* === LAYOUT === */
+    .logo-font {
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    
     .main-container {
       height: 100%;
       width: 100%;
@@ -60,128 +67,6 @@
       scale: 1.05;
       background: rgba(255, 255, 255, 0.2);
     }
-    
-    .logo-section {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      gap: 2rem;
-      margin-bottom: 4rem;
-    }
-
-    .logo-title-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: center;
-      flex: 1;
-    }
-    
-    .content-wrapper {
-      max-width: 100%;
-    }
-    
-    .section-content {
-      display: flex;
-      gap: 3rem;
-      align-items: center;
-    }
-    
-    .section-text-content {
-      flex: 1;
-      max-width: 56rem;
-    }
-    
-    .section-illustration {
-      flex-shrink: 0;
-      width: 300px;
-    }
-    
-    @media (max-width: 1024px) {
-      .section-content {
-        flex-direction: column;
-      }
-      
-      .section-illustration {
-        width: 200px;
-      }
-    }
-    
-    /* === COMPONENTS === */
-    .logo-symbol {
-      margin-bottom: 1.5rem;
-      width: 280px;
-      height: 280px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .company-title {
-      font-size: 5rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      background: linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    
-    .tagline {
-      font-size: 1.25rem;
-      font-weight: 600;
-      letter-spacing: 0.025em;
-      margin-bottom: 4rem;
-    }
-    
-    .section {
-      margin-bottom: 3rem;
-    }
-    
-    .section-title {
-      font-size: 1.875rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      color: #1e293b;
-    }
-    
-    .section-text {
-      font-size: 1.125rem;
-      line-height: 1.75;
-      color: #475569;
-      margin-bottom: 1rem;
-    }
-    
-    .section-list {
-      list-style: disc;
-      list-style-position: inside;
-      font-size: 1.125rem;
-      margin-left: 1rem;
-      color: #475569;
-    }
-    
-    .section-list li {
-      margin-bottom: 0.5rem;
-    }
-    
-    .cta-button {
-      padding: 0.75rem 2rem;
-      border-radius: 0.5rem;
-      font-weight: 600;
-      color: white;
-      font-size: 1.125rem;
-      transition: opacity 0.3s;
-      background: linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%);
-      border: none;
-      cursor: pointer;
-    }
-    
-    .cta-button:hover {
-      opacity: 0.9;
-    }
-    
-    /* === SETTINGS TOGGLE === */
 
     .settings-menu {
       width: 13rem;
@@ -204,42 +89,17 @@
       background: #0f172a;
       color: #cbd5e1;
     }
-    
-    body.dark-mode {
-      background-color: #1e293b;
-    }
-    
-    body.dark-mode .tagline {
-      color: #cbd5e1;
-    }
-    
-    body.dark-mode .section-title {
-      color: #f1f5f9;
-    }
-    
-    body.dark-mode .section-text {
-      color: #94a3b8;
-    }
-    
-    body.dark-mode .section-list {
-      color: #94a3b8;
-    }
 
-    /* === COURSE BOXES === */
     .courses-container {
       background: linear-gradient(#3b82f6 0%, #10b981 50%, #8b5cf6 100%);
       border-radius: 2rem;
-      height:23rem;
+      height:32rem;
       padding: 2rem;
       margin-bottom: 2rem;
     }
 
     .courses-section {
       margin-bottom: 2rem;
-    }
-
-    .courses-section:last-child {
-      margin-bottom: 0;
     }
 
     .courses-section-title {
@@ -263,6 +123,7 @@
       transition: all 0.3s ease;
       cursor: pointer;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      color: #1e293b;
     }
 
     .course-box:hover {
@@ -295,11 +156,14 @@
     body.dark-mode .course-box a:hover {
       color: #3b82f6;
     }
+
+    body.dark-mode {
+      background-color: #1e293b;
+    }
+
   </style>
-  <style>@view-transition { navigation: auto; }</style>
-  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
  </head>
- <body class="h-full"><!-- Taskbar -->
+ <body class="h-full">
   <nav class="taskbar">
     <div class="taskbar-container">
     
@@ -322,44 +186,10 @@
     </div>
   </nav>
   <main class="main-container">
-    <div class="logo-section">
-      <div class="logo-title-wrapper">
-        <h1 id="company-name" class="logo-font company-title">Our Courses</h1>
-      </div>
-    </div>
-
-    <div class="content-wrapper">
-      <div class="courses-container">
-        <!-- Mathematics Section -->
-        <div class="courses-section">
-          <h2 class="courses-section-title">Mathematics</h2>
-          <div class="courses-grid">
-            <div class="course-box">
-              <a href="http://127.0.0.1:3000/ArisEdu Project Folder/algebra1.html?serverWindowId=6c2eac1e-3f74-4fdb-ab45-3a28adbcfe0c">High School Algebra 1(WIP)</a>
-            </div>
-            <div class="course-box">
-              <a href="http://127.0.0.1:3000/ArisEdu Project Folder/algebra2.html?serverWindowId=8231d1ee-d2d9-4a5f-96f4-ac73b759ad32">High School Algebra 2(WIP)</a>
-            </div>
-            <div class="course-box">
-              <a href="http://127.0.0.1:3000/ArisEdu Project Folder/geometry.html?serverWindowId=658eae62-879f-4ebe-8293-30ef8121c735">High School Geometry (WIP)</a>
-            </div>
-          </div>
-        </div>
-        <!-- Science Section -->
-        <div class="courses-section">
-          <h2 class="courses-section-title">Science</h2>
-          <div class="courses-grid">
-            <div class="course-box">
-              <a href="http://127.0.0.1:3000/ArisEdu Project Folder/phys.html?serverWindowId=442f6101-c1f5-40ed-bacd-f054ce8505aa">High School Physics</a>
-            </div>
-            <div class="course-box">
-              <a href="http://127.0.0.1:3000/ArisEdu Project Folder/chem.html?serverWindowId=92c8dd56-c50d-429f-acac-2e164ceec03e">High School Chemistry</a>
-            </div>
-            <div class="course-box">
-              <a href="http://127.0.0.1:3000/ArisEdu Project Folder/bio.html?serverWindowId=8e56fbed-02e4-4036-8e72-24c693f93898">High School Biology (WIP)</a>
-            </div>
-          </div>
-        </div>
+    <div class="courses-container">
+      <div class="courses-section">
+        <h2 class="courses-section-title">Chemistry Unit 6: Chemical reactions</h2>
+        <p>Unit 6 content coming soon.</p>
       </div>
     </div>
   </main>

@@ -22,7 +22,15 @@
       padding: 5rem 2rem 2rem 2rem;
       overflow: auto;
     }
-    
+    .company-title {
+      font-size: 5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
     .taskbar {
       position: fixed;
       top: 0;
@@ -89,6 +97,10 @@
       color: #cbd5e1;
     }
 
+    body.dark-mode {
+      background-color: #1e293b;
+    }
+
     .courses-container {
       background: linear-gradient(#3b82f6 0%, #10b981 50%, #8b5cf6 100%);
       border-radius: 2rem;
@@ -122,6 +134,7 @@
       transition: all 0.3s ease;
       cursor: pointer;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      color: #1e293b;
     }
 
     .course-box:hover {
@@ -180,9 +193,12 @@
     </div>
   </nav>
   <main class="main-container">
+    <div class="logo-title-wrapper">
+    <h1 id="company-name" class="logo-font company-title">High School: Biology</h1>
+    </div>
     <div class="courses-container">
       <div class="courses-section">
-        <h2 class="courses-section-title">Units</h2>
+        <h2 class="courses-section-title">Biology Units</h2>
         <div class="courses-grid">
           <div class="course-box">Unit 1 (WIP)</div>
           <div class="course-box">Unit 2 (WIP)</div>
