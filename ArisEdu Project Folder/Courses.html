@@ -1,0 +1,368 @@
+ <!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArisEdu Logo</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    
+    /* === LAYOUT === */
+    .main-container {
+      height: 100%;
+      width: 100%;
+      padding: 5rem 2rem 2rem 2rem;
+      overflow: auto;
+    }
+    
+    .taskbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%);
+      z-index: 1000;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .taskbar-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.5rem 1rem;
+      max-width: 1200px;
+      width: 100%;
+    }
+    
+    .taskbar-button {
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      color: white;
+      font-size: 0.875rem;
+      transition: opacity 0.3s, transform 0.2s;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .taskbar-button:hover {
+      opacity: 0.9;
+      scale: 1.05;
+      background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .logo-section {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .logo-title-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      flex: 1;
+    }
+    
+    .content-wrapper {
+      max-width: 100%;
+    }
+    
+    .section-content {
+      display: flex;
+      gap: 3rem;
+      align-items: center;
+    }
+    
+    .section-text-content {
+      flex: 1;
+      max-width: 56rem;
+    }
+    
+    .section-illustration {
+      flex-shrink: 0;
+      width: 300px;
+    }
+    
+    @media (max-width: 1024px) {
+      .section-content {
+        flex-direction: column;
+      }
+      
+      .section-illustration {
+        width: 200px;
+      }
+    }
+    
+    /* === COMPONENTS === */
+    .logo-symbol {
+      margin-bottom: 1.5rem;
+      width: 280px;
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .company-title {
+      font-size: 5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .tagline {
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: 0.025em;
+      margin-bottom: 4rem;
+    }
+    
+    .section {
+      margin-bottom: 3rem;
+    }
+    
+    .section-title {
+      font-size: 1.875rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #1e293b;
+    }
+    
+    .section-text {
+      font-size: 1.125rem;
+      line-height: 1.75;
+      color: #475569;
+      margin-bottom: 1rem;
+    }
+    
+    .section-list {
+      list-style: disc;
+      list-style-position: inside;
+      font-size: 1.125rem;
+      margin-left: 1rem;
+      color: #475569;
+    }
+    
+    .section-list li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .cta-button {
+      padding: 0.75rem 2rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      color: white;
+      font-size: 1.125rem;
+      transition: opacity 0.3s;
+      background: linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%);
+      border: none;
+      cursor: pointer;
+    }
+    
+    .cta-button:hover {
+      opacity: 0.9;
+    }
+    
+    /* === SETTINGS TOGGLE === */
+
+    .settings-menu {
+      width: 13rem;
+      padding: 0.5rem;
+      background: #ffffff;
+      border-radius: 0.5rem;
+      box-shadow: 0 8px 20px rgba(2,6,23,0.12);
+      color: #0f172a;
+      font-size: 0.95rem;
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+      position: absolute;
+      top: 100%;
+      right: 1rem;
+    }
+
+    body.dark-mode .settings-menu {
+      background: #0f172a;
+      color: #cbd5e1;
+    }
+    
+    body.dark-mode {
+      background-color: #1e293b;
+    }
+    
+    body.dark-mode .tagline {
+      color: #cbd5e1;
+    }
+    
+    body.dark-mode .section-title {
+      color: #f1f5f9;
+    }
+    
+    body.dark-mode .section-text {
+      color: #94a3b8;
+    }
+    
+    body.dark-mode .section-list {
+      color: #94a3b8;
+    }
+
+    /* === COURSE BOXES === */
+    .courses-container {
+      background: linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%);
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .courses-section {
+      margin-bottom: 2rem;
+    }
+
+    .courses-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .courses-section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 1rem;
+    }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .course-box {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .course-box:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+      background: white;
+    }
+
+    .course-box a {
+      text-decoration: none;
+      color: #1e293b;
+      font-size: 1.125rem;
+      font-weight: 600;
+      display: block;
+    }
+
+    .course-box a:hover {
+      color: #3b82f6;
+    }
+
+    body.dark-mode .course-box {
+      background: rgba(15, 23, 42, 0.8);
+      color: #cbd5e1;
+    }
+
+    body.dark-mode .course-box a {
+      color: #cbd5e1;
+    }
+
+    body.dark-mode .course-box a:hover {
+      color: #3b82f6;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full"><!-- Taskbar -->
+  <nav class="taskbar">
+    <div class="taskbar-container">
+    
+      <button class="taskbar-button" id="search-button">🔍 Search</button>
+      <a href = "http://127.0.0.1:3000/ArisEdu Project Folder/ArisEdu.html?serverWindowId=f88a7adf-8413-4e39-a575-08c292f83a93" <button class="taskbar-button" id="homepage-button">🏠 Homepage</button></a>
+      <a href = "http://127.0.0.1:3000/ArisEdu Project Folder/Courses.html?serverWindowId=ce1e8a4e-6de8-4546-a1b5-4ec029832ded" <button class="taskbar-button" id="course-button">📚 Courses</button></a>
+      <a href = "http://127.0.0.1:3000/ArisEdu Project Folder/Play.html?serverWindowId=ce1e8a4e-6de8-4546-a1b5-4ec029832ded" <button class="taskbar-button" id="play-button"></button>▶️ Play</button></a>
+      <button class="taskbar-button" id="settings-button">⚙️ Settings</button>
+      <a href = "http://127.0.0.1:3000/ArisEdu Project Folder/LoginSignup.html?serverWindowId=ce1e8a4e-6de8-4546-a1b5-4ec029832ded" <button class="taskbar-button" id="login-signup-button">🔐 Login/Signup</button></a>
+
+    </div>
+    <div class="settings-menu" id="settings-menu" aria-hidden="true">
+      <div class="settings-item">
+        <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;">
+          <input type="checkbox" id="dark-mode-checkbox" />
+          <span>Dark Mode</span>
+        </label> 
+      </div>
+      <div class="settings-item">Preferences</div>
+    </div>
+  </nav>
+  <main class="main-container">
+    <div class="logo-section">
+      <div class="logo-title-wrapper">
+        <h1 id="company-name" class="logo-font company-title">Our Courses</h1>
+      </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="courses-container">
+        <!-- Mathematics Section -->
+        <div class="courses-section">
+          <h2 class="courses-section-title">Mathematics</h2>
+          <div class="courses-grid">
+            <div class="course-box">
+              <a href="http://127.0.0.1:3000/ArisEdu Project Folder/algebra1.html?serverWindowId=6c2eac1e-3f74-4fdb-ab45-3a28adbcfe0c">Algebra 1</a>
+            </div>
+            <div class="course-box">
+              <a href="http://127.0.0.1:3000/ArisEdu Project Folder/algebra2.html?serverWindowId=8231d1ee-d2d9-4a5f-96f4-ac73b759ad32">Algebra 2</a>
+            </div>
+            <div class="course-box">
+              <a href="http://127.0.0.1:3000/ArisEdu Project Folder/geometry.html?serverWindowId=658eae62-879f-4ebe-8293-30ef8121c735">Geometry</a>
+            </div>
+            <div class="course-box">
+              <a href="http://127.0.0.1:3000/ArisEdu Project Folder/trig.html?serverWindowId=c6a53d0d-85a0-45fd-a84c-6e6d3fdbc12c">Trigonometry</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Science Section -->
+        <div class="courses-section">
+          <h2 class="courses-section-title">Science</h2>
+          <div class="courses-grid">
+            <div class="course-box">
+              <a href="http://127.0.0.1:3000/ArisEdu Project Folder/phys.html?serverWindowId=442f6101-c1f5-40ed-bacd-f054ce8505aa">Physics & Mechanics</a>
+            </div>
+            <div class="course-box">
+              <a href="http://127.0.0.1:3000/ArisEdu Project Folder/chem.html?serverWindowId=92c8dd56-c50d-429f-acac-2e164ceec03e">Chemistry & Molecular Science</a>
+            </div>
+            <div class="course-box">
+              <a href="http://127.0.0.1:3000/ArisEdu Project Folder/bio.html?serverWindowId=8e56fbed-02e4-4036-8e72-24c693f93898">Biology</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>

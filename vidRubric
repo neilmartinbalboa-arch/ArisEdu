@@ -1,0 +1,2204 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Chemistry Video Rubric</title>
+  <style>
+    body {
+      font-family:'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      margin: 20px;
+    }
+    table {
+      border-collapse: collapse;
+      margin-top: 10px;
+      width: 100%;
+    }
+    th, td {
+      border: 1px solid #333;
+      padding: 6px;
+      text-align: center;
+    }
+
+    /* CHANGED: legend is now draggable + resizable */
+    #legend {
+      display: none;
+      position: fixed;   /* stays pinned to viewport */
+      top: 100px;
+      left: 100px;
+      background: white;
+      border: 2px solid #333;
+      z-index: 1000;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+
+      /* ✅ Resizing enabled */
+      resize: both;
+      overflow: auto;
+
+      /* ✅ Explicit dimensions so resize handles appear */
+      width: 300px;
+      height: 200px;
+    }
+    h2 {
+    margin-bottom: 50px; /* adds space below the title */
+    }
+
+    /* CHANGED: draggable header bar */
+    #legendHeader {
+      cursor: move;
+      background: #4CAF50;
+      color: white;
+      padding: 5px;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between; /* CHANGED: space for close button */
+      align-items: center;
+    }
+
+    /* CHANGED: close button styling */
+    #closeLegend {
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 8px 12px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      margin-bottom: 15px;
+      position: fixed; /* stays visible when scrolling */
+      top: 60px; /* distance from top */ 
+      left: 20px; /* distance from left */ 
+      z-index: 2000; /* ensures it stays above tables/legend */
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .resize-handle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #4CAF50;
+  }
+  .resize-handle.nw { top: -5px; left: -5px; cursor: nwse-resize; }
+.resize-handle.ne { top: -5px; right: -5px; cursor: nesw-resize; }
+  .resize-handle.sw { bottom: -5px; left: -5px; cursor: nesw-resize; }
+  .resize-handle.se { bottom: -5px; right: -5px; cursor: nwse-resize; }
+  </style>
+</head>
+<body>
+
+
+  
+<!-- Movable, resizable legend -->
+<div id="legend">
+  <!-- CHANGED: header bar with close button -->
+  <div id="legendHeader">
+    <span>Legend (drag me)</span>
+    <button id="closeLegend" onclick="toggleLegend()">×</button>
+  </div>
+  <div style="padding:10px;">
+  <!-- CHANGED: four corner handles --> 
+  <div class="resize-handle nw"></div>
+  <div class="resize-handle ne"></div>
+  <div class="resize-handle sw"></div>
+  <div class="resize-handle se"></div> 
+</div>
+    <table>
+      <!-- Legend Content -->
+
+      <tr><td>Difficulty</td><td>Easy</td><td style="background:#90EE90"></td></tr>
+
+      <tr><td>Difficulty</td><td>Medium-Easy</td><td style="background:#7FFF00"></td></tr>
+
+      <tr><td>Difficulty</td><td>Medium</td><td style="background:#FFA07A"></td></tr>
+
+      <tr><td>Difficulty</td><td>Medium-Hard</td><td style="background:#FF6347"></td></tr>
+
+      <tr><td>Difficulty</td><td>Hard</td><td style="background:#FF0000"></td></tr>
+
+      <!-- Detail --> 
+      <tr><td>Detail</td><td>Low</td><td style="background:#ADD8E6"></td></tr>
+ 
+      <tr><td>Detail</td><td>Medium-Low</td><td style="background:#90EE90"></td></tr>
+ 
+      <tr><td>Detail</td><td>Medium</td><td style="background:#FFD700"></td></tr>
+ 
+      <tr><td>Detail</td><td>Medium-High</td><td style="background:#FFA500">Medium-Slow</td></tr>
+ 
+      <tr><td>Detail</td><td>High</td><td style="background:#FF4500"></td></tr>
+
+      <!-- Length --> 
+       <tr><td>Length</td><td>Very Fast</td><td style="background:#DA70D6"></td></tr>
+
+       <tr><td>Length</td><td>Fast</td><td style="background:#87CEEB"></td></tr>
+ 
+       <tr><td>Length</td><td>Medium-Fast</td><td style="background:#7FFF00"></td></tr>
+ 
+       <tr><td>Length</td><td>Medium</td><td style="background:#FFD700"></td></tr>
+ 
+       <tr><td>Length</td><td>Medium-Long</td><td style="background:#FFA500">Medium-Slow</td></tr>
+ 
+       <tr><td>Length</td><td>Long</td><td style="background:#FF4500"></td></tr>
+
+      <!-- Pace -->
+         <tr><td>Pace</td><td>Fast</td><td style="background:#87CEEB"></td></tr>
+         <tr><td>Pace</td><td>Medium-Fast</td><td style="background:#7FFF00"></td></tr>
+         <tr><td>Pace</td><td>Medium</td><td style="background:#90EE90"></td></tr>
+         <tr><td>Pace</td><td>Medium-Slow</td><td style="background:#FFA500">Medium-Slow</td></tr>
+         <tr><td>Pace</td><td>Slow</td><td style="background:#FF4500"></td></tr>
+</table>
+  </div>
+</div>
+
+<h2>Chemistry Video Rubric</h2>
+
+<!-- Main rubric table -->
+<table>
+    <tr>
+      <th>Video Topic</th><th>Lesson Number</th><th>Creator</th><th>Difficulty</th><th>Detail</th><th>Length</th><th>Pace</th>
+  <tr><td><a href="https://www.youtube.com/watch?v=w1SIy56RLqI" target="_blank">States of Matter</a></td><td>1.1</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com/watch?v=gBiF-OLUVTY" target="_blank">States of Matter</a></td><td>1.1</td><td>Khan Academy</td>
+    <td style="background:#90EE90">Easy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#7FFF00">Medium-Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com/watch?v=9TVOlTolKFA" target="_blank">States of Matter</a></td><td>1.1</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com/watch?v=hkBrw2fG75U" target="_blank">States of Matter</a></td><td>1.1</td><td>Cognito</td>
+    <td style="background:#7FFF00">Medium-Easy</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com/watch?v=T9oGD50-0SU" target="_blank">States of Matter</a></td><td>1.1</td><td>Tyler DeWitt</td>
+    <td style="background:#7FFF00">Medium-Easy</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com/watch?v=QiiyvzZBKT8" target="_blank">The Fundamental Laws (Creation of Chemistry)</a></td><td>1.1</td><td>Crash Course</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">States of Matter</a></td><td>1.1</td><td>Crash Course</td>
+    <td style="background:#7FFF00">Medium-Easy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com/watch?v=KCL8zqjXbME" target="_blank">States of Matter</a></td><td>1.1</td><td>Veritasium</td>
+    <td style="background:#7FFF00">Medium-Easy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com/watch?v=AeJ9q45PfD0&t=121s" target="_blank">World’s Lightest Solid (Aerogel)</a></td><td>1.1 States of Matter / 11.4 Calorimetry</td><td>Veritasium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com/watch?v=rWVAzS5duAs" target="_blank">Concrete Chemistry</a></td><td>1.1 Types of Matter / 9.5 Solubility Curves</td><td>Veritasium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com/watch?v=wIV7baF4ZsM" target="_blank">Intensive & Extensive Properties</a></td><td>1.2</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Intensive & Extensive Properties</a></td><td>1.2</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#7FFF00">Medium-Fast</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com/watch?v=da0T6iWA0us" target="_blank">Intensive & Extensive Properties</a></td><td>1.2</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Intensive & Extensive Properties</a></td><td>1.2</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Intensive & Extensive Properties</a></td><td>1.2</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com/watch?v=m0IH3Hgy3oI" target="_blank">Extensive & Intensive Properties</a></td><td>1.2</td><td>David Vanden Bout</td>
+    <td style="background:#90EE90">Easy</td>
+    <td style="background:#90EE90">Medium-Low</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com/watch?v=fnMe4pXL5lY" target="_blank">Extensive & Intensive Properties</a></td><td>1.2</td><td>Chemplistic</td>
+    <td style="background:#90EE90">Easy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com/watch?v=j3GRn_PAlcA" target="_blank">Extensive & Intensive Properties</a></td><td>1.2</td><td>Chemistry in a Nutshell</td>
+    <td style="background:#90EE90">Easy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Mass, Volume, & Density</a></td><td>1.3</td><td>Chem Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com/watch?v=d7VPJ4DYwQQ" target="_blank">Mass, Volume, & Density</a></td><td>1.3</td><td>Khan Academy</td>
+    <td style="background:#90EE90">Easy</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#7FFF00">Medium-Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com/watch?v=LiXut4P0drg" target="_blank">Mass, Volume, & Density</a></td><td>1.3</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Mass, Volume, & Density</a></td><td>1.3</td><td>Cognito</td>
+    <td style="background:#90EE90">Easy</td>
+    <td style="background:#90EE90">Medium-Low</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com/watch?v=7tVebi3TSsgm" target="_blank">Mass, Volume, & Density</a></td><td>1.3</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com/watch?v=_mwC2-cqGFU" target="_blank">Density, Mass, & Volume</a></td><td>1.3</td><td>Phil Mcordic</td>
+    <td style="background:#90EE90">Easy</td>
+    <td style="background:#90EE90">Medium-Low</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com/watch?v=GnBQ6vIutDM" target="_blank">Density, Mass, & Volume</a></td><td>1.3</td><td>Science Bits</td>
+    <td style="background:#90EE90">Easy</td>
+    <td style="background:#ADD8E6">Low</td>
+    <td style="background:#DA70D6">Very Fast</td>
+    <td style="background:#87CEEB">Fast</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Heterogeneous & Homogeneous Mixtures</a></td><td>1.4</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com/watch?v=rDWfLHn8PDM" target="_blank">Heterogeneous & Homogeneous Mixtures</a></td><td>1.4</td><td>Khan Academy</td>
+    <td style="background:#7FFF00">Medium-Easy</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com/watch?v=eI-tmv4DLEk" target="_blank">Heterogeneous & Homogeneous Mixtures</a></td><td>1.4</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#90EE90">Easy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Heterogeneous & Homogeneous Mixtures</a></td><td>1.4</td><td>Cognito</td>
+    <td style="background:#7FFF00">Medium-Easy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Heterogeneous & Homogeneous Mixtures</a></td><td>1.4</td><td>Tyler DeWitt</td>
+    <td style="background:#7FFF00">Medium-Easy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com/watch?v=vhynYO2pvK4" target="_blank">Heterogeneous & Homogeneous Mixtures</a></td><td>1.4</td><td>Digital Classroom Experience</td>
+    <td style="background:#90EE90">Easy</td>
+    <td style="background:#90EE90">Medium-Low</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#7FFF00">Medium-Fast</td></tr>
+  <tr><td><a href="https://www.youtube.com/watch?v=Z5L2NOMEWT0" target="_blank">Physical & Chemical Properties</a></td><td>1.5</td><td>Chem Academy</td>
+    <td style="background:#7FFF00">Medium-Easy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Physical & Chemical Properties</a></td><td>1.5</td><td>Khan Academy</td>
+    <td style="background:#7FFF00">Medium-Easy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com/watch?v=gH1R87ahFvA" target="_blank">Physical & Chemical Properties</a></td><td>1.5</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#7FFF00">Medium-Easy</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#7FFF00">Medium-Fast</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Physical & Chemical Properties</a></td><td>1.5</td><td>Cognito</td>
+    <td style="background:#7FFF00">Medium-Easy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com/watch?v=QDi2B3Uwesc" target="_blank">Physical & Chemical Properties</a></td><td>1.5</td><td>Tyler DeWitt</td>
+    <td style="background:#7FFF00">Medium-Easy</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com/watch?v=4ZGULLWEy1c" target="_blank">Physical & Chemical Changes</a></td><td>1.6</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#7FFF00">Medium-Fast</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com/watch?v=3e8e0d1fWLk" target="_blank">Physical & Chemical Changes</a></td><td>1.6</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com/watch?v=YE2xaMsoGFU" target="_blank">Physical & Chemical Changes</a></td><td>1.6</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Physical & Chemical Changes</a></td><td>1.6</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Physical & Chemical Changes</a></td><td>1.6</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Physical & Chemical Changes</a></td><td>1.6</td><td>Crash Course</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Scientific Notation</a></td><td>2.1</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Scientific Notation</a></td><td>2.1</td><td>Khan Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FF4500">Long</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Scientific Notation</a></td><td>2.1</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#7FFF00">Medium-Easy</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Scientific Notation</a></td><td>2.1</td><td>Cognito</td>
+    <td style="background:#90EE90">Easy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#7FFF00">Medium-Fast</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Scientific Notation</a></td><td>2.1</td><td>Tyler DeWitt</td>
+    <td style="background:#7FFF00">Medium-Easy</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Scientific Notation</a></td><td>2.1</td><td>Crash Course</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Significant Figures</a></td><td>2.2</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Significant Figures</a></td><td>2.2</td><td>Khan Academy</td>
+    <td style="background:#90EE90">Easy</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#7FFF00">Medium-Fast</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Significant Figures</a></td><td>2.2</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Significant Figures</a></td><td>2.2</td><td>Cognito</td>
+    <td style="background:#90EE90">Easy</td>
+    <td style="background:#ADD8E6">Low</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Significant Figures</a></td><td>2.2</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Unit Conversion & Significant Figures</a></td><td>2.2 / 2.4</td><td>Crash Course</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Significant Figures</a></td><td>2.2</td>
+    <td>Professor Dave Explains</td>
+    <td style="background:#90EE90">Easy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#87CEEB">Fast</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Metric System (Prefixes)</a></td><td>2.3</td><td>Chem Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FF4500">Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Metric System (Prefixes)</a></td><td>2.3</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Metric System (Prefixes)</a></td><td>2.3</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FF4500">Long</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Metric System (Prefixes)</a></td><td>2.3</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Metric System (Prefixes)</a></td><td>2.3</td><td>Tyler DeWitt</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FF4500">Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Unit Conversions</a></td><td>2.4</td><td>Chem Academy</td>
+    <td style="background:#7FFF00">Medium-Easy</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Unit Conversions</a></td><td>2.4</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Unit Conversions</a></td><td>2.4</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#7FFF00">Medium-Easy</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FF4500">Long</td>
+    <td style="background:#FF4500">Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Unit Conversions</a></td><td>2.4</td><td>Cognito</td>
+    <td style="background:#7FFF00">Medium-Easy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Unit Conversions</a></td><td>2.4</td><td>Tyler DeWitt</td>
+    <td style="background:#7FFF00">Medium-Easy</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FF4500">Long</td>
+    <td style="background:#FF4500">Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Unit Conversions</a></td><td>2.4</td><td>Ketzbook</td>
+      <td style="background:#90EE90">Easy</td>
+      <td style="background:#FFD700">Medium</td>
+      <td style="background:#87CEEB">Fast</td>
+      <td style="background:#7FFF00">Medium-Fast</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Electrons, Protons, & Neutrons</a></td><td>3.1</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Electrons, Protons, & Neutrons</a></td><td>3.1</td><td>Khan Academy</td>
+    <td style="background:#90EE90">Easy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#DA70D6">Very Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Electrons, Protons, & Neutrons</a></td><td>3.1</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Electrons, Protons, & Neutrons</a></td><td>3.1</td><td>Cognito</td>
+    <td style="background:#7FFF00">Medium-Easy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Electrons, Protons, & Neutrons</a></td><td>3.1</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">The Nucleus</a></td><td>3.1</td><td>Crash Course</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+      <tr><td><a href="https://www.youtube.com" target="_blank">Protons, Neutrons, & Electrons</a></td><td>3.1</td><td>2 Minute Classroom</td> 
+      <td style="background:#90EE90">Easy</td>
+      <td style="background:#FFD700">Medium</td> 
+      <td style="background:#DA70D6">Very Fast</td>
+      <td style="background:#87CEEB">Fast</td></tr> 
+    <tr><td><a href="https://www.youtube.com" target="_blank">Protons, Neutrons, & Electrons</a></td><td>3.1</td><td>Learn Bright</td> 
+      <td style="background:#90EE90">Easy</td>
+      <td style="background:#FFD700">Medium</td> 
+      <td style="background:#FFD700">Medium</td>
+      <td style="background:#90EE90">Medium</td></tr> 
+    <tr><td><a href="https://www.youtube.com" target="_blank">Protons, Neutrons, & Electrons</a></td><td>3.1</td><td>Tidlybit</td> 
+      <td style="background:#FFA07A">Medium</td>
+      <td style="background:#FF4500">High</td> 
+      <td style="background:#FFA500">Medium-Long</td>
+      <td style="background:#FFA500">Medium-Slow</td></tr> 
+    <tr><td><a href="https://www.youtube.com" target="_blank">Protons, Neutrons, & Electrons</a></td><td>3.1</td><td>Learn Bright</td> 
+      <td style="background:#90EE90">Easy</td>
+      <td style="background:#ADD8E6">Low</td> 
+      <td style="background:#87CEEB">Fast</td>
+      <td style="background:#87CEEB">Fast</td></tr> 
+    <tr><td><a href="https://www.youtube.com" target="_blank">Protons, Neutrons, & Electrons</a></td><td>3.1</td><td>RicochetScience</td> 
+      <td style="background:#7FFF00">Medium-Easy</td>
+      <td style="background:#FFD700">Medium</td> 
+      <td style="background:#DA70D6">Very Fast</td>
+      <td style="background:#87CEEB">Fast</td></tr> 
+    <tr><td><a href="https://www.youtube.com" target="_blank">Protons, Neutrons, & Electrons</a></td><td>3.1</td><td>Whats Up Dude</td> 
+      <td style="background:#FFA07A">Medium</td>
+      <td style="background:#FF4500">High</td> 
+      <td style="background:#FFA500">Medium-Long</td>
+      <td style="background:#FFA500">Medium-Slow</td></tr> 
+    <tr><td><a href="https://www.youtube.com" target="_blank">Protons, Neutrons, & Electrons</a></td><td>3.1</td><td>FuseSchool</td> 
+      <td style="background:#7FFF00">Medium-Easy</td>
+      <td style="background:#FFA500">Medium-High</td> 
+      <td style="background:#FFD700">Medium</td>
+      <td style="background:#90EE90">Medium</td></tr> 
+  <tr><td><a href="https://www.youtube.com" target="_blank">Atomic Structure (Models)</a></td><td>3.2</td><td>Chem Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Atomic Structure (Models)</a></td><td>3.2</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Atomic Structure (Models)</a></td><td>3.2</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Atomic Structure (Models)</a></td><td>3.2</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Atomic Structure (Models)</a></td><td>3.2</td><td>Tyler DeWitt</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Radioactivity & Stability</a></td><td>3.3</td><td>Chem Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Radioactivity & Stability</a></td><td>3.3</td><td>Khan Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Radioactivity & Stability</a></td><td>3.3</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Radioactivity & Stability</a></td><td>3.3</td><td>Cognito</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Radioactivity & Stability</a></td><td>3.3</td><td>Tyler DeWitt</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Isotopes & Radioisotopes</a></td><td>3.4</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Isotopes & Radioisotopes</a></td><td>3.4</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Isotopes & Radioisotopes</a></td><td>3.4</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Isotopes & Radioisotopes</a></td><td>3.4</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Isotopes & Radioisotopes</a></td><td>3.4</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Isotopes</a></td><td>3.4</td><td>Crash Course</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Element Synthesis</a> ⭐</td><td>3.5</td><td>Chem Academy</td>
+    <td style="background:#FF0000">Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FF4500">Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Element Synthesis</a> ⭐</td><td>3.5</td><td>Khan Academy</td>
+    <td style="background:#FF0000">Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Element Synthesis</a> ⭐</td><td>3.5</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FF0000">Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FF4500">Long</td>
+    <td style="background:#FF4500">Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Element Synthesis</a> ⭐</td><td>3.5</td><td>Cognito</td>
+    <td style="background:#FF0000">Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Element Synthesis</a> ⭐</td><td>3.5</td><td>Tyler DeWitt</td>
+    <td style="background:#FF0000">Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FF4500">Long</td>
+    <td style="background:#FF4500">Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Chemical Symbols</a></td><td>4.1</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Chemical Symbols</a></td><td>4.1</td><td>Khan Academy</td>
+    <td style="background:#90EE90">Easy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Chemical Symbols</a></td><td>4.1</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Chemical Symbols</a></td><td>4.1</td><td>Cognito</td>
+    <td style="background:#90EE90">Easy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Chemical Symbols</a></td><td>4.1</td><td>Tyler DeWitt</td>
+    <td style="background:#90EE90">Easy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Periodic Table Arrangement</a></td><td>4.2</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Periodic Table Arrangement</a></td><td>4.2</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Periodic Table Arrangement</a></td><td>4.2</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Periodic Table Arrangement</a></td><td>4.2</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Periodic Table Arrangement</a></td><td>4.2</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">The Periodic Table</a></td><td>4.2</td><td>Crash Course</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Electron Suborbitals</a></td><td>4.3</td><td>Chem Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Electron Suborbitals</a></td><td>4.3</td><td>Khan Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Electron Suborbitals</a></td><td>4.3</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Electron Suborbitals</a></td><td>4.3</td><td>Cognito</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Electron Suborbitals</a></td><td>4.3</td><td>Tyler DeWitt</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">The Electron</a></td><td>4.3</td><td>Crash Course</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Electron Configuration</a></td><td>4.4</td><td>Chem Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Electron Configuration</a></td><td>4.4</td><td>Khan Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Electron Configuration</a></td><td>4.4</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Electron Configuration</a></td><td>4.4</td><td>Cognito</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Electron Configuration</a></td><td>4.4</td><td>Tyler DeWitt</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Electron Configuration</a></td><td>4.4</td><td>Crash Course</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Periodic Trends</a></td><td>4.5</td><td>Chem Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Periodic Trends</a></td><td>4.5</td><td>Khan Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Periodic Trends</a></td><td>4.5</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Periodic Trends</a></td><td>4.5</td><td>Cognito</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Periodic Trends</a></td><td>4.5</td><td>Tyler DeWitt</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Shielding Effect</a></td><td>4.6</td><td>Chem Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Shielding Effect</a></td><td>4.6</td><td>Khan Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Shielding Effect</a></td><td>4.6</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Shielding Effect</a></td><td>4.6</td><td>Cognito</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Shielding Effect</a></td><td>4.6</td><td>Tyler DeWitt</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">VSEPR Molecule</a> ⭐</td><td>4.7</td><td>Chem Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FF4500">Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">VSEPR Molecule</a> ⭐</td><td>4.7</td><td>Khan Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FF4500">Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">VSEPR Molecule</a> ⭐</td><td>4.7</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FF4500">Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">VSEPR Molecule</a> ⭐</td><td>4.7</td><td>Cognito</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">VSEPR Molecule</a> ⭐</td><td>4.7</td><td>Tyler DeWitt</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FF4500">Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Suborbital Shapes</a> ⭐</td><td>4.8</td><td>Chem Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FF4500">Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Suborbital Shapes</a> ⭐</td><td>4.8</td><td>Khan Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FF4500">Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Suborbital Shapes</a> ⭐</td><td>4.8</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FF4500">Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Suborbital Shapes</a> ⭐</td><td>4.8</td><td>Cognito</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Suborbital Shapes</a> ⭐</td><td>4.8</td><td>Tyler DeWitt</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FF4500">Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Net Charge</a></td><td>5.1</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Net Charge</a></td><td>5.1</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Net Charge</a></td><td>5.1</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Net Charge</a></td><td>5.1</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Net Charge</a></td><td>5.1</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Bond Formation</a></td><td>5.2</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Bond Formation</a></td><td>5.2</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Bond Formation</a></td><td>5.2</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Bond Formation</a></td><td>5.2</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Bond Formation</a></td><td>5.2</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Bonding Models & Lewis Structures</a></td><td>5.2 / 5.3</td><td>Crash Course</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Snatoms (Molecular Modeling Kit)</a></td><td>5.2 Bond Formation</td><td>Veritasium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Covalent Bonds</a></td><td>5.3</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Covalent Bonds</a></td><td>5.3</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Covalent Bonds</a></td><td>5.3</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Covalent Bonds</a></td><td>5.3</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Covalent Bonds</a></td><td>5.3</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Naming Covalent Bonds</a></td><td>5.4</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Naming Covalent Bonds</a></td><td>5.4</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Naming Covalent Bonds</a></td><td>5.4</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Naming Covalent Bonds</a></td><td>5.4</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Naming Covalent Bonds</a></td><td>5.4</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">How to Speak Chemistrian (Naming Compounds)</a></td><td>5.4 / 5.8</td><td>Crash Course</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Metallic Bonds</a></td><td>5.5</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Metallic Bonds</a></td><td>5.5</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Metallic Bonds</a></td><td>5.5</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Metallic Bonds</a></td><td>5.5</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Metallic Bonds</a></td><td>5.5</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Ionic Bonds</a></td><td>5.6</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Ionic Bonds</a></td><td>5.6</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Ionic Bonds</a></td><td>5.6</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Ionic Bonds</a></td><td>5.6</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Ionic Bonds</a></td><td>5.6</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Crisscross Method</a></td><td>5.7</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Crisscross Method</a></td><td>5.7</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Crisscross Method</a></td><td>5.7</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Crisscross Method</a></td><td>5.7</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Crisscross Method</a></td><td>5.7</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Naming Ionic Bonds</a></td><td>5.8</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Naming Ionic Bonds</a></td><td>5.8</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Naming Ionic Bonds</a></td><td>5.8</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Naming Ionic Bonds</a></td><td>5.8</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Naming Ionic Bonds</a></td><td>5.8</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Organic Compounds</a></td><td>5.9</td><td>Chem Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Organic Compounds</a></td><td>5.9</td><td>Khan Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Organic Compounds</a></td><td>5.9</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Organic Compounds</a></td><td>5.9</td><td>Cognito</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Organic Compounds</a></td><td>5.9</td><td>Tyler DeWitt</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Types of Reactions</a></td><td>6.1</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Types of Reactions</a></td><td>6.1</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Types of Reactions</a></td><td>6.1</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Types of Reactions</a></td><td>6.1</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Types of Reactions</a></td><td>6.1</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Precipitation Reactions</a></td><td>6.1</td><td>Crash Course</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Alfred Nobel & Explosives</a></td><td>6.1 Types of Reactions / 12.2 Nuclear Decay</td><td>Veritasium</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FF4500">Long</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Combustion Reactions</a></td><td>6.2</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Combustion Reactions</a></td><td>6.2</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Combustion Reactions</a></td><td>6.2</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Combustion Reactions</a></td><td>6.2</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Combustion Reactions</a></td><td>6.2</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Combustion Reactions</a></td><td>6.2</td><td>Crash Course</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Thermite Reaction</a></td><td>6.2 Combustion Reactions</td><td>Veritasium</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFA500">Medium-Long</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Redox Reactions</a></td><td>6.3</td><td>Chem Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Redox Reactions</a></td><td>6.3</td><td>Khan Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Redox Reactions</a></td><td>6.3</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Redox Reactions</a></td><td>6.3</td><td>Cognito</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Redox Reactions</a></td><td>6.3</td><td>Tyler DeWitt</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Redox Reactions</a></td><td>6.3</td><td>Crash Course</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Activation Energy</a></td><td>6.4</td><td>Chem Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Activation Energy</a></td><td>6.4</td><td>Khan Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Activation Energy</a></td><td>6.4</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Activation Energy</a></td><td>6.4</td><td>Cognito</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Activation Energy</a></td><td>6.4</td><td>Tyler DeWitt</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Balancing Equations</a></td><td>6.5</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Balancing Equations</a></td><td>6.5</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Balancing Equations</a></td><td>6.5</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Balancing Equations</a></td><td>6.5</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Balancing Equations</a></td><td>6.5</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Molar Mass & Molecular Mass</a></td><td>7.1</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Molar Mass & Molecular Mass</a></td><td>7.1</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Molar Mass & Molecular Mass</a></td><td>7.1</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Molar Mass & Molecular Mass</a></td><td>7.1</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Molar Mass & Molecular Mass</a></td><td>7.1</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Molar Mass & Avogadro’s Number</a></td><td>7.1 / 7.2</td><td>Crash Course</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Avogadro’s Number</a></td><td>7.2</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Avogadro’s Number</a></td><td>7.2</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Avogadro’s Number</a></td><td>7.2</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Avogadro’s Number</a></td><td>7.2</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Avogadro’s Number</a></td><td>7.2</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Molar Conversions (Atoms, Moles, Mass)</a></td><td>7.3</td><td>Chem Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Molar Conversions (Atoms, Moles, Mass)</a></td><td>7.3</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Molar Conversions (Atoms, Moles, Mass)</a></td><td>7.3</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Molar Conversions</a></td><td>7.3</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Molar Conversions (Atoms, Moles, Mass)</a></td><td>7.3</td><td>Tyler DeWitt</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Limiting Reagents</a></td><td>7.4</td><td>Chem Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Limiting Reagents</a></td><td>7.4</td><td>Khan Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Limiting Reagents</a></td><td>7.4</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Limiting Reagents</a></td><td>7.4</td><td>Cognito</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Limiting Reagents</a></td><td>7.4</td><td>Tyler DeWitt</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Limiting Reagents</a></td><td>7.4</td><td>Crash Course</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Stoichiometric Calculations</a></td><td>7.5</td><td>Chem Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Stoichiometric Calculations</a></td><td>7.5</td><td>Khan Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Stoichiometric Calculations</a></td><td>7.5</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Stoichiometric Calculations</a></td><td>7.5</td><td>Cognito</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Stoichiometric Calculations</a></td><td>7.5</td><td>Tyler DeWitt</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Stoichiometry</a></td><td>7.5</td><td>Crash Course</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Percent Yield</a></td><td>7.6</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Percent Yield</a></td><td>7.6</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Percent Yield</a></td><td>7.6</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Percent Yield</a></td><td>7.6</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Percent Yield</a></td><td>7.6</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Monotomic & Diatomic Gases</a></td><td>8.1</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Monotomic & Diatomic Gases</a></td><td>8.1</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Pressure, Standard Atmosphere</a></td><td>8.2</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Pressure, Standard Atmosphere</a></td><td>8.2</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Kinetic Molecular Theory</a></td><td>8.3</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Kinetic Molecular Theory</a></td><td>8.3</td><td>Tyler DeWitt</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Boyle’s Law</a></td><td>8.4</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Boyle’s Law</a></td><td>8.4</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Boyle’s Law</a></td><td>8.4</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Boyle’s Law</a></td><td>8.4</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Boyle’s Law</a></td><td>8.4</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Boyle’s Law</a></td><td>8.4</td><td>Crash Course</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Charles’ Law</a></td><td>8.5</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Charles’ Law</a></td><td>8.5</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Charles’ Law</a></td><td>8.5</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Charles’ Law</a></td><td>8.5</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Charles’ Law</a></td><td>8.5</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Charles’ Law</a></td><td>8.5</td><td>Crash Course</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Gay-Lussac’s Law</a></td><td>8.6</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Gay-Lussac’s Law</a></td><td>8.6</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Gay-Lussac’s Law</a></td><td>8.6</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Gay-Lussac’s Law</a></td><td>8.6</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Gay-Lussac’s Law</a></td><td>8.6</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Gay-Lussac’s Law</a></td><td>8.6</td><td>Crash Course</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Combined Gas Law</a></td><td>8.7</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Combined Gas Law</a></td><td>8.7</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Combined Gas Law</a></td><td>8.7</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Combined Gas Law</a></td><td>8.7</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Combined Gas Law</a></td><td>8.7</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Combined Gas Law</a></td><td>8.7</td><td>Crash Course</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Ideal Gas Law</a></td><td>8.8</td><td>Chem Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Ideal Gas Law</a></td><td>8.8</td><td>Khan Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Ideal Gas Law</a></td><td>8.8</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Ideal Gas Law</a></td><td>8.8</td><td>Cognito</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Ideal Gas Law</a></td><td>8.8</td><td>Tyler DeWitt</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Ideal Gas Law</a></td><td>8.8</td><td>Crash Course</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Concentration</a></td><td>9.1</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Concentration</a></td><td>9.1</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Concentration</a></td><td>9.1</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Concentration</a></td><td>9.1</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Concentration</a></td><td>9.1</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Water & Solutions</a></td><td>9.1 / 9.2</td><td>Crash Course</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Dilution</a></td><td>9.2</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Dilution</a></td><td>9.2</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Dilution</a></td><td>9.2</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Dilution</a></td><td>9.2</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Dilution</a></td><td>9.2</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Molarity</a></td><td>9.3</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Molarity</a></td><td>9.3</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Molarity</a></td><td>9.3</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Molarity</a></td><td>9.3</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Molarity</a></td><td>9.3</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Colligative Properties</a></td><td>9.4</td><td>Chem Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Colligative Properties</a></td><td>9.4</td><td>Khan Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Colligative Properties</a></td><td>9.4</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Colligative Properties</a></td><td>9.4</td><td>Cognito</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Colligative Properties</a></td><td>9.4</td><td>Tyler DeWitt</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Solubility Curves</a></td><td>9.5</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Solubility Curves</a></td><td>9.5</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Solubility Curves</a></td><td>9.5</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Solubility Curves</a></td><td>9.5</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Solubility Curves</a></td><td>9.5</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Solubility Curves</a></td><td>9.5</td><td>Crash Course</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Acid & Base Properties</a></td><td>10.1</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Acid & Base Properties</a></td><td>10.1</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Acid & Base Properties</a></td><td>10.1</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Acid & Base Properties</a></td><td>10.1</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Acid & Base Properties</a></td><td>10.1</td><td>Tyler DeWitt</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Acid-Base Reactions in Solution</a></td><td>10.1</td><td>Crash Course</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Forever Chemicals (PFAS)</a></td><td>10.1 Acid & Base Properties / 9.1 Concentration</td><td>Veritasium</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FF4500">Long</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Naming Acids</a></td><td>10.2</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Naming Acids</a></td><td>10.2</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Naming Acids</a></td><td>10.2</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Naming Acids</a></td><td>10.2</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Naming Acids</a></td><td>10.2</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">pH & pOH Scale</a></td><td>10.3</td><td>Chem Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">pH & pOH Scale</a></td><td>10.3</td><td>Khan Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">pH & pOH Scale</a></td><td>10.3</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">pH & pOH Scale</a></td><td>10.3</td><td>Cognito</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">pH & pOH Scale</a></td><td>10.3</td><td>Tyler DeWitt</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">pH & pOH Scale</a></td><td>10.3</td><td>Crash Course</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Identifying Acids & Bases</a></td><td>10.4</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Identifying Acids & Bases</a></td><td>10.4</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Identifying Acids & Bases</a></td><td>10.4</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Identifying Acids & Bases</a></td><td>10.4</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Identifying Acids & Bases</a></td><td>10.4</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Calculating pH and pOH using Log</a> ⭐</td><td>10.5</td><td>Chem Academy</td>
+    <td style="background:#FF0000">Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FF4500">Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Calculating pH and pOH using Log</a> ⭐</td><td>10.5</td><td>Khan Academy</td>
+    <td style="background:#FF0000">Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Calculating pH and pOH using Log</a> ⭐</td><td>10.5</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FF0000">Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FF4500">Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Calculating pH and pOH using Log</a> ⭐</td><td>10.5</td><td>Cognito</td>
+    <td style="background:#FF0000">Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Calculating pH and pOH using Log</a> ⭐</td><td>10.5</td><td>Tyler DeWitt</td>
+    <td style="background:#FF0000">Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FF4500">Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Heat Conversion</a></td><td>11.1</td><td>Chem Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Heat Conversion</a></td><td>11.1</td><td>Khan Academy</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Heat Conversion</a></td><td>11.1</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Heat Conversion</a></td><td>11.1</td><td>Cognito</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Heat Conversion</a></td><td>11.1</td><td>Tyler DeWitt</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Enthalpy</a></td><td>11.1 / 11.2</td><td>Crash Course</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Specific Heat</a></td><td>11.2</td><td>Chem Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Specific Heat</a></td><td>11.2</td><td>Khan Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Specific Heat</a></td><td>11.2</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Specific Heat</a></td><td>11.2</td><td>Cognito</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Specific Heat</a></td><td>11.2</td><td>Tyler DeWitt</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Heat Capacity</a></td><td>11.3</td><td>Chem Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Heat Capacity</a></td><td>11.3</td><td>Khan Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Heat Capacity</a></td><td>11.3</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Heat Capacity</a></td><td>11.3</td><td>Cognito</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Heat Capacity</a></td><td>11.3</td><td>Tyler DeWitt</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Calorimetry</a></td><td>11.4</td><td>Chem Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Calorimetry</a></td><td>11.4</td><td>Khan Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Calorimetry</a></td><td>11.4</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Calorimetry</a></td><td>11.4</td><td>Cognito</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Calorimetry</a></td><td>11.4</td><td>Tyler DeWitt</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Calorimetry</a></td><td>11.4</td><td>Crash Course</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Nuclear Fusion and Fission</a></td><td>12.1</td><td>Chem Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Nuclear Fusion and Fission</a></td><td>12.1</td><td>Khan Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Nuclear Fusion and Fission</a></td><td>12.1</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Nuclear Fusion and Fission</a></td><td>12.1</td><td>Cognito</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Nuclear Fusion and Fission</a></td><td>12.1</td><td>Tyler DeWitt</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Nuclear Fusion and Fission</a></td><td>12.1</td><td>Crash Course</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Alpha, Beta, & Gamma Decay</a></td><td>12.2</td><td>Chem Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Alpha, Beta, & Gamma Decay</a></td><td>12.2</td><td>Khan Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Alpha, Beta, & Gamma Decay</a></td><td>12.2</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Alpha, Beta, & Gamma Decay</a></td><td>12.2</td><td>Cognito</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Alpha, Beta, & Gamma Decay</a></td><td>12.2</td><td>Tyler DeWitt</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Alpha, Beta, & Gamma Decay</a></td><td>12.2</td><td>Crash Course</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Nuclear Reactions</a></td><td>12.3</td><td>Chem Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Nuclear Reactions</a></td><td>12.3</td><td>Khan Academy</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Nuclear Reactions</a></td><td>12.3</td><td>Organic Chemistry Tutor</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Nuclear Reactions</a></td><td>12.3</td><td>Cognito</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FFA500">Medium-High</td>
+    <td style="background:#87CEEB">Fast</td>
+    <td style="background:#FFD700">Medium</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Nuclear Reactions</a></td><td>12.3</td><td>Tyler DeWitt</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+  <tr><td><a href="https://www.youtube.com" target="_blank">Nuclear Reactions</a></td><td>12.3</td><td>Crash Course</td>
+    <td style="background:#FF6347">Medium-Hard</td>
+    <td style="background:#FF4500">High</td>
+    <td style="background:#FFD700">Medium</td>
+    <td style="background:#FFA500">Medium-Slow</td></tr>
+</table>
+
+<button id="legendButton" onclick="toggleLegend()">Show Legend</button>
+
+
+
+
+<script>
+function toggleLegend() {
+  var legend = document.getElementById("legend");
+  var button = document.getElementById("legendButton");
+  if (legend.style.display === "none") {
+    legend.style.display = "block";
+    button.textContent = "Hide Legend";
+  } else {
+    legend.style.display = "none";
+    button.textContent = "Show Legend";
+  }
+}
+
+// CHANGED: Dragging functionality
+dragElement(document.getElementById("legend"));
+
+function dragElement(elmnt) {
+  var header = document.getElementById("legendHeader");
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  if (header) {
+    header.onmousedown = dragMouseDown;
+  }
+
+  function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+  }
+
+  function closeDragElement() {
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+// Resizing from corners
+const legend = document.getElementById("legend");
+document.querySelectorAll(".resize-handle").forEach(handle => {
+  handle.addEventListener("mousedown", initResize);
+});
+
+function initResize(e) {
+  e.preventDefault();
+  const handle = e.target;
+  const startX = e.clientX;
+  const startY = e.clientY;
+  const startWidth = legend.offsetWidth;
+  const startHeight = legend.offsetHeight;
+  const startTop = legend.offsetTop;
+  const startLeft = legend.offsetLeft;
+
+  document.onmouseup = stopResize;
+  document.onmousemove = resize;
+
+  function resize(ev) {
+    let newWidth = startWidth;
+    let newHeight = startHeight;
+    let newTop = startTop;
+    let newLeft = startLeft;
+
+    if (handle.classList.contains("se")) {
+      newWidth = startWidth + (ev.clientX - startX);
+      newHeight = startHeight + (ev.clientY - startY);
+    } else if (handle.classList.contains("sw")) {
+      newWidth = startWidth - (ev.clientX - startX);
+      newLeft = startLeft + (ev.clientX - startX);
+      newHeight = startHeight + (ev.clientY - startY);
+    } else if (handle.classList.contains("ne")) {
+      newWidth = startWidth + (ev.clientX - startX);
+      newHeight = startHeight - (ev.clientY - startY);
+      newTop = startTop + (ev.clientY - startY);
+    } else if (handle.classList.contains("nw")) {
+      newWidth = startWidth - (ev.clientX - startX);
+      newLeft = startLeft + (ev.clientX - startX);
+      newHeight = startHeight - (ev.clientY - startY);
+      newTop = startTop + (ev.clientY - startY);
+    }
+
+    if (newWidth > 100) { legend.style.width = newWidth + "px"; legend.style.left = newLeft + "px"; }
+    if (newHeight > 100) { legend.style.height = newHeight + "px"; legend.style.top = newTop + "px"; }
+  }
+
+  function stopResize() {
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+</script>
+
+</body>
+</html>
+
+
