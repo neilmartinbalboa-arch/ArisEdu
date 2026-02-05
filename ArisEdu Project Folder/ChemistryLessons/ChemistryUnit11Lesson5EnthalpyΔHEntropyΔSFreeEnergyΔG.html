@@ -3,13 +3,14 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>High School Chemistry</title>
+  <title>Unit11: EnthalpyΔHEntropyΔSFree EnergyΔG</title>
   <script src="/_sdk/element_sdk.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&amp;display=swap" rel="stylesheet">
   <style>
     body {
       box-sizing: border-box;
+      background-color: white;
     }
     
     .logo-font {
@@ -22,15 +23,7 @@
       padding: 5rem 2rem 2rem 2rem;
       overflow: auto;
     }
-    .company-title {
-      font-size: 5rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      background: linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+    
     .taskbar {
       position: fixed;
       top: 0;
@@ -95,10 +88,6 @@
     body.dark-mode .settings-menu {
       background: #0f172a;
       color: #cbd5e1;
-    }
-
-    body.dark-mode {
-      background-color: #1e293b;
     }
 
     .courses-container {
@@ -168,12 +157,17 @@
       color: #3b82f6;
     }
 
+    body.dark-mode {
+      background-color: #1e293b;
+    }
+
   </style>
  </head>
  <body class="h-full">
   <nav class="taskbar">
     <div class="taskbar-container">
     
+      <button class="taskbar-button" id="back-button">← Back to Chemistry</button>
       <button class="taskbar-button" id="search-button">🔍 Search</button>
       <a href = "http://127.0.0.1:3000/index.html?serverWindowId=f88a7adf-8413-4e39-a575-08c292f83a93" <button class="taskbar-button" id="homepage-button">🏠 Homepage</button></a>
       <a href = "http://127.0.0.1:3000/ArisEdu Project Folder/Courses.html?serverWindowId=ce1e8a4e-6de8-4546-a1b5-4ec029832ded" <button class="taskbar-button" id="course-button">📚 Courses</button></a>
@@ -193,31 +187,29 @@
     </div>
   </nav>
   <main class="main-container">
-    <div class="logo-title-wrapper">
-    <h1 id="company-name" class="logo-font company-title">High School: Chemistry</h1>
-    </div>
     <div class="courses-container">
       <div class="courses-section">
-        <h2 class="courses-section-title">Chemistry Units</h2>
-        <div class="courses-grid">
-          <div class="course-box"><a href="ChemistryLessons/ChemistryUnit1Matter.html">Unit 1</a></div>
-          <div class="course-box"><a href="ChemistryLessons/ChemistryUnit2Measurement.html">Unit 2</a></div>
-          <div class="course-box"><a href="ChemistryLessons/ChemistryUnit3TheAtom.html">Unit 3</a></div>
-          <div class="course-box"><a href="ChemistryLessons/ChemistryUnit4ThePeriodicTable.html">Unit 4</a></div>
-          <div class="course-box"><a href="ChemistryLessons/ChemistryUnit5Namingcompoundsformulas.html">Unit 5</a></div>
-          <div class="course-box"><a href="ChemistryLessons/ChemistryUnit6Chemicalreactions.html">Unit 6</a></div>
-          <div class="course-box"><a href="ChemistryLessons/ChemistryUnit7Massandmolerelationships.html">Unit 7</a></div>
-          <div class="course-box"><a href="ChemistryLessons/ChemistryUnit8GasLaws.html">Unit 8</a></div>
-          <div class="course-box"><a href="ChemistryLessons/ChemistryUnit9Solutions.html">Unit 9</a></div>
-          <div class="course-box"><a href="ChemistryLessons/ChemistryUnit10Acidsandbases.html">Unit 10</a></div>
-          <div class="course-box"><a href="ChemistryLessons/ChemistryUnit11Thermochemistry.html">Unit 11</a></div>
-          <div class="course-box"><a href="ChemistryLessons/ChemistryUnit12NuclearChemistry.html">Unit 12</a></div>
-        </div>
+        <h2 class="courses-section-title">Unit11: EnthalpyΔHEntropyΔSFree EnergyΔG</h2>
+        <p><nav class="taskbar">
+    <div class="taskbar-container">
+    
+      <button class="taskbar-button" id="back-button">← Back to Chemistry</button>
+      <button class="taskbar-button" id="search-button">🔍 Search</button>
+      <a href = "http://127.0.0.1:3000/index.html?serverWindowId=f88a7adf-8413-4e39-a575-08c292f83a93" <button class="taskbar-button" id="homepage-button">🏠 Homepage</button></a>
+      <a href = "http://127.0.0.1:3000/ArisEdu Project Folder/Courses.html?serverWindowId=ce1e8a4e-6de8-4546-a1b5-4ec029832ded" <button class="taskbar-button" id="course-button">📚 Courses</button></a>
+      <a href = "http://127.0.0.1:3000/ArisEdu Project Folder/Play.html?serverWindowId=ce1e8a4e-6de8-4546-a1b5-4ec029832ded" <button class="taskbar-button" id="play-button"></button>▶️ Play</button></a>
+      <button class="taskbar-button" id="settings-button">⚙️ Settings</button>
+      <a href = "http://127.0.0.1:3000/ArisEdu Project Folder/LoginSignup.html?serverWindowId=ce1e8a4e-6de8-4546-a1b5-4ec029832ded" <button class="taskbar-button" id="login-signup-button">🔐 Login/Signup</button></a></p>
       </div>
     </div>
   </main>
   <script>
     // Taskbar Button Handlers
+        document.getElementById('back-button').addEventListener('click', () => {
+      window.location.href = '../chem.html';
+    });
+    
+    
     document.getElementById('homepage-button').addEventListener('click', () => {
     
     });
@@ -267,5 +259,5 @@
     document.body.classList.add('dark-mode');
     document.getElementById('dark-mode-checkbox').checked = true;
   </script>
- </body>
+</body>
 </html>
