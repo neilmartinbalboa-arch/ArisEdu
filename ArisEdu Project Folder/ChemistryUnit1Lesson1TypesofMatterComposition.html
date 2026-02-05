@@ -20,7 +20,7 @@
     .main-container {
       height: 100%;
       width: 100%;
-      padding: 5rem 2rem 2rem 2rem;
+      padding: 8rem 2rem 2rem 2rem;
       overflow: auto;
     }
     
@@ -93,7 +93,7 @@
     .courses-container {
       background: linear-gradient(#3b82f6 0%, #10b981 50%, #8b5cf6 100%);
       border-radius: 2rem;
-      height:32rem;
+      height:45rem;
       padding: 2rem;
       margin-bottom: 2rem;
     }
@@ -161,7 +161,96 @@
       background-color: #1e293b;
     }
 
-  </style>
+    /* Triangular button */
+    .progress-button {
+      position: fixed;
+      scale:2.6;
+      top: 29rem; /* moved lower */
+      right: 1.7rem; /* closer to middle */
+      width: 15px;
+      height: 20px;
+      background: linear-gradient(135deg, #8b5cf6 0%, #10b981 50%, #3b82f6 100%);
+      clip-path: polygon(100% 0%, 0% 50%, 100% 100%);
+      cursor: pointer;
+      z-index: 999;
+      transition: transform 0.3s, right 0.3s;}
+
+    .progress-button:hover {
+      transform: scale(1.1);
+    }
+
+    .progress-button.moved {
+      right: 4.4rem; /* move further to the left when progress bar is open */
+    }
+
+    /* Progress bar */
+    .progress-bar {
+      position: fixed;
+      top: 4rem; /* between taskbar and button */
+      right: 0rem;
+      background: white;
+      border-radius: 10px;
+      padding: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      display: none;
+      z-index: 1001;
+      width: 60px;
+      height: 750px;
+      text-align: center;
+    }
+
+    .progress-bar.show {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .progress-line {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      margin: 10px 0;
+      height: 100%;
+    }
+
+    .progress-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      scale:1.2;
+      background: #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #6b7280;
+      position: relative;
+    }
+
+    .progress-circle.active {
+      background: #3b82f6;
+      color: white;
+    }
+
+    .progress-connector {
+      width: 2px;
+      height: 120px;
+      background: #e5e7eb;
+      margin: 5px 0;
+    }
+
+    .progress-connector.active {
+      background: #3b82f6;
+    }
+
+    .progress-bar h3 {
+      font-size: 12px;
+      margin: 5px 0;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+    }
+</style>
  </head>
  <body class="h-full">
   <nav class="taskbar">
@@ -185,6 +274,20 @@
       <div class="settings-item">Preferences</div>
     </div>
   </nav>
+  <button class="progress-button" id="progress-button" title="View Progress"></button>
+  <div class="progress-bar" id="progress-bar">
+    <button class="progress-close" id="progress-close">&times;</button>
+    <h3>Progress</h3>
+    <div class="progress-line">
+      <div class="progress-circle active">1</div>
+      <div class="progress-connector active"></div>
+      <div class="progress-circle">2</div>
+      <div class="progress-connector"></div>
+      <div class="progress-circle">3</div>
+      <div class="progress-connector"></div>
+      <div class="progress-circle">4</div>
+    </div>
+  </div>
   <main class="main-container">
     <div class="courses-container">
       <div class="courses-section">
@@ -243,6 +346,34 @@
     // Set dark mode active by default
     document.body.classList.add('dark-mode');
     document.getElementById('dark-mode-checkbox').checked = true;
+
+    // Progress button functionality
+    document.getElementById('progress-button').addEventListener('click', () => {
+      const progressBar = document.getElementById('progress-bar');
+      const button = document.getElementById('progress-button');
+      if (progressBar.classList.contains('show')) {
+        progressBar.classList.remove('show');
+        button.classList.remove('moved');
+      } else {
+        progressBar.classList.add('show');
+        button.classList.add('moved');
+      }
+    });
+
+    document.getElementById('progress-close').addEventListener('click', () => {
+      document.getElementById('progress-bar').classList.remove('show');
+      document.getElementById('progress-button').classList.remove('moved');
+    });
+
+    // Close progress bar when clicking outside
+    document.addEventListener('click', (e) => {
+      const progressBar = document.getElementById('progress-bar');
+      const progressButton = document.getElementById('progress-button');
+      if (!progressBar.contains(e.target) && e.target !== progressButton) {
+        progressBar.classList.remove('show');
+        progressButton.classList.remove('moved');
+      }
+    });
   </script>
 </body>
 </html>
