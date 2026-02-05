@@ -173,14 +173,12 @@
  <body class="h-full">
   <nav class="taskbar">
     <div class="taskbar-container">
-    
       <button class="taskbar-button" id="search-button">🔍 Search</button>
-      <a href = "http://127.0.0.1:3000/index.html?serverWindowId=f88a7adf-8413-4e39-a575-08c292f83a93" <button class="taskbar-button" id="homepage-button">🏠 Homepage</button></a>
-      <a href = "http://127.0.0.1:3000/ArisEdu Project Folder/Courses.html?serverWindowId=ce1e8a4e-6de8-4546-a1b5-4ec029832ded" <button class="taskbar-button" id="course-button">📚 Courses</button></a>
-      <a href = "http://127.0.0.1:3000/ArisEdu Project Folder/Play.html?serverWindowId=ce1e8a4e-6de8-4546-a1b5-4ec029832ded" <button class="taskbar-button" id="play-button"></button>▶️ Play</button></a>
+      <a class="taskbar-button" id="homepage-button" href="/index.html">🏠 Homepage</a>
+      <a class="taskbar-button" id="course-button" href="/ArisEdu Project Folder/Courses.html">📚 Courses</a>
+      <a class="taskbar-button" id="play-button" href="/ArisEdu Project Folder/Play.html">▶️ Play</a>
       <button class="taskbar-button" id="settings-button">⚙️ Settings</button>
-      <a href = "http://127.0.0.1:3000/ArisEdu Project Folder/LoginSignup.html?serverWindowId=ce1e8a4e-6de8-4546-a1b5-4ec029832ded" <button class="taskbar-button" id="login-signup-button">🔐 Login/Signup</button></a>
-
+      <a class="taskbar-button" id="login-signup-button" href="/ArisEdu Project Folder/LoginSignup.html">🔐 Login/Signup</a>
     </div>
     <div class="settings-menu" id="settings-menu" aria-hidden="true">
       <div class="settings-item">
@@ -198,21 +196,73 @@
     </div>
     <div class="courses-container">
       <div class="courses-section">
-        <h2 class="courses-section-title">Physics Units</h2>
+        <h2 class="courses-section-title">Physics Curriculum</h2>
         <div class="courses-grid">
-          <div class="course-box">Unit 1 (WIP)</div>
-          <div class="course-box">Unit 2 (WIP)</div>
-          <div class="course-box">Unit 3 (WIP)</div>
-          <div class="course-box">Unit 4 (WIP)</div>
-          <div class="course-box">Unit 5 (WIP)</div>
-          <div class="course-box">Unit 6 (WIP)</div>
-          <div class="course-box">Unit 7 (WIP)</div>
-          <div class="course-box">Unit 8 (WIP)</div>
-          <div class="course-box">Unit 9 (WIP)</div>
-          <div class="course-box">Unit 10 (WIP)</div>
-          <div class="course-box">Unit 11 (WIP)</div>
-          <div class="course-box">Unit 12 (WIP)</div>
+          <div class="course-box"><a href="PhysicsUnit1.html">Unit 1: Foundations of Physics</a></div>
+          <div class="course-box"><a href="PhysicsUnit2.html">Unit 2: Kinematics</a></div>
+          <div class="course-box"><a href="PhysicsUnit3.html">Unit 3: Dynamics</a></div>
+          <div class="course-box"><a href="PhysicsUnit4.html">Unit 4: Work, Energy &amp; Power</a></div>
+          <div class="course-box"><a href="PhysicsUnit5.html">Unit 5: Momentum &amp; Collisions</a></div>
+          <div class="course-box"><a href="PhysicsUnit6.html">Unit 6: Gravitation</a></div>
+          <div class="course-box"><a href="PhysicsUnit7.html">Unit 7: Oscillations &amp; Waves</a></div>
+          <div class="course-box"><a href="PhysicsUnit8.html">Unit 8: Sound</a></div>
+          <div class="course-box"><a href="PhysicsUnit9.html">Unit 9: Light &amp; Optics</a></div>
+          <div class="course-box"><a href="PhysicsUnit10.html">Unit 10: Electricity &amp; Magnetism</a></div>
+          <div class="course-box"><a href="PhysicsUnit11.html">Unit 11: Modern Physics</a></div>
         </div>
+      </div>
+      </div>
+    </div>
+  </main>
+  <script>
+    // Taskbar Button Handlers
+    document.getElementById('homepage-button').addEventListener('click', () => {
+    
+    });
+
+    document.getElementById('course-button').addEventListener('click', () => {
+   
+    });
+
+    document.getElementById('play-button').addEventListener('click', () => {
+    
+    });
+
+    document.getElementById('search-button').addEventListener('click', () => {
+    
+    });
+
+    document.getElementById('login-signup-button').addEventListener('click', () => {
+    
+    });
+
+    document.getElementById('settings-button').addEventListener('click', () => {
+      // Toggle settings menu
+      const menu = document.getElementById('settings-menu');
+      const isHidden = menu.getAttribute('aria-hidden') === 'true';
+      menu.setAttribute('aria-hidden', !isHidden);
+      if (isHidden) {
+        menu.style.visibility = 'visible';
+        menu.style.opacity = '1';
+        menu.style.transform = 'translateY(0)';
+      } else {
+        menu.style.visibility = 'hidden';
+        menu.style.opacity = '0';
+        menu.style.transform = 'translateY(-6px)';
+      }
+    });
+
+    // Dark mode toggle
+    document.getElementById('dark-mode-checkbox').addEventListener('change', (e) => {
+      if (e.target.checked) {
+        document.body.classList.add('dark-mode');
+      } else {
+        document.body.classList.remove('dark-mode');
+      }
+    });
+    </section>
+
+        <p style="margin-top:1rem;"><a href="#company-name" style="color:inherit">Back to top</a></p>
       </div>
     </div>
   </main>

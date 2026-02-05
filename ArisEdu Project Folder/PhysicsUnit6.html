@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit 6: Gravitation</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    body { box-sizing: border-box; background-color: white; }
+    .logo-font { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    .main-container { height: 100%; width: 100%; padding: 5rem 2rem 2rem 2rem; overflow: auto; }
+    .taskbar { position: fixed; top: 0; left: 0; right: 0; background: linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%); z-index: 1000; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display:flex; flex-direction:column; align-items:center; }
+    .taskbar-container { display:flex; justify-content:center; align-items:center; gap:1rem; padding:0.5rem 1rem; max-width:1200px; width:100%; }
+    .taskbar-button { padding:0.5rem 1rem; border-radius:0.5rem; font-weight:600; color:white; font-size:0.875rem; background: rgba(255,255,255,0.1); border:none; cursor:pointer; }
+    .lesson-list { list-style: none; padding: 0; margin: 1rem 0; }
+    .lesson-item { padding: 0.75rem; margin: 0.5rem 0; background: #f0f0f0; border-radius: 0.5rem; }
+    .lesson-item a { color: #3b82f6; text-decoration: none; font-weight: 500; }
+    .lesson-item a:hover { text-decoration: underline; }
+    body.dark-mode { background-color: #1e293b; color: #e2e8f0; }
+    body.dark-mode .lesson-item { background: #0f172a; }
+  </style>
+ </head>
+ <body class="h-full">
+  <nav class="taskbar">
+    <div class="taskbar-container">
+      <button class="taskbar-button" id="back-button">← Back to Physics</button>
+      <a class="taskbar-button" href="/index.html">🏠 Homepage</a>
+      <a class="taskbar-button" href="/ArisEdu Project Folder/Courses.html">📚 Courses</a>
+    </div>
+  </nav>
+  <main class="main-container">
+    <h1 class="logo-font" style="font-size:2.5rem">Unit 6: Gravitation</h1>
+    <p style="font-size:1.1rem; margin-bottom:1.5rem;">Universal gravitational force and orbital mechanics</p>
+    <h2 style="font-size:1.5rem; margin-top:1.5rem;">Lessons:</h2>
+    <ul class="lesson-list">
+      <li class="lesson-item"><a href="PhysicsLessons/PhysicsUnit6Lesson1NewtonsLawOfGravitation.html">6.1 Newton's Law of Gravitation</a></li>
+      <li class="lesson-item"><a href="PhysicsLessons/PhysicsUnit6Lesson2GravitationalFieldStrength.html">6.2 Gravitational Field Strength</a></li>
+      <li class="lesson-item"><a href="PhysicsLessons/PhysicsUnit6Lesson3OrbitalMotion.html">6.3 Orbital Motion</a></li>
+      <li class="lesson-item"><a href="PhysicsLessons/PhysicsUnit6Lesson4SatelliteMotion.html">6.4 ⭐ Satellite Motion</a></li>
+      <li class="lesson-item"><a href="PhysicsLessons/PhysicsUnit6Lesson5EscapeVelocity.html">6.5 ⭐ Escape Velocity</a></li>
+      <li class="lesson-item"><a href="PhysicsLessons/PhysicsUnit6Lesson6KeplersLaws.html">6.6 ⭐ Kepler's Laws</a></li>
+    </ul>
+  </main>
+  <script>
+    document.getElementById('back-button').addEventListener('click', () => {
+      window.location.href = 'physics.html';
+    });
+    document.getElementById('dark-mode-checkbox')?.addEventListener('change', (e) => {
+      document.body.classList.toggle('dark-mode', e.target.checked);
+    });
+    document.body.classList.add('dark-mode');
+  </script>
+ </body>
+</html>
