@@ -11,6 +11,7 @@
     body {
       box-sizing: border-box;
       background-color: white;
+      color: #0f172a;
     }
     
     .logo-font {
@@ -90,6 +91,19 @@
       color: #cbd5e1;
     }
 
+
+    .page-title {
+      font-size: 2.25rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+
     .courses-container {
       background: linear-gradient(#3b82f6 0%, #10b981 50%, #8b5cf6 100%);
       border-radius: 2rem;
@@ -159,6 +173,7 @@
 
     body.dark-mode {
       background-color: #1e293b;
+      color: #e2e8f0;
     }
   </style>
  </head>
@@ -186,10 +201,10 @@
     </div>
   </nav>
   <main class="main-container">
+    <h2 class="page-title">Unit 1: Foundations of Physics</h2>
       <div class="courses-container">
         <div class="courses-section">
-          <h2 class="courses-section-title">Unit 1: Foundations of Physics</h2>
-          <div class="courses-grid">
+<div class="courses-grid">
             <div class="course-box"><a href="PhysicsUnit1Lesson1PhysicalQuantitiesUnits.html">Lesson 1: Physical Quantities & Units</a></div>
             <div class="course-box"><a href="PhysicsUnit1Lesson2SISystemAndPrefixes.html">Lesson 2: SI System & Prefixes</a></div>
             <div class="course-box"><a href="PhysicsUnit1Lesson3ScalarsVsVectors.html">Lesson 3: Scalars vs Vectors</a></div>

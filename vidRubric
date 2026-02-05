@@ -64,7 +64,7 @@
       font-size: 16px;
     }
 
-    button {
+    #legendButton {
       padding: 8px 12px;
       background-color: #4CAF50;
       color: white;
@@ -77,7 +77,7 @@
       left: 20px; /* distance from left */ 
       z-index: 2000; /* ensures it stays above tables/legend */
     }
-    button:hover {
+    #legendButton:hover {
       background-color: #45a049;
     }
     .resize-handle {
@@ -172,11 +172,11 @@
     <div class="taskbar-container">
     
       <button class="taskbar-button" id="search-button">🔍 Search</button>
-      <a href = "http://127.0.0.1:3000/index.html?serverWindowId=f88a7adf-8413-4e39-a575-08c292f83a93" <button class="taskbar-button" id="homepage-button">🏠 Homepage</button></a>
-      <a href = "http://127.0.0.1:3000/ArisEdu Project Folder/Courses.html?serverWindowId=ce1e8a4e-6de8-4546-a1b5-4ec029832ded" <button class="taskbar-button" id="course-button">📚 Courses</button></a>
-      <a href = "http://127.0.0.1:3000/ArisEdu Project Folder/Play.html?serverWindowId=ce1e8a4e-6de8-4546-a1b5-4ec029832ded" <button class="taskbar-button" id="play-button"></button>▶️ Play</button></a>
+      <a class="taskbar-button" id="homepage-button" href="http://127.0.0.1:3000/index.html?serverWindowId=f88a7adf-8413-4e39-a575-08c292f83a93">🏠 Homepage</a>
+      <a class="taskbar-button" id="course-button" href="http://127.0.0.1:3000/ArisEdu Project Folder/Courses.html?serverWindowId=ce1e8a4e-6de8-4546-a1b5-4ec029832ded">📚 Courses</a>
+      <a class="taskbar-button" id="play-button" href="http://127.0.0.1:3000/ArisEdu Project Folder/Play.html?serverWindowId=ce1e8a4e-6de8-4546-a1b5-4ec029832ded">▶️ Play</a>
       <button class="taskbar-button" id="settings-button">⚙️ Settings</button>
-      <a href = "http://127.0.0.1:3000/ArisEdu Project Folder/LoginSignup.html?serverWindowId=ce1e8a4e-6de8-4546-a1b5-4ec029832ded" <button class="taskbar-button" id="login-signup-button">🔐 Login/Signup</button></a>
+      <a class="taskbar-button" id="login-signup-button" href="http://127.0.0.1:3000/ArisEdu Project Folder/LoginSignup.html?serverWindowId=ce1e8a4e-6de8-4546-a1b5-4ec029832ded">🔐 Login/Signup</a>
 
     </div>
     <div class="settings-menu" id="settings-menu" aria-hidden="true">
@@ -209,46 +209,46 @@
     <table>
       <!-- Legend Content -->
 
-      <tr><td>Difficulty</td><td>Easy</td><td style="background:#90EE90"></td></tr>
+      <tr><td>Difficulty</td><td>Easy</td><td style="background:#90EE90">Easy</td></tr>
 
-      <tr><td>Difficulty</td><td>Medium-Easy</td><td style="background:#7FFF00"></td></tr>
+      <tr><td>Difficulty</td><td>Medium-Easy</td><td style="background:#7FFF00">Medium-Easy</td></tr>
 
-      <tr><td>Difficulty</td><td>Medium</td><td style="background:#FFA07A"></td></tr>
+      <tr><td>Difficulty</td><td>Medium</td><td style="background:#FFA07A">Medium</td></tr>
 
-      <tr><td>Difficulty</td><td>Medium-Hard</td><td style="background:#FF6347"></td></tr>
+      <tr><td>Difficulty</td><td>Medium-Hard</td><td style="background:#FF6347">Medium-Hard</td></tr>
 
-      <tr><td>Difficulty</td><td>Hard</td><td style="background:#FF0000"></td></tr>
+      <tr><td>Difficulty</td><td>Hard</td><td style="background:#FF0000">Hard</td></tr>
 
       <!-- Detail --> 
-      <tr><td>Detail</td><td>Low</td><td style="background:#ADD8E6"></td></tr>
+      <tr><td>Detail</td><td>Low</td><td style="background:#ADD8E6">Low</td></tr>
  
-      <tr><td>Detail</td><td>Medium-Low</td><td style="background:#90EE90"></td></tr>
+      <tr><td>Detail</td><td>Medium-Low</td><td style="background:#90EE90">Medium-Low</td></tr>
  
-      <tr><td>Detail</td><td>Medium</td><td style="background:#FFD700"></td></tr>
+      <tr><td>Detail</td><td>Medium</td><td style="background:#FFD700">Medium</td></tr>
  
-      <tr><td>Detail</td><td>Medium-High</td><td style="background:#FFA500">Medium-Slow</td></tr>
+      <tr><td>Detail</td><td>Medium-High</td><td style="background:#FFA500">Medium-High</td></tr>
  
-      <tr><td>Detail</td><td>High</td><td style="background:#FF4500"></td></tr>
+      <tr><td>Detail</td><td>High</td><td style="background:#FF4500">High</td></tr>
 
       <!-- Length --> 
-       <tr><td>Length</td><td>Very Fast</td><td style="background:#DA70D6"></td></tr>
+      <tr><td>Length</td><td>Very Fast</td><td style="background:#DA70D6">Very Fast</td></tr>
 
-       <tr><td>Length</td><td>Fast</td><td style="background:#87CEEB"></td></tr>
+      <tr><td>Length</td><td>Fast</td><td style="background:#87CEEB">Fast</td></tr>
  
-       <tr><td>Length</td><td>Medium-Fast</td><td style="background:#7FFF00"></td></tr>
+      <tr><td>Length</td><td>Medium-Fast</td><td style="background:#7FFF00">Medium-Fast</td></tr>
  
-       <tr><td>Length</td><td>Medium</td><td style="background:#FFD700"></td></tr>
+      <tr><td>Length</td><td>Medium</td><td style="background:#FFD700">Medium</td></tr>
  
-       <tr><td>Length</td><td>Medium-Long</td><td style="background:#FFA500">Medium-Slow</td></tr>
+      <tr><td>Length</td><td>Medium-Long</td><td style="background:#FFA500">Medium-Long</td></tr>
  
-       <tr><td>Length</td><td>Long</td><td style="background:#FF4500"></td></tr>
+      <tr><td>Length</td><td>Long</td><td style="background:#FF4500">Long</td></tr>
 
       <!-- Pace -->
-         <tr><td>Pace</td><td>Fast</td><td style="background:#87CEEB"></td></tr>
-         <tr><td>Pace</td><td>Medium-Fast</td><td style="background:#7FFF00"></td></tr>
-         <tr><td>Pace</td><td>Medium</td><td style="background:#90EE90"></td></tr>
+         <tr><td>Pace</td><td>Fast</td><td style="background:#87CEEB">Fast</td></tr>
+         <tr><td>Pace</td><td>Medium-Fast</td><td style="background:#7FFF00">Medium-Fast</td></tr>
+         <tr><td>Pace</td><td>Medium</td><td style="background:#90EE90">Medium</td></tr>
          <tr><td>Pace</td><td>Medium-Slow</td><td style="background:#FFA500">Medium-Slow</td></tr>
-         <tr><td>Pace</td><td>Slow</td><td style="background:#FF4500"></td></tr>
+         <tr><td>Pace</td><td>Slow</td><td style="background:#FF4500">Slow</td></tr>
 </table>
   </div>
 </div>

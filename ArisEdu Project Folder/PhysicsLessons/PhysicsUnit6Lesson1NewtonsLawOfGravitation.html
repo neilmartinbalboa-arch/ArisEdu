@@ -3,15 +3,161 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Unit6: Newton's Law of Gravitation</title>
+  <title>Unit 6 Lesson 1: Newton's Law of Gravitation</title>
   <script src="/_sdk/element_sdk.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&amp;display=swap" rel="stylesheet">
-  <style>body{box-sizing:border-box;background-color:white}.logo-font{font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}.main-container{height:100%;width:100%;padding:5rem 2rem 2rem 2rem;overflow:auto}.taskbar{position:fixed;top:0;left:0;right:0;background:linear-gradient(135deg,#3b82f6 0%,#10b981 50%,#8b5cf6 100%);z-index:1000;box-shadow:0 2px 4px rgba(0,0,0,0.1);display:flex;flex-direction:column;align-items:center}.taskbar-container{display:flex;justify-content:center;align-items:center;gap:1rem;padding:0.5rem 1rem;max-width:1200px;width:100%}.taskbar-button{padding:0.5rem 1rem;border-radius:0.5rem;font-weight:600;color:white;font-size:0.875rem;background:rgba(255,255,255,0.1);border:none;cursor:pointer}</style>
+    <style>
+    body {
+      box-sizing: border-box;
+      background-color: white;
+      color: #0f172a;
+    }
+
+    .logo-font {
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    .main-container {
+      height: 100%;
+      width: 100%;
+      padding: 5rem 2rem 2rem 2rem;
+      overflow: auto;
+    }
+
+    .taskbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%);
+      z-index: 1000;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .taskbar-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.5rem 1rem;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    .taskbar-button {
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      color: white;
+      font-size: 0.875rem;
+      transition: opacity 0.3s, transform 0.2s;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .taskbar-button:hover {
+      opacity: 0.9;
+      scale: 1.05;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .settings-menu {
+      width: 13rem;
+      padding: 0.5rem;
+      background: #ffffff;
+      border-radius: 0.5rem;
+      box-shadow: 0 8px 20px rgba(2, 6, 23, 0.12);
+      color: #0f172a;
+      font-size: 0.95rem;
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+      position: absolute;
+      top: 100%;
+      right: 1rem;
+    }
+
+    body.dark-mode .settings-menu {
+      background: #0f172a;
+      color: #cbd5e1;
+    }
+
+    .page-title {
+      font-size: 2.25rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+
+    
+
+    .courses-container {
+      background: linear-gradient(#3b82f6 0%, #10b981 50%, #8b5cf6 100%);
+      border-radius: 2rem;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      color: #ffffff;
+      height: 32rem;
+    }
+
+    body.dark-mode .courses-container {
+      color: #e2e8f0;
+    }
+
+    .lesson-content {
+      background: transparent;
+      padding: 0;
+      min-height: 18rem;
+      color: inherit;
+    }
+
+    body.dark-mode {
+      background-color: #1e293b;
+      color: #e2e8f0;
+    }
+  </style>
  </head>
  <body class="h-full">
-  <nav class="taskbar"><div class="taskbar-container"><button class="taskbar-button" id="back-button">← Back to Physics</button><a class="taskbar-button" href="/index.html">🏠 Homepage</a><a class="taskbar-button" href="/ArisEdu Project Folder/Courses.html">📚 Courses</a></div></nav>
-  <main class="main-container"><h1 class="logo-font" style="font-size:2.5rem">Unit 6.1 — Newton's Law of Gravitation</h1><p>Placeholder lesson page. Add content here.</p></main>
+    <nav class="taskbar">
+    <div class="taskbar-container">
+      <button class="taskbar-button" id="back-button">← Back to Unit 6</button>
+      <button class="taskbar-button" id="search-button">🔍 Search</button>
+      <a class="taskbar-button" id="homepage-button" href="/index.html">🏠 Homepage</a>
+      <a class="taskbar-button" id="course-button" href="/ArisEdu Project Folder/Courses.html">📚 Courses</a>
+      <a class="taskbar-button" id="play-button" href="/ArisEdu Project Folder/Play.html">▶️ Play</a>
+      <button class="taskbar-button" id="settings-button">⚙️ Settings</button>
+      <a class="taskbar-button" id="login-signup-button" href="/ArisEdu Project Folder/LoginSignup.html">🔐 Login/Signup</a>
+
+    </div>
+    <div class="settings-menu" id="settings-menu" aria-hidden="true">
+      <div class="settings-item">
+        <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;">
+          <input type="checkbox" id="dark-mode-checkbox" />
+          <span>Dark Mode</span>
+        </label>
+      </div>
+      <div class="settings-item">Preferences</div>
+    </div>
+  </nav>
+  <main class="main-container">
+    <h2 class="page-title">Unit 6 Lesson 1: Newton's Law of Gravitation</h2>
+    <div class="courses-container">
+      <div class="lesson-content"></div>
+    </div></main>
  
   
 
@@ -19,7 +165,7 @@
   <script>
     // Taskbar Button Handlers
     document.getElementById('back-button').addEventListener('click', () => {
-      window.location.href = '../physics.html';
+      window.location.href = 'PhysicsUnit6.html';
     });
     
     document.getElementById('homepage-button').addEventListener('click', () => {
