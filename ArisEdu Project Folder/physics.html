@@ -170,7 +170,7 @@
 
   </style>
  </head>
- <body class="h-full">
+ <body class="h-full dark-mode">
   <nav class="taskbar">
     <div class="taskbar-container">
       <button class="taskbar-button" id="search-button">🔍 Search</button>
@@ -183,7 +183,7 @@
     <div class="settings-menu" id="settings-menu" aria-hidden="true">
       <div class="settings-item">
         <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;">
-          <input type="checkbox" id="dark-mode-checkbox" />
+          <input type="checkbox" id="dark-mode-checkbox" checked />
           <span>Dark Mode</span>
         </label> 
       </div>
@@ -198,17 +198,17 @@
       <div class="courses-section">
         <h2 class="courses-section-title">Physics Curriculum</h2>
         <div class="courses-grid">
-          <div class="course-box"><a href="PhysicsUnit1.html">Unit 1: Foundations of Physics</a></div>
-          <div class="course-box"><a href="PhysicsUnit2.html">Unit 2: Kinematics</a></div>
-          <div class="course-box"><a href="PhysicsUnit3.html">Unit 3: Dynamics</a></div>
-          <div class="course-box"><a href="PhysicsUnit4.html">Unit 4: Work, Energy &amp; Power</a></div>
-          <div class="course-box"><a href="PhysicsUnit5.html">Unit 5: Momentum &amp; Collisions</a></div>
-          <div class="course-box"><a href="PhysicsUnit6.html">Unit 6: Gravitation</a></div>
-          <div class="course-box"><a href="PhysicsUnit7.html">Unit 7: Oscillations &amp; Waves</a></div>
-          <div class="course-box"><a href="PhysicsUnit8.html">Unit 8: Sound</a></div>
-          <div class="course-box"><a href="PhysicsUnit9.html">Unit 9: Light &amp; Optics</a></div>
-          <div class="course-box"><a href="PhysicsUnit10.html">Unit 10: Electricity &amp; Magnetism</a></div>
-          <div class="course-box"><a href="PhysicsUnit11.html">Unit 11: Modern Physics</a></div>
+          <div class="course-box"><a href="PhysicsLessons/PhysicsUnit1.html">Unit 1: Foundations of Physics</a></div>
+          <div class="course-box"><a href="PhysicsLessons/PhysicsUnit2.html">Unit 2: Kinematics</a></div>
+          <div class="course-box"><a href="PhysicsLessons/PhysicsUnit3.html">Unit 3: Dynamics</a></div>
+          <div class="course-box"><a href="PhysicsLessons/PhysicsUnit4.html">Unit 4: Work, Energy &amp; Power</a></div>
+          <div class="course-box"><a href="PhysicsLessons/PhysicsUnit5.html">Unit 5: Momentum &amp; Collisions</a></div>
+          <div class="course-box"><a href="PhysicsLessons/PhysicsUnit6.html">Unit 6: Gravitation</a></div>
+          <div class="course-box"><a href="PhysicsLessons/PhysicsUnit7.html">Unit 7: Oscillations &amp; Waves</a></div>
+          <div class="course-box"><a href="PhysicsLessons/PhysicsUnit8.html">Unit 8: Sound</a></div>
+          <div class="course-box"><a href="PhysicsLessons/PhysicsUnit9.html">Unit 9: Light &amp; Optics</a></div>
+          <div class="course-box"><a href="PhysicsLessons/PhysicsUnit10.html">Unit 10: Electricity &amp; Magnetism</a></div>
+          <div class="course-box"><a href="PhysicsLessons/PhysicsUnit11.html">Unit 11: Modern Physics</a></div>
         </div>
       </div>
       </div>
@@ -260,13 +260,8 @@
         document.body.classList.remove('dark-mode');
       }
     });
-    </section>
 
         <p style="margin-top:1rem;"><a href="#company-name" style="color:inherit">Back to top</a></p>
-      </div>
-    </div>
-  </main>
-  <script>
     // Taskbar Button Handlers
     document.getElementById('homepage-button').addEventListener('click', () => {
     
