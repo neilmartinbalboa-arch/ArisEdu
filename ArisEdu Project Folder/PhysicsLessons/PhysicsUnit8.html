@@ -103,14 +103,14 @@
       color: transparent;
       display: inline-block;
     }
-
     .courses-container {
-      background: linear-gradient(#3b82f6 0%, #10b981 50%, #8b5cf6 100%);
+      background: rgba(255, 255, 255, 0.95);
       border-radius: 2rem;
       height:32rem;
       padding: 2rem;
       margin-bottom: 2rem;
     }
+
 
     .courses-section {
       margin-bottom: 2rem;
@@ -128,48 +128,62 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 1rem;
     }
-
     .course-box {
-      background: rgba(255, 255, 255, 0.95);
+      background: linear-gradient(#3b82f6 0%, #10b981 50%, #8b5cf6 100%);
       border-radius: 0.75rem;
       padding: 1.5rem;
       text-align: center;
       transition: all 0.3s ease;
       cursor: pointer;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      color: #1e293b;
+      color: #ffffff;
     }
-
     .course-box:hover {
       transform: translateY(-4px);
       box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-      background: white;
+      background: linear-gradient(#3b82f6 0%, #10b981 50%, #8b5cf6 100%);
+      filter: brightness(1.05);
     }
-
     .course-box a {
       text-decoration: none;
-      color: #1e293b;
+      color: #ffffff;
+      font-size: 1.125rem;
+      font-weight: 600;
+      display: block;
+    }
+    .course-box a:hover {
+      color: #ffffff;
+    }
+
+
+    body.dark-mode
+    .course-box {
+      background: linear-gradient(#3b82f6 0%, #10b981 50%, #8b5cf6 100%);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      color: #ffffff;
+    }
+
+
+    body.dark-mode
+    .course-box a {
+      text-decoration: none;
+      color: #ffffff;
       font-size: 1.125rem;
       font-weight: 600;
       display: block;
     }
 
+
+    body.dark-mode
     .course-box a:hover {
-      color: #3b82f6;
+      color: #ffffff;
     }
 
-    body.dark-mode .course-box {
-      background: rgba(15, 23, 42, 0.8);
-      color: #cbd5e1;
-    }
-
-    body.dark-mode .course-box a {
-      color: #cbd5e1;
-    }
-
-    body.dark-mode .course-box a:hover {
-      color: #3b82f6;
-    }
 
     body.dark-mode {
       background-color: #1e293b;
