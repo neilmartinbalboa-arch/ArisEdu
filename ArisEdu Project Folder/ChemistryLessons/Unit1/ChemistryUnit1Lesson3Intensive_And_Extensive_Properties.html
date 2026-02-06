@@ -6,7 +6,7 @@
   <title>Unit 1 Lesson 3: Intensive & Extensive Properties</title>
   <script src="/_sdk/element_sdk.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&amp;family=Playfair+Display:wght@700&amp;display=swap" rel="stylesheet">
   <style>
     body {
       box-sizing: border-box;
@@ -132,8 +132,9 @@
       display: flex;
       flex-direction: column;
       gap: 1rem;
-      z-index: 3;
+      z-index: 30;
       align-items: flex-end;
+      pointer-events: auto;
     }
 
     .side-button {
@@ -153,6 +154,102 @@
       transform: scale(1.1);
     }
 
+    .videos-panel {
+      width: 12rem;
+      min-height: 6rem;
+      background: #0f172a;
+      border: 2px solid #334155;
+      border-radius: 0.75rem;
+      display: block;
+      position: absolute;
+      right: 0;
+      bottom: calc(100% + 0.25rem);
+      z-index: 10;
+      opacity: 0;
+      transform-origin: bottom right;
+      transform: scale(3);
+      visibility: hidden;
+      pointer-events: none;
+      padding: 0.6rem 0.7rem;
+    }
+
+    .videos-panel.is-open {
+      opacity: 0.9;
+      visibility: visible;
+      pointer-events: auto;
+      animation: panelFadeIn 0.25s ease-out;
+    }
+
+    .videos-panel-title {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #cbd5f5;
+      margin-bottom: 0.45rem;
+    }
+
+    .videos-panel a {
+      display: block;
+      font-size: 0.7rem;
+      line-height: 1.2;
+      color: #e2e8f0;
+      text-decoration: none;
+      margin-bottom: 0.35rem;
+    }
+
+    .videos-panel a:hover {
+      color: #93c5fd;
+    }
+
+    .videos-panel-legend {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.2rem;
+      margin-bottom: 0.35rem;
+      margin-left: auto;
+      width: 3.2rem;
+    }
+
+    .videos-panel-legend span {
+      font-size: 0.45rem;
+      font-weight: 700;
+      color: #cbd5f5;
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+
+    .videos-panel-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .videos-panel-item:last-child a {
+      margin-bottom: 0;
+    }
+
+    .mini-rubric {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      width: 3.2rem;
+      height: 0.45rem;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      flex-shrink: 0;
+    }
+
+    .mini-rubric span {
+      display: block;
+      height: 100%;
+    }
+
+    .side-buttons.videos-open .videos-panel {
+      display: block;
+    }
+
 
     .rubric-box {
       position: absolute;
@@ -166,27 +263,50 @@
     }
 
     .rubric-hover-wrap {
-      position: relative;
-      align-self: flex-end;
-      z-index: 4;
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 20;
     }
 
     .rubric-hover-dot {
-      width: 0.75rem;
-      height: 0.75rem;
+      scale: 2.2;
+      width: 1.4rem;
+      height: 1.4rem;
       border-radius: 999px;
-      background: #0f172a;
+      margin-right: -0.5rem;
+      margin-top: 4.3rem;
+      transform: translateY(-0.25rem);
       border: 2px solid #1f2937;
+      background: #0f172a;
       box-shadow: 0 2px 6px rgba(15, 23, 42, 0.35);
       cursor: pointer;
+      position: relative;
+      z-index: 21;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .rubric-hover-dot span {
+      font-family: 'Playfair Display', 'Poppins', serif;
+      background: linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
     }
 
     .rubric-hover-panel {
       position: absolute;
-      top: 0;
-      right: calc(100% + 0.5rem);
+      margin-right: 1.5rem;
+      scale: 1.6;
+      right: 0;
+      bottom: calc(100% + 5.5rem);
       width: 10rem;
-      min-height: 6rem;
+      min-height: 3rem;
       background: #0f172a;
       border: 2px solid #334155;
       border-radius: 0.75rem;
@@ -196,20 +316,16 @@
       transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
     }
 
+    .rubric-hover-panel p {
+      font-size: 0.7rem;
+      line-height: 1.2;
+      margin: 0.25rem 0;
+    }
+
     .rubric-hover-wrap:hover .rubric-hover-panel {
       opacity: 0.9;
       visibility: visible;
-      transform: translateY(0);
-    }
-
-      position: absolute;
-      top: 1.5rem;
-      right: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 0.5rem;
-      z-index: 2;
+      transform: translateY(5rem);
     }
 
     .rubric-box .page-title {
@@ -220,6 +336,11 @@
     .rubric-card {
       background: #f8fafc;
       border-radius: 1rem;
+      border: 3px solid transparent;
+      --rubric-border-gradient: linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%);
+      background:
+        linear-gradient(#f8fafc, #f8fafc) padding-box,
+        var(--rubric-border-gradient) border-box;
       width: 20rem;
       height: 9rem;
       margin-top: 25rem;
@@ -240,31 +361,56 @@
       padding: 0;
       text-align: center;
       font-size: 0.85rem;
-      color: #1e293b;
+      color: #0f172a;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-right: 1px solid rgba(15, 23, 42, 0.15);
+      position: relative;
+      border-right: 2px solid rgba(15, 23, 42, 0.85);
+      border-left: none;
       height: 100%;
-      border-bottom: 1px solid rgba(15, 23, 42, 0.15);
-      border-top: 1px solid rgba(15, 23, 42, 0.15);
-      border-left: 1px solid rgba(15, 23, 42, 0.15);
+      border-bottom: none;
+      border-top: none;
+    }
+
+    .rubric-item:first-child {
+      border-left: none;
+    }
+
+    .rubric-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+      transform: rotate(-90deg);
+      white-space: nowrap;
+    }
+
+    .rubric-label {
+      font-weight: 600;
+    }
+
+    .rubric-rating {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
     }
 
     .rubric-item:nth-child(1) {
-      background: #e0f2fe;
+      background: #FFD700;
     }
 
     .rubric-item:nth-child(2) {
-      background: #dcfce7;
+      background: #FFA500;
     }
 
     .rubric-item:nth-child(3) {
-      background: #fef9c3;
+      background: #FFD700;
     }
 
     .rubric-item:nth-child(4) {
-      background: #fee2e2;
+      background: #FFD700;
     }
 
     .rubric-item:last-child {
@@ -272,27 +418,35 @@
     }
 
     body.dark-mode .rubric-item {
-      color: #e2e8f0;
-      border-right-color: rgba(226, 232, 240, 0.2);
-      border-left-color: rgba(226, 232, 240, 0.2);
-      border-top-color: rgba(226, 232, 240, 0.2);
-      border-bottom-color: rgba(226, 232, 240, 0.2);
+      color: #0f172a;
+      border-right-color: rgba(226, 232, 240, 0.85);
+      border-left-color: transparent;
+      border-top-color: transparent;
+      border-bottom-color: transparent;
+      border-top-width: 0;
+      border-bottom-width: 0;
+    }
+
+    body.dark-mode .rubric-card {
+      background:
+        linear-gradient(#0f172a, #0f172a) padding-box,
+        var(--rubric-border-gradient) border-box;
     }
 
     body.dark-mode .rubric-item:nth-child(1) {
-      background: rgba(14, 116, 144, 0.3);
+      background: #FFD700;
     }
 
     body.dark-mode .rubric-item:nth-child(2) {
-      background: rgba(22, 163, 74, 0.3);
+      background: #FFA500;
     }
 
     body.dark-mode .rubric-item:nth-child(3) {
-      background: rgba(202, 138, 4, 0.3);
+      background: #FFD700;
     }
 
     body.dark-mode .rubric-item:nth-child(4) {
-      background: rgba(220, 38, 38, 0.3);
+      background: #FFD700;
     }
 
     .video-embed {
@@ -388,28 +542,6 @@
       background: #273244;
       border: 2px solid rgba(226, 232, 240, 0.22);
     }
-
-  
-    .videos-panel {
-      width: 12rem;
-      min-height: 6rem;
-      background: #0f172a;
-      border: 2px solid #334155;
-      border-radius: 0.75rem;
-      display: none;
-      position: absolute;
-      right: 0;
-      bottom: calc(100% + 0.5rem);
-      z-index: 6;
-      opacity: 0.8;
-      transform-origin: bottom right;
-      transform: scale(3);
-    }
-
-    .videos-panel.is-open {
-      display: block;
-      animation: panelFadeIn 0.25s ease-out;
-    }
     @keyframes panelFadeIn {
       from {
         opacity: 0;
@@ -419,6 +551,290 @@
         opacity: 0.8;
         transform: scale(3);
       }
+    }
+
+  
+    /* videos-panel-overrides */
+    .side-buttons {
+      z-index: 30;
+      pointer-events: auto;
+    }
+
+    .videos-panel {
+      width: 12rem;
+      min-height: 6rem;
+      background: #0f172a;
+      border: 2px solid #334155;
+      border-radius: 0.75rem;
+      display: block;
+      position: absolute;
+      right: 0;
+      bottom: calc(100% + 0.25rem);
+      z-index: 10;
+      opacity: 0;
+      transform-origin: bottom right;
+      transform: scale(3);
+      visibility: hidden;
+      pointer-events: none;
+      padding: 0.6rem 0.7rem;
+    }
+
+    .videos-panel.is-open {
+      opacity: 0.9;
+      visibility: visible;
+      pointer-events: auto;
+      animation: panelFadeIn 0.25s ease-out;
+    }
+
+    .videos-panel-title {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #cbd5f5;
+      margin-bottom: 0.45rem;
+    }
+
+    .videos-panel a {
+      display: block;
+      font-size: 0.7rem;
+      line-height: 1.2;
+      color: #e2e8f0;
+      text-decoration: none;
+      margin-bottom: 0.35rem;
+    }
+
+    .videos-panel a:hover {
+      color: #93c5fd;
+    }
+
+    .videos-panel-legend {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.2rem;
+      margin-bottom: 0.35rem;
+      margin-left: auto;
+      width: 3.2rem;
+    }
+
+    .videos-panel-legend span {
+      font-size: 0.45rem;
+      font-weight: 700;
+      color: #cbd5f5;
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+
+    .videos-panel-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .videos-panel-item:last-child a {
+      margin-bottom: 0;
+    }
+
+    .mini-rubric {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      width: 3.2rem;
+      height: 0.45rem;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      flex-shrink: 0;
+    }
+
+    .mini-rubric span {
+      display: block;
+      height: 100%;
+    }
+
+    .side-buttons.videos-open .videos-panel {
+      display: block;
+    }
+
+    .rubric-hover-wrap {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 20;
+    }
+
+    .rubric-hover-dot {
+      scale: 2.2;
+      width: 1.4rem;
+      height: 1.4rem;
+      border-radius: 999px;
+      margin-right: -0.5rem;
+      margin-top: 4.3rem;
+      transform: translateY(-0.25rem);
+      border: 2px solid #1f2937;
+      background: #0f172a;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.35);
+      cursor: pointer;
+      position: relative;
+      z-index: 21;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .rubric-hover-dot span {
+      font-family: 'Playfair Display', 'Poppins', serif;
+      background: linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .rubric-hover-panel {
+      position: absolute;
+      margin-right: 1.5rem;
+      scale: 1.6;
+      right: 0;
+      bottom: calc(100% + 5.5rem);
+      width: 10rem;
+      min-height: 3rem;
+      background: #0f172a;
+      border: 2px solid #334155;
+      border-radius: 0.75rem;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-0.25rem);
+      transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+    }
+
+    .rubric-hover-panel p {
+      font-size: 0.7rem;
+      line-height: 1.2;
+      margin: 0.25rem 0;
+    }
+
+    .rubric-hover-wrap:hover .rubric-hover-panel {
+      opacity: 0.9;
+      visibility: visible;
+      transform: translateY(5rem);
+    }
+
+  
+    /* rubric-overrides */
+    .rubric-box .page-title {
+      margin-bottom: 0;
+      transform: translateX(-4rem);
+    }
+
+    .rubric-card {
+      background: #f8fafc;
+      border-radius: 1rem;
+      border: 3px solid transparent;
+      --rubric-border-gradient: linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%);
+      background:
+        linear-gradient(#f8fafc, #f8fafc) padding-box,
+        var(--rubric-border-gradient) border-box;
+      width: 20rem;
+      height: 9rem;
+      margin-top: 25rem;
+      padding: 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transform: scale(1.2) rotate(90deg);
+      transform-origin: top right;
+      overflow: hidden;
+    }
+
+    .rubric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      height: 100%;
+    }
+
+    .rubric-item {
+      padding: 0;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      border-right: 2px solid rgba(15, 23, 42, 0.85);
+      border-left: none;
+      height: 100%;
+      border-bottom: none;
+      border-top: none;
+    }
+
+    .rubric-item:first-child {
+      border-left: none;
+    }
+
+    .rubric-item:last-child {
+      border-right: none;
+    }
+
+    .rubric-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+      transform: rotate(-90deg);
+      white-space: nowrap;
+    }
+
+    .rubric-label {
+      font-weight: 600;
+    }
+
+    .rubric-rating {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    body.dark-mode .rubric-item {
+      color: #0f172a;
+      border-right-color: rgba(226, 232, 240, 0.85);
+      border-left-color: transparent;
+      border-top-color: transparent;
+      border-bottom-color: transparent;
+      border-top-width: 0;
+      border-bottom-width: 0;
+    }
+
+    body.dark-mode .rubric-card {
+      background:
+        linear-gradient(#0f172a, #0f172a) padding-box,
+        var(--rubric-border-gradient) border-box;
+    }
+
+  
+    /* rubric-hover-interactions */
+    .rubric-hover-wrap {
+      pointer-events: auto;
+    }
+
+    .rubric-hover-dot {
+      pointer-events: auto;
+    }
+
+    .rubric-hover-panel {
+      z-index: 30;
+      pointer-events: none;
+    }
+
+    .rubric-hover-wrap.is-open .rubric-hover-panel,
+    .rubric-hover-wrap:focus-within .rubric-hover-panel {
+      opacity: 0.9;
+      visibility: visible;
+      transform: translateY(5rem);
+      pointer-events: auto;
     }
 
   </style>
@@ -453,8 +869,8 @@
       <div class="lesson-layout">
         <div class="video-embed">
           <iframe
-            src=""
-            title=""
+            src="https://www.youtube.com/embed/d7VPJ4DYwQQ"
+            title="Khan Academy: Mass, Volume, &amp; Density"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerpolicy="strict-origin-when-cross-origin"
             allowfullscreen
@@ -462,24 +878,120 @@
         </div>
         <div class="side-buttons">
           <button class="side-button view-other-videos" type="button" onclick="toggleVideosPanel(this)">View other videos</button>
-          <div class="videos-panel" aria-hidden="true"></div>
+                              <div class="videos-panel" aria-hidden="true">
+            <div class="videos-panel-title">Lesson 1.3 videos</div>
+            <div class="videos-panel-legend" aria-hidden="true">
+              <span>D</span>
+              <span>Dt</span>
+              <span>S</span>
+              <span>P</span>
+            </div>
+            <div class="videos-panel-item">
+              <a href="https://www.youtube.com/results?search_query=Mass%2C+Volume%2C+%26+Density+Chem+Academy" data-rating-difficulty="Medium-Hard" data-color-difficulty="#FF6347" data-rating-detail="High" data-color-detail="#FF4500" data-rating-speed="Medium" data-color-speed="#FFD700" data-rating-pace="Medium-Slow" data-color-pace="#FFA500" data-video-title="Chem Academy: Mass, Volume, &amp; Density">Chem Academy</a>
+              <div class="mini-rubric" aria-hidden="true">
+                <span style="background:#FF6347"></span>
+                <span style="background:#FF4500"></span>
+                <span style="background:#FFD700"></span>
+                <span style="background:#FFA500"></span>
+              </div>
+            </div>
+            <div class="videos-panel-item">
+              <a href="https://www.youtube.com/watch?v=d7VPJ4DYwQQ" data-rating-difficulty="Easy" data-color-difficulty="#90EE90" data-rating-detail="Medium-High" data-color-detail="#FFA500" data-rating-speed="Medium-Fast" data-color-speed="#7FFF00" data-rating-pace="Medium" data-color-pace="#FFD700" data-video-title="Khan Academy: Mass, Volume, &amp; Density" data-video-id="d7VPJ4DYwQQ">Khan Academy</a>
+              <div class="mini-rubric" aria-hidden="true">
+                <span style="background:#90EE90"></span>
+                <span style="background:#FFA500"></span>
+                <span style="background:#7FFF00"></span>
+                <span style="background:#FFD700"></span>
+              </div>
+            </div>
+            <div class="videos-panel-item">
+              <a href="https://www.youtube.com/watch?v=LiXut4P0drg" data-rating-difficulty="Medium-Hard" data-color-difficulty="#FF6347" data-rating-detail="High" data-color-detail="#FF4500" data-rating-speed="Medium" data-color-speed="#FFD700" data-rating-pace="Medium-Slow" data-color-pace="#FFA500" data-video-title="Organic Chemistry Tutor: Mass, Volume, &amp; Density" data-video-id="LiXut4P0drg">Organic Chemistry Tutor</a>
+              <div class="mini-rubric" aria-hidden="true">
+                <span style="background:#FF6347"></span>
+                <span style="background:#FF4500"></span>
+                <span style="background:#FFD700"></span>
+                <span style="background:#FFA500"></span>
+              </div>
+            </div>
+            <div class="videos-panel-item">
+              <a href="https://www.youtube.com/results?search_query=Mass%2C+Volume%2C+%26+Density+Cognito" data-rating-difficulty="Easy" data-color-difficulty="#90EE90" data-rating-detail="Medium-Low" data-color-detail="#90EE90" data-rating-speed="Fast" data-color-speed="#87CEEB" data-rating-pace="Medium" data-color-pace="#FFD700" data-video-title="Cognito: Mass, Volume, &amp; Density">Cognito</a>
+              <div class="mini-rubric" aria-hidden="true">
+                <span style="background:#90EE90"></span>
+                <span style="background:#90EE90"></span>
+                <span style="background:#87CEEB"></span>
+                <span style="background:#FFD700"></span>
+              </div>
+            </div>
+            <div class="videos-panel-item">
+              <a href="https://www.youtube.com/watch?v=7tVebi3TSsgm" data-rating-difficulty="Medium" data-color-difficulty="#FFD700" data-rating-detail="Medium-High" data-color-detail="#FFA500" data-rating-speed="Medium" data-color-speed="#FFD700" data-rating-pace="Medium-Slow" data-color-pace="#FFA500" data-video-title="Tyler Dewitt: Mass, Volume, &amp; Density" data-video-id="7tVebi3TSsgm">Tyler Dewitt</a>
+              <div class="mini-rubric" aria-hidden="true">
+                <span style="background:#FFD700"></span>
+                <span style="background:#FFA500"></span>
+                <span style="background:#FFD700"></span>
+                <span style="background:#FFA500"></span>
+              </div>
+            </div>
+            <div class="videos-panel-item">
+              <a href="https://www.youtube.com/watch?v=_mwC2-cqGFU" data-rating-difficulty="Easy" data-color-difficulty="#90EE90" data-rating-detail="Medium-Low" data-color-detail="#90EE90" data-rating-speed="Fast" data-color-speed="#87CEEB" data-rating-pace="Medium" data-color-pace="#FFD700" data-video-title="Phil Mcordic: Density, Mass, &amp; Volume" data-video-id="_mwC2-cqGFU">Phil Mcordic</a>
+              <div class="mini-rubric" aria-hidden="true">
+                <span style="background:#90EE90"></span>
+                <span style="background:#90EE90"></span>
+                <span style="background:#87CEEB"></span>
+                <span style="background:#FFD700"></span>
+              </div>
+            </div>
+            <div class="videos-panel-item">
+              <a href="https://www.youtube.com/watch?v=GnBQ6vIutDM" data-rating-difficulty="Easy" data-color-difficulty="#90EE90" data-rating-detail="Low" data-color-detail="#ADD8E6" data-rating-speed="Very Fast" data-color-speed="#DA70D6" data-rating-pace="Fast" data-color-pace="#87CEEB" data-video-title="Science Bits: Density, Mass, &amp; Volume" data-video-id="GnBQ6vIutDM">Science Bits</a>
+              <div class="mini-rubric" aria-hidden="true">
+                <span style="background:#90EE90"></span>
+                <span style="background:#ADD8E6"></span>
+                <span style="background:#DA70D6"></span>
+                <span style="background:#87CEEB"></span>
+              </div>
+            </div>
+          </div>
           <a class="side-button" href="ChemistryUnit1Lesson3Intensive_And_Extensive_PropertiesDiagram.html">Next Up: Diagram</a>
         </div>
       </div>
       <div class="rubric-box">
         <div class="rubric-hover-wrap">
-          <div class="rubric-hover-dot" aria-hidden="true"></div>
-          <div class="rubric-hover-panel" aria-hidden="true"></div>
+          <div class="rubric-hover-dot" aria-hidden="true"><span>i</span></div>
+          <div class="rubric-hover-panel" aria-hidden="true">
+            <p>Difficulty (How hard it is to understand)</p>
+            <p>Detail (Depth of lessons)</p>
+            <p>Speed (How long the video is)</p>
+            <p>Pace (How fast detail is covered)</p>
+          </div>
         </div>
         <h2 class="page-title">Rubric</h2>
-        <div class="rubric-card">
+                  <div class="rubric-card">
             <div class="rubric-grid">
-              <div class="rubric-item"></div>
-              <div class="rubric-item"></div>
-              <div class="rubric-item"></div>
-              <div class="rubric-item"></div>
+              <div class="rubric-item" style="background:#FF6347">
+                <div class="rubric-text">
+                  <span class="rubric-label">Difficulty</span>
+                  <span class="rubric-rating">Medium-Hard</span>
+                </div>
+              </div>
+              <div class="rubric-item" style="background:#FF4500">
+                <div class="rubric-text">
+                  <span class="rubric-label">Detail</span>
+                  <span class="rubric-rating">High</span>
+                </div>
+              </div>
+              <div class="rubric-item" style="background:#FFD700">
+                <div class="rubric-text">
+                  <span class="rubric-label">Speed</span>
+                  <span class="rubric-rating">Medium</span>
+                </div>
+              </div>
+              <div class="rubric-item" style="background:#FFA500">
+                <div class="rubric-text">
+                  <span class="rubric-label">Pace</span>
+                  <span class="rubric-rating">Medium-Slow</span>
+                </div>
+              </div>
             </div>
-        </div>
+          </div>
       </div>
     </div>
   </main>
@@ -489,14 +1001,165 @@
       if (!button) {
         return;
       }
-      const panel = button.parentElement.querySelector('.videos-panel');
+      const container = button.closest('.side-buttons');
+      if (!container) {
+        return;
+      }
+      const panel = container.querySelector('.videos-panel');
       if (!panel) {
         return;
       }
       const isOpen = panel.classList.toggle('is-open');
-      panel.style.display = isOpen ? 'block' : 'none';
+      container.classList.toggle('videos-open', isOpen);
       panel.setAttribute('aria-hidden', (!isOpen).toString());
     }
+
+    document.querySelectorAll('.view-other-videos').forEach((button) => {
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+        toggleVideosPanel(button);
+      });
+    });
+
+    document.addEventListener('click', (event) => {
+      const button = event.target.closest('.view-other-videos');
+      if (!button) {
+        return;
+      }
+      event.preventDefault();
+      toggleVideosPanel(button);
+    }, true);
+
+    document.querySelectorAll('.videos-panel a[data-video-id], .videos-panel a[data-video-src]').forEach((link) => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        const videoSrc = link.getAttribute('data-video-src');
+        const videoId = link.getAttribute('data-video-id');
+        const videoTitle = link.getAttribute('data-video-title') || 'Lesson video';
+        const iframe = document.querySelector('.video-embed iframe');
+        const nextSrc = videoSrc || (videoId ? `https://www.youtube.com/embed/${videoId}` : '');
+        if (!nextSrc || !iframe) {
+          return;
+        }
+        iframe.src = nextSrc;
+        iframe.title = videoTitle;
+
+        const panel = link.closest('.videos-panel');
+        const container = link.closest('.side-buttons');
+        if (panel) {
+          panel.classList.remove('is-open');
+          panel.setAttribute('aria-hidden', 'true');
+        }
+        if (container) {
+          container.classList.remove('videos-open');
+        }
+      });
+
+
+    });
+
+
+    // videos-panel overrides
+    function updateRubricFromLink(link) {
+      if (!link) {
+        return;
+      }
+      const rubricBox = document.querySelector('.rubric-box');
+      if (!rubricBox) {
+        return;
+      }
+      const keyMap = {
+        Difficulty: 'difficulty',
+        Detail: 'detail',
+        Speed: 'speed',
+        Pace: 'pace',
+      };
+      rubricBox.querySelectorAll('.rubric-item').forEach((item) => {
+        const labelEl = item.querySelector('.rubric-label');
+        const ratingEl = item.querySelector('.rubric-rating');
+        if (!labelEl || !ratingEl) {
+          return;
+        }
+        const label = labelEl.textContent.trim();
+        const key = keyMap[label];
+        if (!key) {
+          return;
+        }
+        const rating = link.getAttribute(`data-rating-${key}`) || label;
+        const color = link.getAttribute(`data-color-${key}`) || '#334155';
+        ratingEl.textContent = rating;
+        item.style.background = color;
+      });
+    }
+
+    function toggleVideosPanel(button) {
+      if (!button) {
+        return;
+      }
+      const container = button.closest('.side-buttons');
+      if (!container) {
+        return;
+      }
+      const panel = container.querySelector('.videos-panel');
+      if (!panel) {
+        return;
+      }
+      const isOpen = panel.classList.toggle('is-open');
+      container.classList.toggle('videos-open', isOpen);
+      panel.setAttribute('aria-hidden', (!isOpen).toString());
+    }
+
+    document.querySelectorAll('.view-other-videos').forEach((button) => {
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+        toggleVideosPanel(button);
+      });
+    });
+
+    document.addEventListener('click', (event) => {
+      const button = event.target.closest('.view-other-videos');
+      if (!button) {
+        return;
+      }
+      event.preventDefault();
+      toggleVideosPanel(button);
+    }, true);
+
+    document.querySelectorAll('.videos-panel a').forEach((link) => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        const videoSrc = link.getAttribute('data-video-src');
+        const videoId = link.getAttribute('data-video-id');
+        const videoTitle = link.getAttribute('data-video-title') || 'Lesson video';
+        const iframe = document.querySelector('.video-embed iframe');
+        const nextSrc = videoSrc || (videoId ? `https://www.youtube.com/embed/${videoId}` : '');
+        if (!nextSrc || !iframe) {
+          updateRubricFromLink(link);
+          return;
+        }
+        iframe.src = nextSrc;
+        iframe.title = videoTitle;
+        updateRubricFromLink(link);
+
+        const panel = link.closest('.videos-panel');
+        const container = link.closest('.side-buttons');
+        if (panel) {
+          panel.classList.remove('is-open');
+          panel.setAttribute('aria-hidden', 'true');
+        }
+        if (container) {
+          container.classList.remove('videos-open');
+        }
+      });
+    });
+
+    // Ensure dark mode on load
+    document.body.classList.add('dark-mode');
+    const darkCheckbox = document.getElementById('dark-mode-checkbox');
+    if (darkCheckbox) {
+      darkCheckbox.checked = true;
+    }
+
 
     // Taskbar Button Handlers
         document.getElementById('back-button').addEventListener('click', () => {
@@ -552,6 +1215,7 @@
     // Set dark mode active by default
     document.body.classList.add('dark-mode');
     document.getElementById('dark-mode-checkbox').checked = true;
+
   </script>
 </body>
 </html>
