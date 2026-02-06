@@ -148,9 +148,9 @@
       box-shadow: 0 6px 14px rgba(15, 23, 42, 0.2);
       min-width: 11rem;
     }
-
     .side-button:hover {
-      opacity: 0.92;
+      opacity: 0.9;
+      transform: scale(1.1);
     }
 
     .videos-panel {
@@ -162,7 +162,7 @@
       display: none;
       position: absolute;
       right: 0;
-      bottom: calc(100% + 0.5rem);
+      bottom: calc(100% + 0.25rem);
       z-index: 6;
       opacity: 0.8;
       transform-origin: bottom right;
@@ -171,7 +171,9 @@
 
     .videos-panel.is-open {
       display: block;
+      animation: panelFadeIn 0.25s ease-out;
     }
+
 
     .rubric-box {
       position: absolute;
@@ -181,7 +183,51 @@
       flex-direction: column;
       align-items: flex-end;
       gap: 0.5rem;
-      z-index: 2;
+      z-index: 8;
+    }
+
+    .rubric-hover-wrap {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 20;
+    }
+
+    .rubric-hover-dot {
+      width: 1.4rem;
+      height: 1.4rem;
+      border-radius: 999px;
+      margin-right: -0.5rem;
+      margin-top: 4.3rem;
+      transform: translateY(-0.25rem);
+      border: 2px solid #1f2937;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.35);
+      cursor: pointer;
+      position: relative;
+      z-index: 21;
+    }
+
+    .rubric-hover-panel {
+      position: absolute;
+      margin-right: 1.5rem;
+      scale: 1.6;
+      right: 0;
+      bottom: calc(100% + 5.5rem);
+      width: 10rem;
+      min-height: 3rem;
+      background: #0f172a;
+      border: 2px solid #334155;
+      border-radius: 0.75rem;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-0.25rem);
+      transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+    }
+
+    .rubric-hover-wrap:hover .rubric-hover-panel {
+      opacity: 0.9;
+      visibility: visible;
+      transform: translateY(5rem);
     }
 
     .rubric-box .page-title {
@@ -360,6 +406,16 @@
       background: #273244;
       border: 2px solid rgba(226, 232, 240, 0.22);
     }
+    @keyframes panelFadeIn {
+      from {
+        opacity: 0;
+        transform: scale(2.7);
+      }
+      to {
+        opacity: 0.8;
+        transform: scale(3);
+      }
+    }
 
   </style>
    <style>@view-transition { navigation: auto; }</style>
@@ -407,6 +463,10 @@
         </div>
       </div>
       <div class="rubric-box">
+        <div class="rubric-hover-wrap">
+          <div class="rubric-hover-dot" aria-hidden="true"></div>
+          <div class="rubric-hover-panel" aria-hidden="true"></div>
+        </div>
         <h2 class="page-title">Rubric</h2>
         <div class="rubric-card">
             <div class="rubric-grid">

@@ -148,12 +148,60 @@
       box-shadow: 0 6px 14px rgba(15, 23, 42, 0.2);
       min-width: 11rem;
     }
-
     .side-button:hover {
-      opacity: 0.92;
+      opacity: 0.9;
+      transform: scale(1.1);
     }
 
+
     .rubric-box {
+      position: absolute;
+      top: 1.5rem;
+      right: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.5rem;
+      z-index: 8;
+    }
+
+    .rubric-hover-wrap {
+      position: relative;
+      align-self: flex-end;
+      z-index: 4;
+    }
+
+    .rubric-hover-dot {
+      width: 0.75rem;
+      height: 0.75rem;
+      border-radius: 999px;
+      background: #0f172a;
+      border: 2px solid #1f2937;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.35);
+      cursor: pointer;
+    }
+
+    .rubric-hover-panel {
+      position: absolute;
+      top: 0;
+      right: calc(100% + 0.5rem);
+      width: 10rem;
+      min-height: 6rem;
+      background: #0f172a;
+      border: 2px solid #334155;
+      border-radius: 0.75rem;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-0.25rem);
+      transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+    }
+
+    .rubric-hover-wrap:hover .rubric-hover-panel {
+      opacity: 0.9;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
       position: absolute;
       top: 1.5rem;
       right: 2rem;
@@ -360,6 +408,17 @@
 
     .videos-panel.is-open {
       display: block;
+      animation: panelFadeIn 0.25s ease-out;
+    }
+    @keyframes panelFadeIn {
+      from {
+        opacity: 0;
+        transform: scale(2.7);
+      }
+      to {
+        opacity: 0.8;
+        transform: scale(3);
+      }
     }
 
   </style>
@@ -408,6 +467,10 @@
         </div>
       </div>
       <div class="rubric-box">
+        <div class="rubric-hover-wrap">
+          <div class="rubric-hover-dot" aria-hidden="true"></div>
+          <div class="rubric-hover-panel" aria-hidden="true"></div>
+        </div>
         <h2 class="page-title">Rubric</h2>
         <div class="rubric-card">
             <div class="rubric-grid">
