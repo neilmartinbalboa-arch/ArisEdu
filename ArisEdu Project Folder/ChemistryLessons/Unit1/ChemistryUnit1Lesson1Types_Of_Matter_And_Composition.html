@@ -6,7 +6,7 @@
   <title>Unit 1 Lesson 1: Types of Matter & Composition</title>
   <script src="/_sdk/element_sdk.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&amp;family=Playfair+Display:wght@700&amp;display=swap" rel="stylesheet">
   <style>
     body {
       box-sizing: border-box;
@@ -132,8 +132,9 @@
       display: flex;
       flex-direction: column;
       gap: 1rem;
-      z-index: 3;
+      z-index: 30;
       align-items: flex-end;
+      pointer-events: auto;
     }
 
     .side-button {
@@ -159,19 +160,27 @@
       background: #0f172a;
       border: 2px solid #334155;
       border-radius: 0.75rem;
-      display: none;
+      display: block;
       position: absolute;
       right: 0;
       bottom: calc(100% + 0.25rem);
-      z-index: 6;
-      opacity: 0.8;
+      z-index: 10;
+      opacity: 0;
       transform-origin: bottom right;
       transform: scale(3);
+      visibility: hidden;
+      pointer-events: none;
     }
 
     .videos-panel.is-open {
-      display: block;
+      opacity: 0.9;
+      visibility: visible;
+      pointer-events: auto;
       animation: panelFadeIn 0.25s ease-out;
+    }
+
+    .side-buttons.videos-open .videos-panel {
+      display: block;
     }
 
 
@@ -194,6 +203,7 @@
     }
 
     .rubric-hover-dot {
+      scale: 2.2;
       width: 1.4rem;
       height: 1.4rem;
       border-radius: 999px;
@@ -201,10 +211,25 @@
       margin-top: 4.3rem;
       transform: translateY(-0.25rem);
       border: 2px solid #1f2937;
+      background: #0f172a;
       box-shadow: 0 2px 6px rgba(15, 23, 42, 0.35);
       cursor: pointer;
       position: relative;
       z-index: 21;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .rubric-hover-dot span {
+      font-family: 'Playfair Display', 'Poppins', serif;
+      background: linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
     }
 
     .rubric-hover-panel {
@@ -224,6 +249,12 @@
       transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
     }
 
+    .rubric-hover-panel p {
+      font-size: 0.7rem;
+      line-height: 1.2;
+      margin: 0.25rem 0;
+    }
+
     .rubric-hover-wrap:hover .rubric-hover-panel {
       opacity: 0.9;
       visibility: visible;
@@ -238,6 +269,11 @@
     .rubric-card {
       background: #f8fafc;
       border-radius: 1rem;
+      border: 3px solid transparent;
+      --rubric-border-gradient: linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%);
+      background:
+        linear-gradient(#f8fafc, #f8fafc) padding-box,
+        var(--rubric-border-gradient) border-box;
       width: 20rem;
       height: 9rem;
       margin-top: 25rem;
@@ -258,31 +294,56 @@
       padding: 0;
       text-align: center;
       font-size: 0.85rem;
-      color: #1e293b;
+      color: #0f172a;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-right: 1px solid rgba(15, 23, 42, 0.15);
+      position: relative;
+      border-right: 2px solid rgba(15, 23, 42, 0.85);
+      border-left: none;
       height: 100%;
-      border-bottom: 1px solid rgba(15, 23, 42, 0.15);
-      border-top: 1px solid rgba(15, 23, 42, 0.15);
-      border-left: 1px solid rgba(15, 23, 42, 0.15);
+      border-bottom: none;
+      border-top: none;
+    }
+
+    .rubric-item:first-child {
+      border-left: none;
+    }
+
+    .rubric-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+      transform: rotate(-90deg);
+      white-space: nowrap;
+    }
+
+    .rubric-label {
+      font-weight: 600;
+    }
+
+    .rubric-rating {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
     }
 
     .rubric-item:nth-child(1) {
-      background: #e0f2fe;
+      background: #90EE90;
     }
 
     .rubric-item:nth-child(2) {
-      background: #dcfce7;
+      background: #FFD700;
     }
 
     .rubric-item:nth-child(3) {
-      background: #fef9c3;
+      background: #7FFF00;
     }
 
     .rubric-item:nth-child(4) {
-      background: #fee2e2;
+      background: #FFD700;
     }
 
     .rubric-item:last-child {
@@ -290,27 +351,35 @@
     }
 
     body.dark-mode .rubric-item {
-      color: #e2e8f0;
-      border-right-color: rgba(226, 232, 240, 0.2);
-      border-left-color: rgba(226, 232, 240, 0.2);
-      border-top-color: rgba(226, 232, 240, 0.2);
-      border-bottom-color: rgba(226, 232, 240, 0.2);
+      color: #0f172a;
+      border-right-color: rgba(226, 232, 240, 0.85);
+      border-left-color: transparent;
+      border-top-color: transparent;
+      border-bottom-color: transparent;
+      border-top-width: 0;
+      border-bottom-width: 0;
+    }
+
+    body.dark-mode .rubric-card {
+      background:
+        linear-gradient(#0f172a, #0f172a) padding-box,
+        var(--rubric-border-gradient) border-box;
     }
 
     body.dark-mode .rubric-item:nth-child(1) {
-      background: rgba(14, 116, 144, 0.3);
+      background: #90EE90;
     }
 
     body.dark-mode .rubric-item:nth-child(2) {
-      background: rgba(22, 163, 74, 0.3);
+      background: #FFD700;
     }
 
     body.dark-mode .rubric-item:nth-child(3) {
-      background: rgba(202, 138, 4, 0.3);
+      background: #7FFF00;
     }
 
     body.dark-mode .rubric-item:nth-child(4) {
-      background: rgba(220, 38, 38, 0.3);
+      background: #FFD700;
     }
 
     .video-embed {
@@ -449,8 +518,8 @@
       <div class="lesson-layout">
         <div class="video-embed">
           <iframe
-            src=""
-            title=""
+            src="https://www.youtube.com/embed/gBiF-OLUVTY"
+            title="Khan Academy: States of Matter"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerpolicy="strict-origin-when-cross-origin"
             allowfullscreen
@@ -464,16 +533,41 @@
       </div>
       <div class="rubric-box">
         <div class="rubric-hover-wrap">
-          <div class="rubric-hover-dot" aria-hidden="true"></div>
-          <div class="rubric-hover-panel" aria-hidden="true"></div>
+          <div class="rubric-hover-dot" aria-hidden="true"><span>i</span></div>
+          <div class="rubric-hover-panel" aria-hidden="true">
+            <p>Difficulty (How hard it is to understand)</p>
+            <p>Detail (Depth of lessons)</p>
+            <p>Speed (How long the video is)</p>
+            <p>Pace (How fast detail is covered)</p>
+          </div>
         </div>
         <h2 class="page-title">Rubric</h2>
         <div class="rubric-card">
             <div class="rubric-grid">
-              <div class="rubric-item"></div>
-              <div class="rubric-item"></div>
-              <div class="rubric-item"></div>
-              <div class="rubric-item"></div>
+              <div class="rubric-item">
+                <div class="rubric-text">
+                  <span class="rubric-label">Difficulty</span>
+                  <span class="rubric-rating">Easy</span>
+                </div>
+              </div>
+              <div class="rubric-item">
+                <div class="rubric-text">
+                  <span class="rubric-label">Detail</span>
+                  <span class="rubric-rating">Medium</span>
+                </div>
+              </div>
+              <div class="rubric-item">
+                <div class="rubric-text">
+                  <span class="rubric-label">Speed</span>
+                  <span class="rubric-rating">Medium-Fast</span>
+                </div>
+              </div>
+              <div class="rubric-item">
+                <div class="rubric-text">
+                  <span class="rubric-label">Pace</span>
+                  <span class="rubric-rating">Medium</span>
+                </div>
+              </div>
             </div>
         </div>
       </div>
@@ -485,14 +579,34 @@
       if (!button) {
         return;
       }
-      const panel = button.parentElement.querySelector('.videos-panel');
+      const container = button.closest('.side-buttons');
+      if (!container) {
+        return;
+      }
+      const panel = container.querySelector('.videos-panel');
       if (!panel) {
         return;
       }
       const isOpen = panel.classList.toggle('is-open');
-      panel.style.display = isOpen ? 'block' : 'none';
+      container.classList.toggle('videos-open', isOpen);
       panel.setAttribute('aria-hidden', (!isOpen).toString());
     }
+
+    document.querySelectorAll('.view-other-videos').forEach((button) => {
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+        toggleVideosPanel(button);
+      });
+    });
+
+    document.addEventListener('click', (event) => {
+      const button = event.target.closest('.view-other-videos');
+      if (!button) {
+        return;
+      }
+      event.preventDefault();
+      toggleVideosPanel(button);
+    }, true);
 
     // Taskbar Button Handlers
         document.getElementById('back-button').addEventListener('click', () => {
