@@ -196,7 +196,7 @@
           </select>
         </label>
       </div>
-      <div class="settings-item">Preferences</div>
+      <a class="settings-item" href="/ArisEdu Project Folder/Preferences.html">Preferences</a>
     </div>
   </nav>
 

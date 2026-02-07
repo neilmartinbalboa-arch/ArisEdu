@@ -191,7 +191,7 @@
           <span>Dark Mode</span>
         </label> 
       </div>
-      <div class="settings-item">Preferences</div>
+      <a class="settings-item" href="/ArisEdu Project Folder/Preferences.html">Preferences</a>
     </div>
   </nav>
   <main class="main-container">
@@ -269,5 +269,186 @@
     document.body.classList.add('dark-mode');
     document.getElementById('dark-mode-checkbox').checked = true;
   </script>
- </body>
+ <script>
+  // login-signup-account-display
+  (function () {
+    const loginButton = document.getElementById('login-signup-button');
+    if (!loginButton) {
+      return;
+    }
+    const storedUser = localStorage.getItem('user');
+    if (!storedUser) {
+      return;
+    }
+    let user;
+    try {
+      user = JSON.parse(storedUser);
+    } catch (error) {
+      return;
+    }
+    const name = user && (user.name || user.email);
+    if (!name) {
+      return;
+    }
+
+    loginButton.textContent = name;
+    loginButton.removeAttribute('href');
+    loginButton.setAttribute('aria-haspopup', 'true');
+    loginButton.setAttribute('aria-expanded', 'false');
+
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    const menu = document.createElement('div');
+    menu.className = 'account-menu';
+    menu.setAttribute('role', 'menu');
+    menu.setAttribute('aria-hidden', 'true');
+    menu.style.position = 'absolute';
+    menu.style.top = '100%';
+    menu.style.left = '0';
+    menu.style.right = 'auto';
+    menu.style.minWidth = '160px';
+    menu.style.marginTop = '0.35rem';
+    menu.style.background = isDarkMode ? '#0f172a' : 'white';
+    menu.style.border = isDarkMode ? '1px solid #1f2937' : '1px solid #e2e8f0';
+    menu.style.borderRadius = '0.5rem';
+    menu.style.boxShadow = isDarkMode
+      ? '0 12px 24px rgba(2, 6, 23, 0.6)'
+      : '0 10px 20px rgba(2, 6, 23, 0.15)';
+    menu.style.padding = '0.4rem';
+    menu.style.display = 'none';
+    menu.style.zIndex = '2000';
+
+    const logoutButton = document.createElement('button');
+    logoutButton.type = 'button';
+    logoutButton.textContent = 'Log out';
+    logoutButton.setAttribute('role', 'menuitem');
+    logoutButton.style.width = '100%';
+    logoutButton.style.background = 'transparent';
+    logoutButton.style.border = 'none';
+    logoutButton.style.textAlign = 'left';
+    logoutButton.style.padding = '0.5rem 0.75rem';
+    logoutButton.style.borderRadius = '0.4rem';
+    logoutButton.style.cursor = 'pointer';
+    logoutButton.style.fontWeight = '600';
+    logoutButton.style.color = isDarkMode ? '#e2e8f0' : '#0f172a';
+
+    logoutButton.addEventListener('mouseenter', () => {
+      logoutButton.style.background = isDarkMode
+        ? 'rgba(148, 163, 184, 0.2)'
+        : 'rgba(15, 23, 42, 0.08)';
+    });
+    logoutButton.addEventListener('mouseleave', () => {
+      logoutButton.style.background = 'transparent';
+    });
+
+    logoutButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      localStorage.removeItem('user');
+      menu.style.display = 'none';
+      loginButton.setAttribute('aria-expanded', 'false');
+      window.location.href = '/ArisEdu Project Folder/LoginSignup.html';
+    });
+
+    menu.appendChild(logoutButton);
+
+    const parent = loginButton.parentElement;
+    if (parent) {
+      const wrapper = document.createElement('span');
+      wrapper.style.position = 'relative';
+      wrapper.style.display = 'inline-flex';
+      parent.insertBefore(wrapper, loginButton);
+      wrapper.appendChild(loginButton);
+      wrapper.appendChild(menu);
+    }
+
+    function closeMenu() {
+      menu.style.display = 'none';
+      loginButton.setAttribute('aria-expanded', 'false');
+      menu.setAttribute('aria-hidden', 'true');
+    }
+
+    function toggleMenu(event) {
+      event.preventDefault();
+      const isOpen = menu.style.display == 'block';
+      if (isOpen) {
+        closeMenu();
+      } else {
+        menu.style.display = 'block';
+        menu.setAttribute('aria-hidden', 'false');
+        loginButton.setAttribute('aria-expanded', 'true');
+      }
+    }
+
+    loginButton.addEventListener('click', toggleMenu);
+
+    document.addEventListener('click', (event) => {
+      if (!menu.contains(event.target) && event.target != loginButton) {
+        closeMenu();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key == 'Escape') {
+        closeMenu();
+      }
+    });
+  })();
+</script>
+
+
+
+
+
+
+
+
+<script>
+  // settings-menu-align
+  (function () {
+    const settingsButton = document.getElementById('settings-button');
+    const settingsMenu = document.getElementById('settings-menu');
+    if (!settingsButton || !settingsMenu) {
+      return;
+    }
+    const wrapper = document.createElement('span');
+    wrapper.style.position = 'relative';
+    wrapper.style.display = 'inline-flex';
+    settingsButton.parentElement.insertBefore(wrapper, settingsButton);
+    wrapper.appendChild(settingsButton);
+    wrapper.appendChild(settingsMenu);
+
+    settingsMenu.style.position = 'absolute';
+    settingsMenu.style.top = '100%';
+    settingsMenu.style.left = '0';
+    settingsMenu.style.right = 'auto';
+    settingsMenu.style.marginTop = '0.35rem';
+  })();
+</script>
+<script>
+  // dark-mode-sync
+  (function () {
+    const checkbox = document.getElementById('dark-mode-checkbox');
+    if (!checkbox) {
+      return;
+    }
+    const stored = localStorage.getItem('arisEduDarkMode');
+    const prefersDark = stored ? stored == 'true' : document.body.classList.contains('dark-mode');
+    if (prefersDark) {
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
+    checkbox.checked = prefersDark;
+
+    checkbox.addEventListener('change', (event) => {
+      const isDark = event.target.checked;
+      localStorage.setItem('arisEduDarkMode', String(isDark));
+      if (isDark) {
+        document.body.classList.add('dark-mode');
+      } else {
+        document.body.classList.remove('dark-mode');
+      }
+    });
+  })();
+</script>
+</body>
 </html>
