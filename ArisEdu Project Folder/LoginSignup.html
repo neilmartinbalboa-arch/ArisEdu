@@ -1310,6 +1310,69 @@
     });
   })();
 </script>
+<script>
+(function(){
+  const translations = {
+    "Settings": "设置", "Appearance": "外观", "Account": "账户", "Notifications": "通知", "Search": "搜索", "Homepage": "首页", "Courses": "课程", "Play": "玩", "Preferences": "偏好设置", "Dark Mode": "深色模式", "Enable Dark Mode": "启用深色模式", "Language:": "语言:", "Color Theme:": "主题颜色:", "Email:": "邮箱:", "Password:": "密码:", "Notification Settings": "通知设置", "Email Notifications": "邮件通知", "Push Notifications": "推送通知"
+  };
+  function translateNode(node) {
+    if (node.nodeType === 3) {
+      let text = node.nodeValue;
+      Object.keys(translations).forEach(function(en) {
+        text = text.replace(new RegExp(en, "g"), translations[en]);
+      });
+      node.nodeValue = text;
+    } else if (node.nodeType === 1 && node.childNodes.length) {
+      for (let i = 0; i < node.childNodes.length; i++) {
+        translateNode(node.childNodes[i]);
+      }
+    }
+  }
+  function translateAll() {
+    if (localStorage.getItem("arisEduLanguage") === "chinese") {
+      translateNode(document.body);
+    }
+  }
+  window.addEventListener("DOMContentLoaded", translateAll);
+})();
+</script>
+<script>
+(function(){
+  const translations = {
+    "Settings": "设置", "Appearance": "外观", "Account": "账户", "Notifications": "通知", "Search": "搜索", "Homepage": "首页", "Courses": "课程", "Play": "玩", "Preferences": "偏好设置", "Dark Mode": "深色模式", "Enable Dark Mode": "启用深色模式", "Language:": "语言:", "Color Theme:": "主题颜色:", "Email:": "邮箱:", "Password:": "密码:", "Notification Settings": "通知设置", "Email Notifications": "邮件通知", "Push Notifications": "推送通知", "Lesson": "课", "Summary": "总结", "Game": "游戏", "Unit": "单元", "Login/Signup": "登录/注册", "Homepage": "首页", "Play": "玩", "Courses": "课程", "Account Settings": "账户设置", "Appearance Settings": "外观设置", "Notification Settings": "通知设置", "Email": "邮箱", "Password": "密码", "Push": "推送", "Email": "邮件", "Lesson": "课", "Summary": "总结", "Game": "游戏", "Unit": "单元"
+  };
+  function translateNode(node) {
+    if (node.nodeType === 3) {
+      let text = node.nodeValue;
+      Object.keys(translations).forEach(function(en) {
+        text = text.replace(new RegExp(en, "g"), translations[en]);
+      });
+      node.nodeValue = text;
+    } else if (node.nodeType === 1 && node.childNodes.length) {
+      for (let i = 0; i < node.childNodes.length; i++) {
+        translateNode(node.childNodes[i]);
+      }
+    }
+  }
+  function translateAll() {
+    if (localStorage.getItem("arisEduLanguage") === "chinese") {
+      translateNode(document.body);
+    }
+  }
+  window.addEventListener("DOMContentLoaded", translateAll);
+  // MutationObserver for dynamic content
+  const observer = new MutationObserver(function(mutations) {
+    if (localStorage.getItem("arisEduLanguage") === "chinese") {
+      mutations.forEach(function(mutation) {
+        mutation.addedNodes.forEach(function(node) {
+          translateNode(node);
+        });
+      });
+    }
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
+})();
+</script>
 </body>
 </html>
 

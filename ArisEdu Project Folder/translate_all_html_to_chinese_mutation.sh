@@ -1,0 +1,12 @@
+#!/bin/bash
+# Inject a MutationObserver-based translation script into all HTML files in ArisEdu Project Folder
+TRANSLATE_JS='<script>\n(function(){\n  const translations = {\n    "Settings": "设置", "Appearance": "外观", "Account": "账户", "Notifications": "通知", "Search": "搜索", "Homepage": "首页", "Courses": "课程", "Play": "玩", "Preferences": "偏好设置", "Dark Mode": "深色模式", "Enable Dark Mode": "启用深色模式", "Language:": "语言:", "Color Theme:": "主题颜色:", "Email:": "邮箱:", "Password:": "密码:", "Notification Settings": "通知设置", "Email Notifications": "邮件通知", "Push Notifications": "推送通知", "Lesson": "课", "Summary": "总结", "Game": "游戏", "Unit": "单元", "Login/Signup": "登录/注册", "Homepage": "首页", "Play": "玩", "Courses": "课程", "Account Settings": "账户设置", "Appearance Settings": "外观设置", "Notification Settings": "通知设置", "Email": "邮箱", "Password": "密码", "Push": "推送", "Email": "邮件", "Lesson": "课", "Summary": "总结", "Game": "游戏", "Unit": "单元"\n  };\n  function translateNode(node) {\n    if (node.nodeType === 3) {\n      let text = node.nodeValue;\n      Object.keys(translations).forEach(function(en) {\n        text = text.replace(new RegExp(en, "g"), translations[en]);\n      });\n      node.nodeValue = text;\n    } else if (node.nodeType === 1 && node.childNodes.length) {\n      for (let i = 0; i < node.childNodes.length; i++) {\n        translateNode(node.childNodes[i]);\n      }\n    }\n  }\n  function translateAll() {\n    if (localStorage.getItem("arisEduLanguage") === "chinese") {\n      translateNode(document.body);\n    }\n  }\n  window.addEventListener("DOMContentLoaded", translateAll);\n  // MutationObserver for dynamic content
+  const observer = new MutationObserver(function(mutations) {\n    if (localStorage.getItem("arisEduLanguage") === "chinese") {\n      mutations.forEach(function(mutation) {\n        mutation.addedNodes.forEach(function(node) {\n          translateNode(node);\n        });\n      });\n    }\n  });\n  observer.observe(document.body, { childList: true, subtree: true });\n})();\n</script>'
+
+find "./ArisEdu Project Folder" -type f -name "*.html" | while read file; do
+  if ! grep -q "MutationObserver" "$file"; then
+    awk -v js="$TRANSLATE_JS" '/<\/body>/ {print js; print $0; next} {print}' "$file" > "$file.tmp" && mv "$file.tmp" "$file"
+  fi
+done
+
+echo "MutationObserver-based Chinese translation script injected into all HTML files."

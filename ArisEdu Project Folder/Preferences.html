@@ -100,8 +100,60 @@
   </section>
 </div>
 <script>
+// Sidebar and taskbar translations
+const sidebarLabels = {
+  english: {
+    settings: 'Settings',
+    appearance: 'Appearance',
+    account: 'Account',
+    notifications: 'Notifications',
+    search: '🔍 Search',
+    homepage: '🏠 Homepage',
+    courses: '📚 Courses',
+    play: '▶️ Play',
+    settingsBtn: '⚙️ Settings',
+    loginSignup: '🔐 Login/Signup',
+    preferences: 'Preferences',
+    darkMode: 'Dark Mode',
+  },
+  chinese: {
+    settings: '设置',
+    appearance: '外观',
+    account: '账户',
+    notifications: '通知',
+    search: '🔍 搜索',
+    homepage: '🏠 首页',
+    courses: '📚 课程',
+    play: '▶️ 玩',
+    settingsBtn: '⚙️ 设置',
+    loginSignup: '🔐 登录/注册',
+    preferences: '偏好设置',
+    darkMode: '深色模式',
+  }
+};
+
+function updateSidebarLanguage() {
+  const lang = localStorage.getItem('arisEduLanguage') || 'english';
+  const labels = sidebarLabels[lang];
+  document.querySelector('aside h2').textContent = labels.settings;
+  const buttons = document.querySelectorAll('.settings-category');
+  if (buttons.length === 3) {
+    buttons[0].textContent = labels.appearance;
+    buttons[1].textContent = labels.account;
+    buttons[2].textContent = labels.notifications;
+  }
+  document.getElementById('search-button').textContent = labels.search;
+  document.getElementById('homepage-button').textContent = labels.homepage;
+  document.getElementById('course-button').textContent = labels.courses;
+  document.getElementById('play-button').textContent = labels.play;
+  document.getElementById('settings-button').textContent = labels.settingsBtn;
+  document.getElementById('login-signup-button').textContent = labels.loginSignup;
+  // Settings menu
+  document.querySelector('#settings-menu .settings-item span').textContent = labels.darkMode;
+  document.querySelector('#settings-menu .settings-item + a').textContent = labels.preferences;
+}
 const settingsOptions = {
-  appearance: `
+  appearance_en: `
     <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 2rem;">Appearance Settings</h2>
     <form id="appearance-form">
       <div style="margin-bottom: 1.5rem;">
@@ -111,13 +163,12 @@ const settingsOptions = {
         </label>
       </div>
       <div style="margin-bottom: 1.5rem;">
-        <label style="font-size: 1.1rem;">Font Size:
-          <select id="fontSizeSelect" style="margin-left: 0.75rem; padding: 0.3rem 0.6rem; border-radius: 0.4rem;">
-            <option value="small">Small</option>
-            <option value="medium" selected>Medium</option>
-            <option value="large">Large</option>
-          </select>
-        </label>
+          <label style="font-size: 1.1rem;">Language:
+            <select id="languageSelect" style="margin-left: 0.75rem; padding: 0.3rem 0.6rem; border-radius: 0.4rem;">
+              <option value="english" selected>English</option>
+              <option value="chinese">中文</option>
+            </select>
+          </label>
       </div>
       <div style="margin-bottom: 1.5rem;">
         <label style="font-size: 1.1rem;">Color Theme:
@@ -130,7 +181,35 @@ const settingsOptions = {
       </div>
     </form>
   `,
-  account: `
+  appearance_zh: `
+    <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 2rem;">外观设置</h2>
+    <form id="appearance-form">
+      <div style="margin-bottom: 1.5rem;">
+        <label style="display: flex; align-items: center; gap: 0.75rem; font-size: 1.1rem;">
+          <input type="checkbox" id="darkModeToggle" />
+          <span>启用深色模式</span>
+        </label>
+      </div>
+      <div style="margin-bottom: 1.5rem;">
+          <label style="font-size: 1.1rem;">语言:
+            <select id="languageSelect" style="margin-left: 0.75rem; padding: 0.3rem 0.6rem; border-radius: 0.4rem;">
+              <option value="english">English</option>
+              <option value="chinese" selected>中文</option>
+            </select>
+          </label>
+      </div>
+      <div style="margin-bottom: 1.5rem;">
+        <label style="font-size: 1.1rem;">主题颜色:
+          <select id="colorThemeSelect" style="margin-left: 0.75rem; padding: 0.3rem 0.6rem; border-radius: 0.4rem;">
+            <option value="blue-green">蓝绿色</option>
+            <option value="purple">紫色</option>
+            <option value="gray">灰色</option>
+          </select>
+        </label>
+      </div>
+    </form>
+  `,
+  account_en: `
     <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 2rem;">Account Settings</h2>
     <form id="account-form">
       <div style="margin-bottom: 1.5rem;">
@@ -145,7 +224,22 @@ const settingsOptions = {
       </div>
     </form>
   `,
-  notifications: `
+  account_zh: `
+    <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 2rem;">账户设置</h2>
+    <form id="account-form">
+      <div style="margin-bottom: 1.5rem;">
+        <label style="font-size: 1.1rem;">邮箱:
+          <input type="email" id="accountEmail" style="margin-left: 0.75rem; padding: 0.3rem 0.6rem; border-radius: 0.4rem;" placeholder="user@example.com" />
+        </label>
+      </div>
+      <div style="margin-bottom: 1.5rem;">
+        <label style="font-size: 1.1rem;">密码:
+          <input type="password" id="accountPassword" style="margin-left: 0.75rem; padding: 0.3rem 0.6rem; border-radius: 0.4rem;" placeholder="••••••••" />
+        </label>
+      </div>
+    </form>
+  `,
+  notifications_en: `
     <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 2rem;">Notification Settings</h2>
     <form id="notifications-form">
       <div style="margin-bottom: 1.5rem;">
@@ -161,28 +255,57 @@ const settingsOptions = {
         </label>
       </div>
     </form>
+  `,
+  notifications_zh: `
+    <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 2rem;">通知设置</h2>
+    <form id="notifications-form">
+      <div style="margin-bottom: 1.5rem;">
+        <label style="display: flex; align-items: center; gap: 0.75rem; font-size: 1.1rem;">
+          <input type="checkbox" id="emailNotifToggle" />
+          <span>邮件通知</span>
+        </label>
+      </div>
+      <div style="margin-bottom: 1.5rem;">
+        <label style="display: flex; align-items: center; gap: 0.75rem; font-size: 1.1rem;">
+          <input type="checkbox" id="pushNotifToggle" />
+          <span>推送通知</span>
+        </label>
+      </div>
+    </form>
   `
 };
 
 function renderSettings(category) {
-  document.getElementById('settings-panel').innerHTML = settingsOptions[category] || '';
+    updateSidebarLanguage();
+    // Reapply dark mode after rendering panel
+    const darkModeStored = localStorage.getItem('arisEduDarkMode') === 'true';
+    setTimeout(() => applyDarkMode(darkModeStored), 0);
+  // Language switching
+  const lang = localStorage.getItem('arisEduLanguage') || 'english';
+  let key = category;
+  if (category === 'appearance') key = lang === 'chinese' ? 'appearance_zh' : 'appearance_en';
+  if (category === 'account') key = lang === 'chinese' ? 'account_zh' : 'account_en';
+  if (category === 'notifications') key = lang === 'chinese' ? 'notifications_zh' : 'notifications_en';
+  document.getElementById('settings-panel').innerHTML = settingsOptions[key] || '';
   // Add form logic for each category
   if (category === 'appearance') {
     const darkModeToggle = document.getElementById('darkModeToggle');
-    const fontSizeSelect = document.getElementById('fontSizeSelect');
+    const languageSelect = document.getElementById('languageSelect');
     const colorThemeSelect = document.getElementById('colorThemeSelect');
     // Set initial values from localStorage
     if (darkModeToggle) darkModeToggle.checked = localStorage.getItem('arisEduDarkMode') === 'true';
-    if (fontSizeSelect) fontSizeSelect.value = localStorage.getItem('arisEduFontSize') || 'medium';
+    if (languageSelect) languageSelect.value = localStorage.getItem('arisEduLanguage') || 'english';
     if (colorThemeSelect) colorThemeSelect.value = localStorage.getItem('arisEduColorTheme') || 'blue-green';
     // Save settings automatically
     if (darkModeToggle) darkModeToggle.addEventListener('change', function() {
       localStorage.setItem('arisEduDarkMode', darkModeToggle.checked);
       applyDarkMode(darkModeToggle.checked);
     });
-    if (fontSizeSelect) fontSizeSelect.addEventListener('change', function() {
-      localStorage.setItem('arisEduFontSize', fontSizeSelect.value);
-      document.body.style.fontSize = fontSizeSelect.value === 'small' ? '14px' : fontSizeSelect.value === 'medium' ? '16px' : '18px';
+    if (languageSelect) languageSelect.addEventListener('change', function() {
+      localStorage.setItem('arisEduLanguage', languageSelect.value);
+      renderSettings(category);
+      const darkModeStored = localStorage.getItem('arisEduDarkMode') === 'true';
+      applyDarkMode(darkModeStored);
     });
     if (colorThemeSelect) colorThemeSelect.addEventListener('change', function() {
       localStorage.setItem('arisEduColorTheme', colorThemeSelect.value);
@@ -250,103 +373,75 @@ function applyDarkMode(darkMode) {
         accountPassword.style.color = darkMode ? '#e2e8f0' : '#0f172a';
         accountPassword.style.border = darkMode ? '1px solid #334155' : '';
       }
-  if (darkMode) {
-    document.body.classList.add('dark-mode');
-    document.body.style.background = '#1e293b';
-    document.body.style.color = '#e2e8f0';
-    const mainDiv = document.querySelector('body > div');
-    const sidebar = document.querySelector('aside');
-    const panel = document.getElementById('settings-panel');
-    const taskbar = document.querySelector('.taskbar');
-    const taskbarContainer = document.querySelector('.taskbar-container');
-    const settingsMenu = document.getElementById('settings-menu');
-    if (mainDiv) mainDiv.style.background = '#273244';
-    if (sidebar) sidebar.style.background = '#1e293b';
-    if (sidebar) sidebar.style.color = '#e2e8f0';
-    if (panel) panel.style.background = '#273244';
-    if (panel) panel.style.color = '#e2e8f0';
-    if (taskbar) taskbar.style.background = 'linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%)';
-    if (taskbarContainer) taskbarContainer.style.color = '#e2e8f0';
-    if (settingsMenu) {
-      settingsMenu.style.background = '#0f172a';
-      settingsMenu.style.color = '#cbd5e1';
-    }
-    document.querySelectorAll('.taskbar-button').forEach(btn => {
-      btn.style.background = 'rgba(38, 38, 38, 0.2)';
-      btn.style.color = '#e2e8f0';
-    });
-    // Only update category selector button text for dark mode
-    document.querySelectorAll('.settings-category').forEach(btn => {
-      btn.style.color = '#e2e8f0';
-      if (
-        btn.textContent.trim() === 'Appearance' ||
-        btn.textContent.trim() === 'Account' ||
-        btn.textContent.trim() === 'Notifications'
-      ) {
-        btn.style.background = '#273244';
-      }
-    });
-    // Font size and color theme selectors
-    const fontSizeBox = document.getElementById('fontSizeSelect');
-    if (fontSizeBox) fontSizeBox.style.background = '#273244';
-    fontSizeBox && (fontSizeBox.style.color = '#e2e8f0');
-    const colorThemeBox = document.getElementById('colorThemeSelect');
-    if (colorThemeBox) colorThemeBox.style.background = '#273244';
-    colorThemeBox && (colorThemeBox.style.color = '#e2e8f0');
-  } else {
-    document.body.classList.remove('dark-mode');
-    document.body.style.background = '#f8fafc';
-    document.body.style.color = '#0f172a';
-    const mainDiv = document.querySelector('body > div');
-    const sidebar = document.querySelector('aside');
-    const panel = document.getElementById('settings-panel');
-    const taskbar = document.querySelector('.taskbar');
-    const taskbarContainer = document.querySelector('.taskbar-container');
-    const settingsMenu = document.getElementById('settings-menu');
-    if (mainDiv) mainDiv.style.background = '#f8fafc';
-    if (sidebar) sidebar.style.background = '#e0e7ef';
-    if (sidebar) sidebar.style.color = '#0f172a';
-    if (panel) panel.style.background = '#f8fafc';
-    if (panel) panel.style.color = '#0f172a';
-    if (taskbar) taskbar.style.background = 'linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%)';
-    if (taskbarContainer) taskbarContainer.style.color = '#fff';
-    if (settingsMenu) {
-      settingsMenu.style.background = '#ffffff';
-      settingsMenu.style.color = '#0f172a';
-    }
-    document.querySelectorAll('.taskbar-button').forEach(btn => {
-      btn.style.background = 'rgba(255, 255, 255, 0.1)';
-      btn.style.color = '#fff';
-    });
-    // Only revert category selector button text for light mode
-    document.querySelectorAll('.settings-category').forEach(btn => {
-      btn.style.color = '#0f172a';
-      if (
-        btn.textContent.trim() === 'Appearance' ||
-        btn.textContent.trim() === 'Account' ||
-        btn.textContent.trim() === 'Notifications'
-      ) {
-        btn.style.background = '#fff';
-      }
-    });
-    // Font size and color theme selectors
-    const fontSizeBox = document.getElementById('fontSizeSelect');
-    if (fontSizeBox) fontSizeBox.style.background = '#fff';
-    fontSizeBox && (fontSizeBox.style.color = '#0f172a');
-    const colorThemeBox = document.getElementById('colorThemeSelect');
-    if (colorThemeBox) colorThemeBox.style.background = '#fff';
-    colorThemeBox && (colorThemeBox.style.color = '#0f172a');
+  // ...existing code...
+  document.body.classList.toggle('dark-mode', darkMode);
+  document.body.style.background = darkMode ? '#1e293b' : '#f8fafc';
+  document.body.style.color = darkMode ? '#e2e8f0' : '#0f172a';
+  const mainDiv = document.querySelector('body > div');
+  const sidebar = document.querySelector('aside');
+  const panel = document.getElementById('settings-panel');
+  const taskbar = document.querySelector('.taskbar');
+  const taskbarContainer = document.querySelector('.taskbar-container');
+  const settingsMenu = document.getElementById('settings-menu');
+  if (mainDiv) mainDiv.style.background = darkMode ? '#273244' : '#f8fafc';
+  if (mainDiv) mainDiv.style.boxShadow = darkMode ? '0 8px 32px rgba(0,0,0,0.32)' : '0 8px 32px rgba(0,0,0,0.12)';
+  if (sidebar) sidebar.style.background = darkMode ? '#1e293b' : '#e0e7ef';
+  if (sidebar) sidebar.style.color = darkMode ? '#e2e8f0' : '#0f172a';
+  if (panel) panel.style.background = darkMode ? '#273244' : '#f8fafc';
+  if (panel) panel.style.color = darkMode ? '#e2e8f0' : '#0f172a';
+  if (taskbar) taskbar.style.background = 'linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%)';
+  if (taskbarContainer) taskbarContainer.style.color = darkMode ? '#e2e8f0' : '#fff';
+  if (settingsMenu) {
+    settingsMenu.style.background = darkMode ? '#0f172a' : '#ffffff';
+    settingsMenu.style.color = darkMode ? '#cbd5e1' : '#0f172a';
   }
+  document.querySelectorAll('.taskbar-button').forEach(btn => {
+    btn.style.background = darkMode ? 'rgba(38, 38, 38, 0.2)' : 'rgba(255, 255, 255, 0.1)';
+    btn.style.color = darkMode ? '#e2e8f0' : '#fff';
+  });
+  document.querySelectorAll('.settings-category').forEach(btn => {
+    btn.style.color = darkMode ? '#e2e8f0' : '#0f172a';
+    if (
+      btn.textContent.trim() === 'Appearance' ||
+      btn.textContent.trim() === 'Account' ||
+      btn.textContent.trim() === 'Notifications'
+    ) {
+      btn.style.background = darkMode ? '#273244' : '#fff';
+    }
+  });
+  const languageBox = document.getElementById('languageSelect');
+  if (languageBox) languageBox.style.background = darkMode ? '#273244' : '#fff';
+  languageBox && (languageBox.style.color = darkMode ? '#e2e8f0' : '#0f172a');
+  const colorThemeBox = document.getElementById('colorThemeSelect');
+  if (colorThemeBox) colorThemeBox.style.background = darkMode ? '#273244' : '#fff';
+  colorThemeBox && (colorThemeBox.style.color = darkMode ? '#e2e8f0' : '#0f172a');
   // Set checkbox state
   const darkModeCheckbox = document.getElementById('darkModeToggle');
   if (darkModeCheckbox) darkModeCheckbox.checked = !!darkMode;
 }
 
 // On load, apply dark mode if stored
-const darkModeStored = localStorage.getItem('arisEduDarkMode') === 'true';
-applyDarkMode(darkModeStored);
-// Render default category
-renderSettings('appearance');
+function initialRender() {
+  const darkModeStored = localStorage.getItem('arisEduDarkMode') === 'true';
+  const langStored = localStorage.getItem('arisEduLanguage') || 'english';
+  renderSettings('appearance');
+  // Always reapply dark mode after rendering
+  setTimeout(() => {
+    applyDarkMode(darkModeStored);
+    // Fix sidebar button backgrounds for dark mode
+    document.querySelectorAll('.settings-category').forEach(btn => {
+      btn.style.background = darkModeStored ? '#273244' : '#fff';
+      btn.style.color = darkModeStored ? '#e2e8f0' : '#0f172a';
+    });
+    // Highlight the selected category
+    const selectedBtn = document.querySelector('.settings-category[data-category="appearance"]');
+    if (selectedBtn) {
+      selectedBtn.style.background = darkModeStored ? '#273244' : '#dbeafe';
+      selectedBtn.style.color = darkModeStored ? '#e2e8f0' : '#0f172a';
+    }
+  }, 0);
+}
+initialRender();
 
 // After rendering, update category and selectors for dark mode
 setTimeout(() => {
@@ -400,6 +495,69 @@ document.addEventListener('change', function(e) {
     applyDarkMode(darkMode);
   }
 });
+</script>
+<script>
+(function(){
+  const translations = {
+    "Settings": "设置", "Appearance": "外观", "Account": "账户", "Notifications": "通知", "Search": "搜索", "Homepage": "首页", "Courses": "课程", "Play": "玩", "Preferences": "偏好设置", "Dark Mode": "深色模式", "Enable Dark Mode": "启用深色模式", "Language:": "语言:", "Color Theme:": "主题颜色:", "Email:": "邮箱:", "Password:": "密码:", "Notification Settings": "通知设置", "Email Notifications": "邮件通知", "Push Notifications": "推送通知"
+  };
+  function translateNode(node) {
+    if (node.nodeType === 3) {
+      let text = node.nodeValue;
+      Object.keys(translations).forEach(function(en) {
+        text = text.replace(new RegExp(en, "g"), translations[en]);
+      });
+      node.nodeValue = text;
+    } else if (node.nodeType === 1 && node.childNodes.length) {
+      for (let i = 0; i < node.childNodes.length; i++) {
+        translateNode(node.childNodes[i]);
+      }
+    }
+  }
+  function translateAll() {
+    if (localStorage.getItem("arisEduLanguage") === "chinese") {
+      translateNode(document.body);
+    }
+  }
+  window.addEventListener("DOMContentLoaded", translateAll);
+})();
+</script>
+<script>
+(function(){
+  const translations = {
+    "Settings": "设置", "Appearance": "外观", "Account": "账户", "Notifications": "通知", "Search": "搜索", "Homepage": "首页", "Courses": "课程", "Play": "玩", "Preferences": "偏好设置", "Dark Mode": "深色模式", "Enable Dark Mode": "启用深色模式", "Language:": "语言:", "Color Theme:": "主题颜色:", "Email:": "邮箱:", "Password:": "密码:", "Notification Settings": "通知设置", "Email Notifications": "邮件通知", "Push Notifications": "推送通知", "Lesson": "课", "Summary": "总结", "Game": "游戏", "Unit": "单元", "Login/Signup": "登录/注册", "Homepage": "首页", "Play": "玩", "Courses": "课程", "Account Settings": "账户设置", "Appearance Settings": "外观设置", "Notification Settings": "通知设置", "Email": "邮箱", "Password": "密码", "Push": "推送", "Email": "邮件", "Lesson": "课", "Summary": "总结", "Game": "游戏", "Unit": "单元"
+  };
+  function translateNode(node) {
+    if (node.nodeType === 3) {
+      let text = node.nodeValue;
+      Object.keys(translations).forEach(function(en) {
+        text = text.replace(new RegExp(en, "g"), translations[en]);
+      });
+      node.nodeValue = text;
+    } else if (node.nodeType === 1 && node.childNodes.length) {
+      for (let i = 0; i < node.childNodes.length; i++) {
+        translateNode(node.childNodes[i]);
+      }
+    }
+  }
+  function translateAll() {
+    if (localStorage.getItem("arisEduLanguage") === "chinese") {
+      translateNode(document.body);
+    }
+  }
+  window.addEventListener("DOMContentLoaded", translateAll);
+  // MutationObserver for dynamic content
+  const observer = new MutationObserver(function(mutations) {
+    if (localStorage.getItem("arisEduLanguage") === "chinese") {
+      mutations.forEach(function(mutation) {
+        mutation.addedNodes.forEach(function(node) {
+          translateNode(node);
+        });
+      });
+    }
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
+})();
 </script>
 </body>
 </html>
