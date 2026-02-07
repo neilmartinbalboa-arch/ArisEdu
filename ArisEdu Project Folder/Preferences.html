@@ -3,8 +3,403 @@
 <head>
   <meta charset="UTF-8">
   <title>Preferences</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    .taskbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%);
+      z-index: 1000;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .taskbar-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.5rem 1rem;
+      max-width: 1200px;
+      width: 100%;
+    }
+    .taskbar-button {
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      color: white;
+      font-size: 0.875rem;
+      transition: opacity 0.3s, transform 0.2s;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .taskbar-button:hover {
+      opacity: 0.9;
+      scale: 1.05;
+      background: rgba(255, 255, 255, 0.2);
+    }
+    .settings-menu {
+      width: 13rem;
+      padding: 0.5rem;
+      background: #ffffff;
+      border-radius: 0.5rem;
+      box-shadow: 0 8px 20px rgba(2,6,23,0.12);
+      color: #0f172a;
+      font-size: 0.95rem;
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+      position: absolute;
+      top: 100%;
+      right: 1rem;
+    }
+    body.dark-mode .settings-menu {
+      background: #0f172a;
+      color: #cbd5e1;
+    }
+  </style>
 </head>
 <body>
+<nav class="taskbar">
+  <div class="taskbar-container">
+    <button class="taskbar-button" id="search-button">🔍 Search</button>
+    <a class="taskbar-button" id="homepage-button" href="/index.html">🏠 Homepage</a>
+    <a class="taskbar-button" id="course-button" href="/ArisEdu Project Folder/Courses.html">📚 Courses</a>
+    <a class="taskbar-button" id="play-button" href="/ArisEdu Project Folder/Play.html">▶️ Play</a>
+    <button class="taskbar-button" id="settings-button">⚙️ Settings</button>
+    <a class="taskbar-button" id="login-signup-button" href="/ArisEdu Project Folder/LoginSignup.html">🔐 Login/Signup</a>
+  </div>
+  <div class="settings-menu" id="settings-menu" aria-hidden="true">
+    <div class="settings-item">
+      <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;">
+        <input type="checkbox" id="dark-mode-checkbox" />
+        <span>Dark Mode</span>
+      </label>
+    </div>
+    <a class="settings-item" href="/ArisEdu Project Folder/Preferences.html">Preferences</a>
+  </div>
+</nav>
+<div style="width: 90vw; height: 85vh; margin: 2vh auto; border-radius: 2rem; background: #f8fafc; box-shadow: 0 8px 32px rgba(0,0,0,0.12); font-family: 'Poppins', sans-serif; display: flex; flex-direction: row;">
+  <aside style="width: 18vw; min-width: 220px; background: #e0e7ef; border-radius: 2rem 0 0 2rem; padding: 2rem 1rem; display: flex; flex-direction: column; gap: 1.5rem;">
+    <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem; text-align: left; background: linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent;">Settings</h2>
+    <button class="settings-category" data-category="appearance" style="background: #fff; border: none; border-radius: 0.7rem; padding: 1rem; font-size: 1.1rem; font-weight: 600; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">Appearance</button>
+    <button class="settings-category" data-category="account" style="background: #fff; border: none; border-radius: 0.7rem; padding: 1rem; font-size: 1.1rem; font-weight: 600; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">Account</button>
+    <button class="settings-category" data-category="notifications" style="background: #fff; border: none; border-radius: 0.7rem; padding: 1rem; font-size: 1.1rem; font-weight: 600; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">Notifications</button>
+  </aside>
+  <section id="settings-panel" style="flex: 1; padding: 3rem; display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start;">
+    <!-- Settings options will be rendered here -->
+  </section>
+</div>
+<script>
+const settingsOptions = {
+  appearance: `
+    <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 2rem;">Appearance Settings</h2>
+    <form id="appearance-form">
+      <div style="margin-bottom: 1.5rem;">
+        <label style="display: flex; align-items: center; gap: 0.75rem; font-size: 1.1rem;">
+          <input type="checkbox" id="darkModeToggle" />
+          <span>Enable Dark Mode</span>
+        </label>
+      </div>
+      <div style="margin-bottom: 1.5rem;">
+        <label style="font-size: 1.1rem;">Font Size:
+          <select id="fontSizeSelect" style="margin-left: 0.75rem; padding: 0.3rem 0.6rem; border-radius: 0.4rem;">
+            <option value="small">Small</option>
+            <option value="medium" selected>Medium</option>
+            <option value="large">Large</option>
+          </select>
+        </label>
+      </div>
+      <div style="margin-bottom: 1.5rem;">
+        <label style="font-size: 1.1rem;">Color Theme:
+          <select id="colorThemeSelect" style="margin-left: 0.75rem; padding: 0.3rem 0.6rem; border-radius: 0.4rem;">
+            <option value="blue-green">Blue-Green</option>
+            <option value="purple">Purple</option>
+            <option value="gray">Gray</option>
+          </select>
+        </label>
+      </div>
+    </form>
+  `,
+  account: `
+    <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 2rem;">Account Settings</h2>
+    <form id="account-form">
+      <div style="margin-bottom: 1.5rem;">
+        <label style="font-size: 1.1rem;">Email:
+          <input type="email" id="accountEmail" style="margin-left: 0.75rem; padding: 0.3rem 0.6rem; border-radius: 0.4rem;" placeholder="user@example.com" />
+        </label>
+      </div>
+      <div style="margin-bottom: 1.5rem;">
+        <label style="font-size: 1.1rem;">Password:
+          <input type="password" id="accountPassword" style="margin-left: 0.75rem; padding: 0.3rem 0.6rem; border-radius: 0.4rem;" placeholder="••••••••" />
+        </label>
+      </div>
+    </form>
+  `,
+  notifications: `
+    <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 2rem;">Notification Settings</h2>
+    <form id="notifications-form">
+      <div style="margin-bottom: 1.5rem;">
+        <label style="display: flex; align-items: center; gap: 0.75rem; font-size: 1.1rem;">
+          <input type="checkbox" id="emailNotifToggle" />
+          <span>Email Notifications</span>
+        </label>
+      </div>
+      <div style="margin-bottom: 1.5rem;">
+        <label style="display: flex; align-items: center; gap: 0.75rem; font-size: 1.1rem;">
+          <input type="checkbox" id="pushNotifToggle" />
+          <span>Push Notifications</span>
+        </label>
+      </div>
+    </form>
+  `
+};
 
+function renderSettings(category) {
+  document.getElementById('settings-panel').innerHTML = settingsOptions[category] || '';
+  // Add form logic for each category
+  if (category === 'appearance') {
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const fontSizeSelect = document.getElementById('fontSizeSelect');
+    const colorThemeSelect = document.getElementById('colorThemeSelect');
+    // Set initial values from localStorage
+    if (darkModeToggle) darkModeToggle.checked = localStorage.getItem('arisEduDarkMode') === 'true';
+    if (fontSizeSelect) fontSizeSelect.value = localStorage.getItem('arisEduFontSize') || 'medium';
+    if (colorThemeSelect) colorThemeSelect.value = localStorage.getItem('arisEduColorTheme') || 'blue-green';
+    // Save settings automatically
+    if (darkModeToggle) darkModeToggle.addEventListener('change', function() {
+      localStorage.setItem('arisEduDarkMode', darkModeToggle.checked);
+      applyDarkMode(darkModeToggle.checked);
+    });
+    if (fontSizeSelect) fontSizeSelect.addEventListener('change', function() {
+      localStorage.setItem('arisEduFontSize', fontSizeSelect.value);
+      document.body.style.fontSize = fontSizeSelect.value === 'small' ? '14px' : fontSizeSelect.value === 'medium' ? '16px' : '18px';
+    });
+    if (colorThemeSelect) colorThemeSelect.addEventListener('change', function() {
+      localStorage.setItem('arisEduColorTheme', colorThemeSelect.value);
+      if (colorThemeSelect.value === 'blue-green') {
+        document.body.style.background = darkModeToggle.checked ? '#1e293b' : '#f8fafc';
+      } else if (colorThemeSelect.value === 'purple') {
+        document.body.style.background = darkModeToggle.checked ? '#3b2f6b' : '#ede9fe';
+      } else {
+        document.body.style.background = darkModeToggle.checked ? '#334155' : '#e5e7eb';
+      }
+    });
+  }
+  if (category === 'account') {
+    const accountEmail = document.getElementById('accountEmail');
+    const accountPassword = document.getElementById('accountPassword');
+    if (accountEmail) accountEmail.value = localStorage.getItem('arisEduAccountEmail') || '';
+    if (accountPassword) accountPassword.value = localStorage.getItem('arisEduAccountPassword') || '';
+    if (accountEmail) accountEmail.addEventListener('input', function() {
+      localStorage.setItem('arisEduAccountEmail', accountEmail.value);
+      updateTaskbarUsername();
+    });
+    if (accountPassword) accountPassword.addEventListener('input', function() {
+      localStorage.setItem('arisEduAccountPassword', accountPassword.value);
+    });
+  }
+  // Always update taskbar username after rendering
+  updateTaskbarUsername();
+  if (category === 'notifications') {
+    const emailNotifToggle = document.getElementById('emailNotifToggle');
+    const pushNotifToggle = document.getElementById('pushNotifToggle');
+    if (emailNotifToggle) emailNotifToggle.checked = localStorage.getItem('arisEduEmailNotif') === 'true';
+    if (pushNotifToggle) pushNotifToggle.checked = localStorage.getItem('arisEduPushNotif') === 'true';
+    if (emailNotifToggle) emailNotifToggle.addEventListener('change', function() {
+      localStorage.setItem('arisEduEmailNotif', emailNotifToggle.checked);
+    });
+    if (pushNotifToggle) pushNotifToggle.addEventListener('change', function() {
+      localStorage.setItem('arisEduPushNotif', pushNotifToggle.checked);
+    });
+  }
+}
+
+document.querySelectorAll('.settings-category').forEach(btn => {
+  btn.addEventListener('click', function() {
+    renderSettings(this.dataset.category);
+    document.querySelectorAll('.settings-category').forEach(b => b.style.background = '#fff');
+    this.style.background = '#dbeafe';
+    // Reapply dark mode if enabled
+    const darkModeStored = localStorage.getItem('arisEduDarkMode') === 'true';
+    applyDarkMode(darkModeStored);
+    updateTaskbarUsername();
+  });
+});
+
+function applyDarkMode(darkMode) {
+      // Account input boxes
+      const accountEmail = document.getElementById('accountEmail');
+      const accountPassword = document.getElementById('accountPassword');
+      if (accountEmail) {
+        accountEmail.style.background = darkMode ? '#273244' : '#fff';
+        accountEmail.style.color = darkMode ? '#e2e8f0' : '#0f172a';
+        accountEmail.style.border = darkMode ? '1px solid #334155' : '';
+      }
+      if (accountPassword) {
+        accountPassword.style.background = darkMode ? '#273244' : '#fff';
+        accountPassword.style.color = darkMode ? '#e2e8f0' : '#0f172a';
+        accountPassword.style.border = darkMode ? '1px solid #334155' : '';
+      }
+  if (darkMode) {
+    document.body.classList.add('dark-mode');
+    document.body.style.background = '#1e293b';
+    document.body.style.color = '#e2e8f0';
+    const mainDiv = document.querySelector('body > div');
+    const sidebar = document.querySelector('aside');
+    const panel = document.getElementById('settings-panel');
+    const taskbar = document.querySelector('.taskbar');
+    const taskbarContainer = document.querySelector('.taskbar-container');
+    const settingsMenu = document.getElementById('settings-menu');
+    if (mainDiv) mainDiv.style.background = '#273244';
+    if (sidebar) sidebar.style.background = '#1e293b';
+    if (sidebar) sidebar.style.color = '#e2e8f0';
+    if (panel) panel.style.background = '#273244';
+    if (panel) panel.style.color = '#e2e8f0';
+    if (taskbar) taskbar.style.background = 'linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%)';
+    if (taskbarContainer) taskbarContainer.style.color = '#e2e8f0';
+    if (settingsMenu) {
+      settingsMenu.style.background = '#0f172a';
+      settingsMenu.style.color = '#cbd5e1';
+    }
+    document.querySelectorAll('.taskbar-button').forEach(btn => {
+      btn.style.background = 'rgba(38, 38, 38, 0.2)';
+      btn.style.color = '#e2e8f0';
+    });
+    // Only update category selector button text for dark mode
+    document.querySelectorAll('.settings-category').forEach(btn => {
+      btn.style.color = '#e2e8f0';
+      if (
+        btn.textContent.trim() === 'Appearance' ||
+        btn.textContent.trim() === 'Account' ||
+        btn.textContent.trim() === 'Notifications'
+      ) {
+        btn.style.background = '#273244';
+      }
+    });
+    // Font size and color theme selectors
+    const fontSizeBox = document.getElementById('fontSizeSelect');
+    if (fontSizeBox) fontSizeBox.style.background = '#273244';
+    fontSizeBox && (fontSizeBox.style.color = '#e2e8f0');
+    const colorThemeBox = document.getElementById('colorThemeSelect');
+    if (colorThemeBox) colorThemeBox.style.background = '#273244';
+    colorThemeBox && (colorThemeBox.style.color = '#e2e8f0');
+  } else {
+    document.body.classList.remove('dark-mode');
+    document.body.style.background = '#f8fafc';
+    document.body.style.color = '#0f172a';
+    const mainDiv = document.querySelector('body > div');
+    const sidebar = document.querySelector('aside');
+    const panel = document.getElementById('settings-panel');
+    const taskbar = document.querySelector('.taskbar');
+    const taskbarContainer = document.querySelector('.taskbar-container');
+    const settingsMenu = document.getElementById('settings-menu');
+    if (mainDiv) mainDiv.style.background = '#f8fafc';
+    if (sidebar) sidebar.style.background = '#e0e7ef';
+    if (sidebar) sidebar.style.color = '#0f172a';
+    if (panel) panel.style.background = '#f8fafc';
+    if (panel) panel.style.color = '#0f172a';
+    if (taskbar) taskbar.style.background = 'linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%)';
+    if (taskbarContainer) taskbarContainer.style.color = '#fff';
+    if (settingsMenu) {
+      settingsMenu.style.background = '#ffffff';
+      settingsMenu.style.color = '#0f172a';
+    }
+    document.querySelectorAll('.taskbar-button').forEach(btn => {
+      btn.style.background = 'rgba(255, 255, 255, 0.1)';
+      btn.style.color = '#fff';
+    });
+    // Only revert category selector button text for light mode
+    document.querySelectorAll('.settings-category').forEach(btn => {
+      btn.style.color = '#0f172a';
+      if (
+        btn.textContent.trim() === 'Appearance' ||
+        btn.textContent.trim() === 'Account' ||
+        btn.textContent.trim() === 'Notifications'
+      ) {
+        btn.style.background = '#fff';
+      }
+    });
+    // Font size and color theme selectors
+    const fontSizeBox = document.getElementById('fontSizeSelect');
+    if (fontSizeBox) fontSizeBox.style.background = '#fff';
+    fontSizeBox && (fontSizeBox.style.color = '#0f172a');
+    const colorThemeBox = document.getElementById('colorThemeSelect');
+    if (colorThemeBox) colorThemeBox.style.background = '#fff';
+    colorThemeBox && (colorThemeBox.style.color = '#0f172a');
+  }
+  // Set checkbox state
+  const darkModeCheckbox = document.getElementById('darkModeToggle');
+  if (darkModeCheckbox) darkModeCheckbox.checked = !!darkMode;
+}
+
+// On load, apply dark mode if stored
+const darkModeStored = localStorage.getItem('arisEduDarkMode') === 'true';
+applyDarkMode(darkModeStored);
+// Render default category
+renderSettings('appearance');
+
+// After rendering, update category and selectors for dark mode
+setTimeout(() => {
+  const darkModeStored = localStorage.getItem('arisEduDarkMode') === 'true';
+  document.querySelectorAll('.settings-category').forEach(btn => {
+    if (btn.textContent.trim() === 'Appearance') {
+      btn.style.background = darkModeStored ? '#273244' : '#dbeafe';
+      btn.style.color = darkModeStored ? '#e2e8f0' : '#0f172a';
+    }
+  });
+  const fontSizeBox = document.getElementById('fontSizeSelect');
+  if (fontSizeBox) {
+    fontSizeBox.style.background = darkModeStored ? '#273244' : '#fff';
+    fontSizeBox.style.color = darkModeStored ? '#e2e8f0' : '#0f172a';
+  }
+  const colorThemeBox = document.getElementById('colorThemeSelect');
+  if (colorThemeBox) {
+    colorThemeBox.style.background = darkModeStored ? '#273244' : '#fff';
+    colorThemeBox.style.color = darkModeStored ? '#e2e8f0' : '#0f172a';
+  }
+}, 0);
+function updateTaskbarUsername() {
+  let username = localStorage.getItem('arisEduAccountEmail') || '';
+  // Check for user JSON object
+  const userJson = localStorage.getItem('user');
+  if (userJson) {
+    try {
+      const userObj = JSON.parse(userJson);
+      if (userObj && (userObj.name || userObj.email)) {
+        username = userObj.name || userObj.email;
+      }
+    } catch (e) {}
+  }
+  const loginBtn = document.getElementById('login-signup-button');
+  if (loginBtn) {
+    if (username) {
+      loginBtn.textContent = `👤 ${username}`;
+      loginBtn.href = '#';
+    } else {
+      loginBtn.textContent = '🔐 Login/Signup';
+      loginBtn.href = '/ArisEdu Project Folder/LoginSignup.html';
+    }
+  }
+}
+
+// Listen for dark mode toggle
+document.addEventListener('change', function(e) {
+  if (e.target && e.target.id === 'darkModeToggle') {
+    const darkMode = e.target.checked;
+    localStorage.setItem('arisEduDarkMode', darkMode);
+    applyDarkMode(darkMode);
+  }
+});
+</script>
 </body>
 </html>

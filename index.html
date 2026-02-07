@@ -753,6 +753,31 @@
   })();
 </script>
 <script>
+  // Taskbar username display with emoji
+  (function () {
+    const loginButton = document.getElementById('login-signup-button');
+    if (!loginButton) return;
+    let username = '';
+    const userJson = localStorage.getItem('user');
+    if (userJson) {
+      try {
+        const userObj = JSON.parse(userJson);
+        if (userObj && (userObj.name || userObj.email)) {
+          username = userObj.name || userObj.email;
+        }
+      } catch (e) {}
+    }
+    if (!username) {
+      username = localStorage.getItem('arisEduAccountEmail') || '';
+    }
+    if (username) {
+      loginButton.textContent = `👤 ${username}`;
+      loginButton.href = '#';
+    } else {
+      loginButton.textContent = '🔐 Login/Signup';
+      loginButton.href = '/ArisEdu Project Folder/LoginSignup.html';
+    }
+  })();
   // dark-mode-sync
   (function () {
     const checkbox = document.getElementById('dark-mode-checkbox');
