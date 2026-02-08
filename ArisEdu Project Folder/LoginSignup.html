@@ -1378,6 +1378,15 @@
     <!-- ArisEdu Global Search -->
     <script src="../search_data.js"></script>
     <script src="../search_logic.js"></script>
+    <script>
+      (function() {
+        const theme = localStorage.getItem('arisEduColorTheme') || 'blue-green';
+        const taskbar = document.querySelector('.taskbar');
+        if (taskbar && theme === 'sunset') {
+          taskbar.style.background = 'linear-gradient(to right, #FF7E5F, #00C9A7, #1A2A6C)';
+        }
+      })();
+    </script>
 </body>
 </html>
 

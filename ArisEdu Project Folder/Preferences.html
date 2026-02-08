@@ -92,6 +92,107 @@
       background: #0f172a;
       color: #cbd5e1;
     }
+    
+    /* Custom Select Styles */
+    .custom-select-wrapper {
+        position: relative;
+        user-select: none;
+        width: 100%;
+        max-width: 300px;
+        margin-left: 0.75rem;
+    }
+    .custom-select {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+    .custom-select-trigger {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        font-weight: 500;
+        color: #333;
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    body.dark-mode .custom-select-trigger {
+        background: #273244;
+        color: #e2e8f0;
+        border-color: #334155;
+    }
+    .custom-options {
+        position: absolute;
+        display: block;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        border-top: 0;
+        border-bottom-left-radius: 0.5rem;
+        border-bottom-right-radius: 0.5rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        z-index: 50;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(-10px);
+        transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+        margin-top: 0.5rem;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+    body.dark-mode .custom-options {
+        background: #1e293b;
+        border-color: #334155;
+    }
+    .custom-select.open .custom-options {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: all;
+        transform: translateY(0);
+    }
+    .custom-option {
+        position: relative;
+        display: block;
+        padding: 0.75rem 1rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        border-bottom: 1px solid #f1f5f9;
+        
+        /* Gradient Text Base Styles */
+        background-clip: text !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        color: transparent; 
+    }
+    body.dark-mode .custom-option {
+        border-color: #334155;
+    }
+    .custom-option:last-of-type {
+        border-bottom: 0;
+    }
+    .custom-option:hover {
+        background-color: #f8fafc;
+        transform: padding-left 5px;
+    }
+    body.dark-mode .custom-option:hover {
+        background-color: #334155;
+    }
+    .custom-option.selected {
+        background-color: #f1f5f9;
+    }
+    body.dark-mode .custom-option.selected {
+        background-color: #475569;
+    }
   </style>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
@@ -200,12 +301,33 @@ const settingsOptions = {
           </label>
       </div>
       <div style="margin-bottom: 1.5rem;">
-        <label style="font-size: 1.1rem;">Color Theme:
-          <select id="colorThemeSelect" style="margin-left: 0.75rem; padding: 0.3rem 0.6rem; border-radius: 0.4rem;">
-            <option value="blue-green">Aurora</option>
-            <option value="sunset">Sunset (WIP)</option>
-          </select>
-        </label>
+        <label style="font-size: 1.1rem;">Color Theme:</label>
+        <div class="custom-select-wrapper">
+            <div class="custom-select" id="customThemeSelect">
+                <div class="custom-select-trigger" id="customThemeTrigger">
+                    <span>Select Theme</span>
+                    <div class="arrow">▼</div>
+                </div>
+                <div class="custom-options">
+                    <span class="custom-option" data-value="blue-green" style="background: linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%);">Aurora (Default)</span>
+                    <span class="custom-option" data-value="aurora-veil" style="background: linear-gradient(to right, #32CD32, #00FFFF, #8A2BE2);">Aurora veil</span>
+                    <span class="custom-option" data-value="twilight" style="background: linear-gradient(to right, #50C878, #0F52BA, #FF00FF);">Twilight</span>
+                    <span class="custom-option" data-value="forest" style="background: linear-gradient(to right, #228B22, #87CEEB, #E6E6FA);">Forest mist</span>
+                    <span class="custom-option" data-value="ocean-mist" style="background: linear-gradient(to right, #001F3F, #3D9970, #E0FFFF);">Ocean Mist</span>
+                    <span class="custom-option" data-value="sunset" style="background: linear-gradient(to right, #FF7E5F, #00C9A7, #1A2A6C);">Sunset</span>
+                    <span class="custom-option" data-value="coral" style="background: linear-gradient(to right, #FF6F61, #40E0D0, #4B0082);">Coral reef</span>
+                    <span class="custom-option" data-value="solar" style="background: linear-gradient(to right, #FFD700, #DC143C, #2E0854);">Solar</span>
+                    <span class="custom-option" data-value="autumn" style="background: linear-gradient(to right, #CC5500, #DAA520, #8B4513);">Autumn</span>
+                    <span class="custom-option" data-value="crimson" style="background: linear-gradient(to right, #FFC0CB, #C21E56, #420D09);">Crimson</span>
+                    <span class="custom-option" data-value="sunrise" style="background: linear-gradient(to right, #FFDAB9, #FF7F50, #FFFACD);">Sunrise</span>
+                    <span class="custom-option" data-value="lavender" style="background: linear-gradient(to right, #C8A2C8, #9DC183, #FFFDD0);">Lavender</span>
+                    <span class="custom-option" data-value="monochrome" style="background: linear-gradient(to right, #2C2C2C, #C0C0C0, #FFFFFF);">Monochrome</span>
+                    <span class="custom-option" data-value="cyber" style="background: linear-gradient(to right, #000000, #00FFFF, #FF1493);">Cyber</span>
+                    <span class="custom-option" data-value="horizon" style="background: linear-gradient(to right, #708090, #4682B4, #FFFFF0);">Horizon</span>
+                </div>
+            </div>
+            <input type="hidden" id="colorThemeSelect">  
+        </div>
       </div>
     </form>
   `,
@@ -227,12 +349,33 @@ const settingsOptions = {
           </label>
       </div>
       <div style="margin-bottom: 1.5rem;">
-        <label style="font-size: 1.1rem;">主题颜色:
-          <select id="colorThemeSelect" style="margin-left: 0.75rem; padding: 0.3rem 0.6rem; border-radius: 0.4rem;">
-            <option value="blue-green">极光</option>
-            <option value="sunset">日落 (WIP)</option>
-          </select>
-        </label>
+        <label style="font-size: 1.1rem;">主题颜色:</label>
+        <div class="custom-select-wrapper">
+            <div class="custom-select" id="customThemeSelect">
+                <div class="custom-select-trigger" id="customThemeTrigger">
+                    <span>Select Theme</span>
+                    <div class="arrow">▼</div>
+                </div>
+                <div class="custom-options">
+                    <span class="custom-option" data-value="blue-green" style="background: linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%);">极光 (默认)</span>
+                    <span class="custom-option" data-value="aurora-veil" style="background: linear-gradient(to right, #32CD32, #00FFFF, #8A2BE2);">极光面纱</span>
+                    <span class="custom-option" data-value="twilight" style="background: linear-gradient(to right, #50C878, #0F52BA, #FF00FF);">暮光</span>
+                    <span class="custom-option" data-value="forest" style="background: linear-gradient(to right, #228B22, #87CEEB, #E6E6FA);">迷雾森林</span>
+                    <span class="custom-option" data-value="ocean-mist" style="background: linear-gradient(to right, #001F3F, #3D9970, #E0FFFF);">海洋迷雾</span>
+                    <span class="custom-option" data-value="sunset" style="background: linear-gradient(to right, #FF7E5F, #00C9A7, #1A2A6C);">日落</span>
+                    <span class="custom-option" data-value="coral" style="background: linear-gradient(to right, #FF6F61, #40E0D0, #4B0082);">珊瑚礁</span>
+                    <span class="custom-option" data-value="solar" style="background: linear-gradient(to right, #FFD700, #DC143C, #2E0854);">太阳能</span>
+                    <span class="custom-option" data-value="autumn" style="background: linear-gradient(to right, #CC5500, #DAA520, #8B4513);">秋天</span>
+                    <span class="custom-option" data-value="crimson" style="background: linear-gradient(to right, #FFC0CB, #C21E56, #420D09);">绯红</span>
+                    <span class="custom-option" data-value="sunrise" style="background: linear-gradient(to right, #FFDAB9, #FF7F50, #FFFACD);">日出</span>
+                    <span class="custom-option" data-value="lavender" style="background: linear-gradient(to right, #C8A2C8, #9DC183, #FFFDD0);">薰衣草</span>
+                    <span class="custom-option" data-value="monochrome" style="background: linear-gradient(to right, #2C2C2C, #C0C0C0, #FFFFFF);">单色</span>
+                    <span class="custom-option" data-value="cyber" style="background: linear-gradient(to right, #000000, #00FFFF, #FF1493);">赛博</span>
+                    <span class="custom-option" data-value="horizon" style="background: linear-gradient(to right, #708090, #4682B4, #FFFFF0);">地平线</span>
+                </div>
+            </div>
+            <input type="hidden" id="colorThemeSelect"> 
+        </div>
       </div>
     </form>
   `,
@@ -324,7 +467,72 @@ function renderSettings(category) {
     // Set initial values from localStorage
     if (darkModeToggle) darkModeToggle.checked = localStorage.getItem('arisEduDarkMode') === 'true';
     if (languageSelect) languageSelect.value = localStorage.getItem('arisEduLanguage') || 'english';
-    if (colorThemeSelect) colorThemeSelect.value = localStorage.getItem('arisEduColorTheme') || 'blue-green';
+    
+    // Custom Select Logic
+    if (colorThemeSelect) {
+        const savedTheme = localStorage.getItem('arisEduColorTheme') || 'blue-green';
+        colorThemeSelect.value = savedTheme;
+        
+        const wrapper = document.getElementById('customThemeSelect');
+        const trigger = document.getElementById('customThemeTrigger');
+        const options = wrapper.querySelectorAll('.custom-option');
+        const triggerSpan = trigger.querySelector('span');
+
+        // Set initial trigger text and style
+        const matchingOption = Array.from(options).find(opt => opt.dataset.value === savedTheme);
+        if (matchingOption) {
+            triggerSpan.textContent = matchingOption.textContent;
+            // Apply gradient to trigger text too
+            triggerSpan.style.backgroundImage = matchingOption.style.backgroundImage;
+            triggerSpan.style.backgroundClip = 'text';
+            triggerSpan.style.webkitBackgroundClip = 'text';
+            triggerSpan.style.color = 'transparent';
+            triggerSpan.style.webkitTextFillColor = 'transparent';
+            triggerSpan.style.fontWeight = 'bold';
+        }
+
+        // Toggle dropdown
+        trigger.addEventListener('click', function(e) {
+            wrapper.classList.toggle('open');
+            e.stopPropagation();
+        });
+
+        // Close on outside click
+        document.addEventListener('click', function(e) {
+            if (!wrapper.contains(e.target)) {
+                wrapper.classList.remove('open');
+            }
+        });
+
+        // Handle selection
+        options.forEach(option => {
+            option.addEventListener('click', function() {
+                 const value = this.dataset.value;
+                 
+                 // Update Hidden Input (for compatibility if needed)
+                 colorThemeSelect.value = value;
+                 
+                 // Update visual trigger
+                 triggerSpan.textContent = this.textContent;
+                 triggerSpan.style.backgroundImage = this.style.backgroundImage;
+                 triggerSpan.style.backgroundClip = 'text';
+                 triggerSpan.style.webkitBackgroundClip = 'text';
+                 triggerSpan.style.color = 'transparent';
+                 triggerSpan.style.webkitTextFillColor = 'transparent';
+                 triggerSpan.style.fontWeight = 'bold';
+                 
+                 wrapper.classList.remove('open');
+                 
+                 // Trigger Change Logic
+                 localStorage.setItem('arisEduColorTheme', value);
+                 const darkModeStored = localStorage.getItem('arisEduDarkMode') === 'true';
+                 applyDarkMode(darkModeStored);
+                 // Force global theme update immediately
+                 if (window.applyGlobalTheme) window.applyGlobalTheme();
+            });
+        });
+    }
+
     // Save settings automatically
     if (darkModeToggle) darkModeToggle.addEventListener('change', function() {
       localStorage.setItem('arisEduDarkMode', darkModeToggle.checked);
@@ -356,6 +564,7 @@ function renderSettings(category) {
         }, 5000);
       }
     });
+
   }
   if (category === 'account') {
     const accountEmail = document.getElementById('accountEmail');
@@ -414,70 +623,88 @@ function applyDarkMode(darkMode) {
   }
   document.body.classList.toggle('dark-mode', darkMode);
   let colorTheme = localStorage.getItem('arisEduColorTheme') || 'blue-green';
-  // Only select these once, and do not re-declare below
+  
+  // Elements
   const taskbar = document.querySelector('.taskbar');
   const settingsContainer = document.querySelector('.settings-container');
-  // DEBUG: Log colorTheme and elements
-  console.log('DEBUG 413: colorTheme =', colorTheme);
-  console.log('DEBUG 414: taskbar =', taskbar, 'settingsContainer =', settingsContainer);
-  if (colorTheme === 'blue-green') {
-    document.body.classList.add('aurora-mode');
-    document.body.style.background = '';
-    if (taskbar) taskbar.style.background = 'linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%)';
-    if (settingsContainer) settingsContainer.style.background = darkMode ? '#1e293b' : 'linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%)';
-  } else if (colorTheme === 'sunset') {
-    document.body.classList.remove('aurora-mode');
-    document.body.style.background = 'linear-gradient(to right, #FF7E5F, #00C9A7, #1A2A6C)';
-    if (taskbar) taskbar.style.background = 'linear-gradient(to right, #FF7E5F, #00C9A7, #1A2A6C)';
-    if (settingsContainer) settingsContainer.style.background = darkMode ? '#1e293b' : 'linear-gradient(to right, #FF7E5F, #00C9A7, #1A2A6C)';
-    // DEBUG: Log after setting backgrounds
-    console.log('DEBUG 440: taskbar.style.background =', taskbar ? taskbar.style.background : null, 'settingsContainer.style.background =', settingsContainer ? settingsContainer.style.background : null);
-  } else {
-    document.body.classList.remove('aurora-mode');
-    if (colorTheme === 'purple') {
-      document.body.style.background = darkMode ? '#3b2f6b' : '#ede9fe';
-      console.log('Purple mode: body background set to', document.body.style.background);
-    } else {
-      document.body.style.background = darkMode ? '#1e293b' : '#f8fafc';
-      console.log('Other mode: body background set to', document.body.style.background);
-    }
-    if (taskbar) taskbar.style.background = 'linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%)';
-    if (settingsContainer) settingsContainer.style.background = darkMode ? '#1e293b' : 'transparent';
-    // DEBUG: Log after setting backgrounds
-    console.log('DEBUG 443: taskbar.style.background =', taskbar ? taskbar.style.background : null, 'settingsContainer.style.background =', settingsContainer ? settingsContainer.style.background : null);
-  }
-  document.body.style.color = darkMode ? '#e2e8f0' : '#0f172a';
-  // Remove duplicate re-declarations below
   const sidebar = document.querySelector('aside');
+  const sidebarTitle = document.querySelector('aside h2');
   const panel = document.getElementById('settings-panel');
   const taskbarContainer = document.querySelector('.taskbar-container');
   const settingsMenu = document.getElementById('settings-menu');
-  // Do not re-declare settingsContainer here
-  if (settingsContainer) {
-    // Always use dark mode background for settings container
-    // Only override if not sunset or aurora
-    if (colorTheme !== 'blue-green' && colorTheme !== 'sunset') {
-      settingsContainer.style.background = darkMode ? '#1e293b' : 'transparent';
-    }
-    console.log('settings-container background:', settingsContainer.style.background);
+
+  // Gradients
+  const gradients = {
+    'blue-green': 'linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%)',
+    'sunset': 'linear-gradient(to right, #FF7E5F, #00C9A7, #1A2A6C)',
+    'forest': 'linear-gradient(to right, #228B22, #87CEEB, #E6E6FA)',
+    'aurora-veil': 'linear-gradient(to right, #32CD32, #00FFFF, #8A2BE2)',
+    'coral': 'linear-gradient(to right, #FF6F61, #40E0D0, #4B0082)',
+    'twilight': 'linear-gradient(to right, #50C878, #0F52BA, #FF00FF)',
+    'solar': 'linear-gradient(to right, #FFD700, #DC143C, #2E0854)',
+    'autumn': 'linear-gradient(to right, #CC5500, #DAA520, #8B4513)',
+    'crimson': 'linear-gradient(to right, #FFC0CB, #C21E56, #420D09)',
+    'sunrise': 'linear-gradient(to right, #FFDAB9, #FF7F50, #FFFACD)',
+    'ocean-mist': 'linear-gradient(to right, #001F3F, #3D9970, #E0FFFF)',
+    'lavender': 'linear-gradient(to right, #C8A2C8, #9DC183, #FFFDD0)',
+    'monochrome': 'linear-gradient(to right, #2C2C2C, #C0C0C0, #FFFFFF)',
+    'cyber': 'linear-gradient(to right, #000000, #00FFFF, #FF1493)',
+    'horizon': 'linear-gradient(to right, #708090, #4682B4, #FFFFF0)'
+  };
+
+  // Defaults
+  document.body.classList.remove('aurora-mode');
+  let activeGradient = gradients[colorTheme] || gradients['blue-green'];
+
+  // Theme Logic
+  if (colorTheme === 'blue-green') {
+    document.body.classList.add('aurora-mode');
+    document.body.style.background = ''; // Use CSS default
+  } else {
+    document.body.style.background = activeGradient;
+    // For other themes, apply the active gradient
   }
+  
+  if (settingsContainer) {
+       settingsContainer.style.background = darkMode ? '#1e293b' : activeGradient;
+  }
+  
+  // Apply Common Styles
+  document.body.style.color = darkMode ? '#e2e8f0' : '#0f172a';
+
+  if (taskbar) {
+    taskbar.style.background = activeGradient;
+  }
+
+  if (sidebarTitle) {
+      sidebarTitle.style.background = activeGradient;
+      sidebarTitle.style.webkitBackgroundClip = 'text';
+      sidebarTitle.style.webkitTextFillColor = 'transparent';
+      sidebarTitle.style.backgroundClip = 'text';
+      sidebarTitle.style.color = 'transparent';
+  }
+  
+  // Apply to sidebar buttons if they are active
+  document.querySelectorAll('.settings-category').forEach(btn => {
+      // If button is active (blue/selected), change its background
+      // Note: This relies on the inline style being set to '#dbeafe' or dark mode
+      // But we might want to highlight the active tab with the gradient in future
+  });
+  
   if (sidebar) {
     sidebar.style.background = darkMode ? '#273244' : '#e0e7ef';
     sidebar.style.color = darkMode ? '#e2e8f0' : '#0f172a';
-    console.log('aside background:', sidebar.style.background);
   }
+  
   if (panel) {
     panel.style.background = 'transparent';
     panel.style.color = darkMode ? '#e2e8f0' : '#0f172a';
   }
-  if (taskbar) {
-    if (colorTheme === 'sunset') {
-      taskbar.style.background = 'linear-gradient(to right, #FF7E5F, #00C9A7, #1A2A6C)';
-    } else {
-      taskbar.style.background = 'linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%)';
-    }
+  
+  if (taskbarContainer) {
+    taskbarContainer.style.color = darkMode ? '#e2e8f0' : '#fff';
   }
-  if (taskbarContainer) taskbarContainer.style.color = darkMode ? '#e2e8f0' : '#fff';
+  
   if (settingsMenu) {
     settingsMenu.style.background = darkMode ? '#0f172a' : '#ffffff';
     settingsMenu.style.color = darkMode ? '#cbd5e1' : '#0f172a';

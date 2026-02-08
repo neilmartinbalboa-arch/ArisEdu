@@ -598,6 +598,24 @@
     // Set dark mode active by default
     document.body.classList.add('dark-mode');
     document.getElementById('dark-mode-checkbox').checked = true;
+
+    // Apply additional theme settings (like sunset gradient)
+    function applyTheme() {
+        const theme = localStorage.getItem('arisEduColorTheme') || 'blue-green';
+        const taskbar = document.querySelector('.taskbar');
+        const gradientElements = document.querySelectorAll('.gradient-bg'); // Future proofing
+
+        if (taskbar) {
+            if (theme === 'sunset') {
+                const sunset = 'linear-gradient(to right, #FF7E5F, #00C9A7, #1A2A6C)';
+                taskbar.style.background = sunset;
+            } else {
+                // Default aurora gradient
+                taskbar.style.background = 'linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%)';
+            }
+        }
+    }
+    applyTheme();
   </script>
   <script>
   // login-signup-account-display
@@ -801,5 +819,7 @@
     });
   })();
 </script>
+<script src="search_data.js"></script>
+<script src="search_logic.js"></script>
 </body>
 </html>
