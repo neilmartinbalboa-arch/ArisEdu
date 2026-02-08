@@ -1168,6 +1168,7 @@
     }
 
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
  <body class="h-full">
   <nav class="taskbar">
@@ -1302,12 +1303,155 @@
       <h2 class="page-title">Lesson 1.2 States Of Matter And Phase Changes Practice</h2>
       <div class="diagram-card">
         <p>Practice content could not be parsed.</p>
-        <div class="Practice-actions" style="margin-top:2rem;display:flex;justify-content:flex-end;width:100%;">
+        
+        <div id="climb-game-container" style="display:none; width:100%;">        <div id="climb-game-ui" style="display:none; height: 100%; display:flex; flex-direction:column; position:relative; overflow:hidden; background-color: #e2e8f0; border-radius: 1rem; height: 64rem; font-family: 'Orbitron', sans-serif;">
+            <div id="climb-space-bg" style="position:absolute; top:0; left:0; width:100%; height:100%; background: radial-gradient(ellipse at bottom, #1e293b 0%, #020617 100%); z-index:0; overflow:hidden;">
+                <!-- Stars container -->
+                <div id="climb-stars" style="position:absolute; top:0; left:0; width:100%; height:100%;"></div>
+                <!-- Planet 1 (Greenish) -->
+                <div class="climb-planet" style="position:absolute; top:15%; left:10%; width:100px; height:100px; border-radius:50%; background: linear-gradient(135deg, #4ade80, #166534); box-shadow: inset -20px -20px 40px rgba(0,0,0,0.5), 0 0 20px rgba(74, 222, 128, 0.3); opacity:0.9; animation: floatPlanet 20s infinite ease-in-out;"></div>
+                <!-- Planet 2 (Reddish Giant) -->
+                <div class="climb-planet" style="position:absolute; bottom:20%; right:15%; width:180px; height:180px; border-radius:50%; background: linear-gradient(135deg, #fca5a5, #991b1b); box-shadow: inset -30px -30px 60px rgba(0,0,0,0.5), 0 0 30px rgba(248, 113, 113, 0.3); opacity:0.8; animation: floatPlanet 25s infinite ease-in-out reverse;"></div>
+                <!-- Planet 3 (Small Yellow Moon) -->
+                <div class="climb-planet" style="position:absolute; top:40%; right:30%; width:40px; height:40px; border-radius:50%; background: #fbbf24; box-shadow: 0 0 15px #fbbf24; opacity:0.9; animation: floatPlanet 15s infinite ease-in-out;"></div>
+            </div>
+
+                        <button id="climb-fullscreen-btn" onclick="toggleClimbFullscreen()" style="position:absolute; bottom:1rem; right:1rem; z-index:50; background:rgba(255,255,255,0.9); border:none; border-radius:50%; width:3rem; height:3rem; cursor:pointer; box-shadow:0 4px 6px rgba(0,0,0,0.1); display:flex; align-items:center; justify-content:center; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'" title="Toggle Fullscreen">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#334155" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2-2h3"/></svg>
+            </button>
+<!-- Moving Background (The Ladder) -->
+            <div id="climb-ladder-bg" style="position:absolute; top:0; left:0; width:100%; height:200%; background: repeating-linear-gradient(180deg, #94a3b8 0, #94a3b8 2px, transparent 2px, transparent 40px); opacity:0.3; animation: slideLadder 10s linear infinite;"></div>
+            
+            <!-- Header / Status -->
+            <div id="climb-header" style="z-index:10; padding:1rem; background:rgba(255,255,255,0.95); display:flex; justify-content:space-between; align-items:center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <span id="climb-score" style="font-weight: bold; color: #334155;">Score: 0</span>
+                
+                <button onclick="resetToClimbMenu()" style="background:#ef4444; color:white; border:none; padding: 0.5rem 1rem; border-radius: 0.5rem; cursor:pointer; font-weight: 600; margin-right: 0.5rem;">Restart</button>
+                <button id="climb-pause-btn" onclick="toggleClimbPause()" style="background:#f59e0b; color:white; border:none; padding: 0.5rem 1rem; border-radius: 0.5rem; cursor:pointer; font-weight: 600;">Pause</button>
+            </div>
+
+            <!-- Game Area -->
+            <div style="flex:1; position:relative; width:100%; overflow:hidden;">
+                                  <!-- Fuel Bar -->
+                 <div id="climb-fuel-text" style="position:absolute; left:2rem; bottom:calc(2rem + 605px); width:60px; text-align:center; font-weight:bold; font-size:1rem; color:#334155; white-space:nowrap; z-index:20;">Fuel Bar</div>
+                 <div id="climb-fuel-container" style="position:absolute; bottom:2rem; left:2rem; width:60px; height:600px; background:rgba(255,255,255,0.3); border:2px solid #334155; border-radius:10px; overflow:hidden; z-index:10; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+<div id="climb-fuel-fill" style="position:absolute; bottom:0; left:0; width:100%; height:50%; background:linear-gradient(to top, #f59e0b, #ef4444); transition: height 0.5s ease;"></div>
+                 </div>
+                 <!-- Player -->
+                 <div id="climb-player" style="position:absolute; bottom:35%; left:50%; transform:translateX(-50%); width:240px; height:240px; transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 5;"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));">
+  <!-- Left Fin -->
+  <path d="M18 42 L 8 58 L 22 58 L 24 48 Z" fill="#ef4444" stroke="#991b1b" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- Right Fin -->
+  <path d="M46 42 L 56 58 L 42 58 L 40 48 Z" fill="#ef4444" stroke="#991b1b" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- Main Body -->
+  <ellipse cx="32" cy="32" rx="14" ry="28" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>
+  <!-- Window -->
+  <circle cx="32" cy="24" r="7" fill="#3b82f6" stroke="#1d4ed8" stroke-width="1.5"/>
+  <circle cx="33" cy="22" r="2.5" fill="white" opacity="0.6"/>
+  <!-- Engine Flame -->
+  <path id="climb-flame-outer" d="M26 56 Q 32 72 38 56" fill="#f59e0b" stroke="#d97706" stroke-width="1" style="transform-origin: 32px 56px; transition: transform 0.1s ease-out;"/><path id="climb-flame-inner" d="M29 56 Q 32 66 35 56" fill="#fef3c7" style="transform-origin: 32px 56px; transition: transform 0.1s ease-out;"/>
+</svg></div>
+                 
+            </div>
+
+            <!-- Interaction Area (Question) -->
+                        <!-- Overlay: Start Screen -->
+            <div id="climb-start-screen" style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); z-index:60; background:rgba(255,255,255,0.95); padding:2rem; border-radius:1rem; box-shadow:0 10px 25px rgba(0,0,0,0.2); width:80%; max-width:400px; text-align:center; border:1px solid #cbd5e1; display:flex; flex-direction:column; align-items:center;">
+                <h3 style="color:#1e293b; margin-top:0;">Ready to Fly?</h3>
+                <p style="color:#64748b; margin-bottom:1.5rem;">Answer correctly to fly up against the moving ladder!</p>
+                <div style="font-size:0.9rem; color:#64748b; margin-bottom:1rem;">Spacebar = Boost (Uses Fuel)<br>Correct Answer = +Fuel</div>
+                <button onclick="startClimbGame()" style="background:#0f172a; color:white; padding:0.75rem 2rem; border:none; border-radius:0.5rem; cursor:pointer; font-weight:600; font-size:1.1rem; transition: background 0.2s;">Start Flying</button>
+            </div>
+
+            <!-- Overlay: Game Over -->
+            <div id="climb-game-over" style="display:none; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); z-index:60; background:rgba(255,255,255,0.95); padding:2rem; border-radius:1rem; box-shadow:0 10px 25px rgba(0,0,0,0.2); width:80%; max-width:400px; text-align:center; border:1px solid #cbd5e1; flex-direction:column; align-items:center;">
+                <h3 id="climb-result-title" style="font-size: 1.5rem; margin-bottom: 0.5rem; color:#1e293b;">Game Over!</h3>
+                <p id="climb-final-score" style="color:#64748b; margin-bottom: 1.5rem;"></p>
+                <div style="display:flex; gap:0.5rem; justify-content:center; flex-wrap:wrap;">
+                    <button onclick="startClimbGame()" style="background:#10b981; color:white; padding:0.75rem 1.5rem; border:none; border-radius:0.5rem; cursor:pointer; font-weight:600;">Play Again</button>
+                    <button onclick="alert('Leaderboard coming soon!')" style="background:#f59e0b; color:white; padding:0.75rem 1.5rem; border:none; border-radius:0.5rem; cursor:pointer; font-weight:600; display:flex; align-items:center; gap:0.5rem;">🏆 Leaderboard</button>
+                </div>
+            </div>
+            <!-- Overlay: Pause Screen -->
+            <div id="climb-paused-screen" style="display:none; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); z-index:60; background:rgba(255,255,255,0.95); padding:2rem; border-radius:1rem; box-shadow:0 10px 25px rgba(0,0,0,0.2); width:80%; max-width:400px; text-align:center; border:1px solid #cbd5e1; flex-direction:column; align-items:center;">
+                <h3 style="color:#1e293b; margin-top:0;">Game Paused</h3>
+                <button onclick="toggleClimbPause()" style="background:#f59e0b; color:white; padding:0.75rem 2rem; border:none; border-radius:0.5rem; cursor:pointer; font-weight:600; font-size:1.1rem; transition: background 0.2s;">Resume</button>
+            </div>
+
+            <!-- Interaction Area (Question Only) -->
+            <div id="climb-interaction" style="position: absolute; position: absolute; z-index:20; background:rgba(255,255,255,0.95); padding:1.5rem; border-radius:1rem; box-shadow:0 10px 25px rgba(0,0,0,0.2); border:1px solid #cbd5e1; min-height: 200px; display:none; flex-direction:column; justify-content:center; top: 50%; right: 2rem; transform: translateY(-50%); width: 300px">
+                <div id="climb-question-area" style="display:block; text-align:center; width:100%; max-width:600px; margin:0 auto;">
+                    <p id="climb-question-text" style="font-weight:bold; margin-bottom:1.5rem; font-size:1.1rem; color: #1e293b; line-height:1.5;"></p>
+                    <div id="climb-options" style="display:grid; gap:0.75rem; grid-template-columns: 1fr;">
+                        <!-- Buttons injected here -->
+                    </div>
+                    <div id="climb-feedback" style="margin-top:1rem; height:1.5rem; font-weight:bold;"></div>
+                </div>
+            </div>
+            
+            
+            
+            <style>
+                
+                @keyframes twinkle { 0% { opacity:0.3; transform:scale(0.8); } 100% { opacity:1; transform:scale(1.2); } }
+                @keyframes floatPlanet { 0% { transform:translateY(0px); } 50% { transform:translateY(-20px); } 100% { transform:translateY(0px); } }
+
+@keyframes slideLadder {
+                    from { background-position: 0 0; }
+                    to { background-position: 0 40px; } /* Moves down 40px (one rung spacing) */
+                }
+                .climb-option-btn {
+                    background: #f1f5f9;
+                    border: 2px solid #e2e8f0;
+                    padding: 0.75rem;
+                    border-radius: 0.5rem;
+                    cursor: pointer;
+                    font-size: 1rem;
+                    color: #334155;
+                    transition: all 0.2s;
+                    text-align: left;
+                }
+                .climb-option-btn:hover {
+                    background: #e2e8f0;
+                    border-color: #cbd5e1;
+                }
+            
+                /* Light Mode Support (Day Sky) */
+                body:not(.dark-mode) #climb-space-bg {
+                    background: radial-gradient(ellipse at bottom, #bae6fd 0%, #0369a1 100%) !important;
+                }
+                body:not(.dark-mode) #climb-stars div {
+                    opacity: 0.3 !important;
+                }
+                
+                /* Dark Mode Support */
+                body.dark-mode #climb-game-ui { background-color: #0f172a !important; }
+                body.dark-mode #climb-ladder-bg { background-image: repeating-linear-gradient(180deg, #334155 0, #334155 2px, transparent 2px, transparent 40px) !important; opacity: 0.2 !important; }
+                body.dark-mode #climb-header { background: rgba(15, 23, 42, 0.95) !important; box-shadow: 0 2px 4px rgba(0,0,0,0.3) !important; }
+                body.dark-mode #climb-score { color: #e2e8f0 !important; }
+                body.dark-mode #climb-interaction { background: #1e293b !important; border-color: #334155 !important; }
+                body.dark-mode #climb-start-screen h3, body.dark-mode #climb-game-over h3, body.dark-mode #climb-paused-screen h3 { color: #f8fafc !important; }
+                body.dark-mode #climb-start-screen p, body.dark-mode #climb-game-over p, body.dark-mode #climb-question-text { color: #cbd5e1 !important; }
+                body.dark-mode .climb-option-btn { background: #334155 !important; border-color: #475569 !important; color: #e2e8f0 !important; }
+                body.dark-mode .climb-option-btn:hover { background: #475569 !important; border-color: #64748b !important; }
+                body.dark-mode #climb-fullscreen-btn { background: rgba(30, 41, 59, 0.9) !important; }
+                body.dark-mode #climb-fullscreen-btn svg { stroke: #e2e8f0 !important; }
+                body.dark-mode #climb-start-screen, body.dark-mode #climb-game-over, body.dark-mode #climb-paused-screen { background: rgba(30, 41, 59, 0.95) !important; border-color: #475569 !important; }
+                body.dark-mode #climb-start-screen div { color: #cbd5e1 !important; }
+                body.dark-mode #climb-fuel-text { color: #e2e8f0 !important; }
+
+</style>
+        </div></div>
+        </div>
+<div class="Practice-actions" style="margin-top:2rem;display:flex;justify-content:flex-end;width:100%;">
           <div class="Practices-menu" style="position:relative;">
             <button class="side-button view-other-Practices" type="button" onclick="window.togglePracticesPanel(this)">Other practices</button>
             <div class="Practices-panel" aria-hidden="true">
               <div class="Practices-panel-item">
                 <a href="#flashcard-game">Flashcard Game</a>
+              </div>
+              <div class="Practices-panel-item">
+                <a href="#climb">Boost</a>
               </div>
             </div>
           </div>
@@ -2085,6 +2229,10 @@
         });
       
       if (shuffleFlashcardBtn) shuffleFlashcardBtn.addEventListener('click', () => {
+          if (isFlipping) return;
+          isFlipping = true;
+
+          // 1. Shuffle Data
           function shuffleArray(array) {
             let arr = array.slice();
             for (let i = arr.length - 1; i > 0; i--) {
@@ -2095,12 +2243,452 @@
           }
           flashcardOrder = shuffleArray(flashcardOrder);
           currentFlashcard = 0;
-          updateFlashcard();
-      });
+
+          // 2. Visual Scramble Animation
+          const container = flashcardDiv.parentElement;
+          if (getComputedStyle(container).position === 'static') {
+              container.style.position = 'relative';
+          }
+
+          // Create clones to simulate a deck being mixed
+          const numClones = 3;
+          const clones = [];
+
+          flashcardDiv.style.transition = 'all 0.3s ease';
+          flashcardDiv.style.zIndex = '10';
+
+          for (let i = 0; i < numClones; i++) {
+              const clone = flashcardDiv.cloneNode(true);
+              clone.removeAttribute('id');
+              clone.style.position = 'absolute';
+              clone.style.left = flashcardDiv.offsetLeft + 'px';
+              clone.style.top = flashcardDiv.offsetTop + 'px';
+              clone.style.width = flashcardDiv.offsetWidth + 'px';
+              clone.style.height = flashcardDiv.offsetHeight + 'px';
+              clone.style.zIndex = '5';
+              clone.style.transition = 'all 0.3s ease';
+              clone.style.opacity = '1';
+              
+              // Remove duplicate IDs from children
+              clone.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
+              
+              container.appendChild(clone);
+              clones.push(clone);
+          }
+
+          // Trigger Scatter
+          requestAnimationFrame(() => {
+              // Shake main card
+              flashcardDiv.style.transform = `translate(${Math.random()*30-15}px, ${Math.random()*30-15}px) rotate(${Math.random()*10-5}deg)`;
+
+              // Scatter clones randomly
+              clones.forEach((clone) => {
+                  const x = (Math.random() * 120 - 60);
+                  const y = (Math.random() * 80 - 40);
+                  const rot = (Math.random() * 40 - 20);
+                  clone.style.transform = `translate(${x}px, ${y}px) rotate(${rot}deg) scale(0.95)`;
+                  clone.style.opacity = '0.8';
+                  clone.style.boxShadow = '0 10px 20px rgba(0,0,0,0.2)';
+              });
+          });
+
+          // Converge and Cleanup
+          setTimeout(() => {
+             updateFlashcard();
+
+             flashcardDiv.style.transform = 'translate(0,0) rotate(0deg)';
+             clones.forEach(clone => {
+                 clone.style.transform = 'translate(0,0) rotate(0) scale(1)';
+                 clone.style.opacity = '0';
+             });
+
+             setTimeout(() => {
+                 clones.forEach(c => c.remove());
+                 flashcardDiv.style.zIndex = '';
+                 isFlipping = false;
+             }, 300);
+          }, 300);
+        });
 
       updateFlashcard();
       flashcardsInitialized = true;
   };
+</script>
+
+
+<script>
+  window.switchToClimb = function() {
+    const flashcardGame = document.querySelector('.flashcard-game');
+    const climbGame = document.getElementById('climb-game-container');
+    if(flashcardGame) flashcardGame.style.display = 'none';
+    if(climbGame) { climbGame.style.display = 'block'; if(window.initClimbGame) window.initClimbGame(); }
+  };
+
+  window.switchToFlashcards = function() {
+    const flashcardGame = document.querySelector('.flashcard-game');
+    const climbGame = document.getElementById('climb-game-container');
+    if(flashcardGame) flashcardGame.style.display = 'flex';
+    if(climbGame) climbGame.style.display = 'none';
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Attach listeners to practice menu items
+    
+    // Climb Link
+    document.querySelectorAll('a[href="#climb"]').forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.switchToClimb();
+        // Close menu if possible
+        if (window.togglePracticesPanel && el.closest('.Practices-menu')) {
+             const btn = el.closest('.Practices-menu').querySelector('.view-other-Practices');
+             if(btn) window.togglePracticesPanel(btn);
+        }
+      });
+    });
+
+    // Flashcard Link
+    document.querySelectorAll('a[href="#flashcard-game"]').forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.switchToFlashcards();
+        // Close menu if possible
+         if (window.togglePracticesPanel && el.closest('.Practices-menu')) {
+             const btn = el.closest('.Practices-menu').querySelector('.view-other-Practices');
+             if(btn) window.togglePracticesPanel(btn);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+// Climb Game Logic
+(function() {
+    let climbScore = 0;
+    
+    let playerPosition = 35; // percent from bottom
+    let isGameRunning = false; let isPaused = false; let spacePressed = false;
+    let gameLoopId = null;
+    let currentQuestion = null;
+    document.addEventListener('keydown', (e) => { if(e.code === 'Space') { spacePressed = true; if(isGameRunning) e.preventDefault(); } });
+    document.addEventListener('keyup', (e) => { if(e.code === 'Space') spacePressed = false; });
+    let climbFuel = 50; let downwardAccel = 0;
+    
+    // Config
+    const WIN_HEIGHT = 90; // percent
+    const CLIMB_STEP = 15; // percent
+    const FALL_RATE = 0.04; // percent per tick (simulates moving ladder)
+    const TICK_RATE = 20; // ms
+    
+    window.initClimbGame = function() {
+    const bg = document.getElementById('climb-stars');
+    if(bg && bg.innerHTML === '') {
+        for(let i=0; i<60; i++) {
+            const m = document.createElement('div');
+            m.style.position = 'absolute';
+            m.style.left = Math.random()*100 + '%';
+            m.style.top = Math.random()*100 + '%';
+            const size = Math.random()*2 + 1;
+            m.style.width = size + 'px';
+            m.style.height = size + 'px';
+            m.style.background = '#fff';
+            m.style.borderRadius = '50%';
+            m.style.opacity = Math.random()*0.7 + 0.3;
+            m.style.animation = `twinkle ${Math.random()*4+2}s infinite alternate ease-in-out`;
+            bg.appendChild(m);
+        }
+    }
+
+        const ui = document.getElementById('climb-game-ui');
+        if(ui) ui.style.display = 'flex';
+        const interaction = document.getElementById('climb-interaction'); if(interaction) interaction.style.display = 'none';
+        const start = document.getElementById('climb-start-screen'); if(start) start.style.display = 'flex';
+    }
+
+    
+    window.toggleClimbFullscreen = function() {
+        const elem = document.getElementById('climb-game-ui');
+        if (!document.fullscreenElement) {
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen().catch(err => {
+                    console.error(`Error attempting to enable fullscreen: ${err.message}`);
+                });
+            } else if (elem.webkitRequestFullscreen) { /* Safari */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE11 */
+                elem.msRequestFullscreen();
+            }
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) { /* Safari */
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) { /* IE11 */
+                document.msExitFullscreen();
+            }
+        }
+    };
+window.exitClimbGame = function() {
+        const ui = document.getElementById('climb-game-ui');
+        if(ui) ui.style.display = 'none';
+        isGameRunning = false;
+        if(gameLoopId) clearInterval(gameLoopId);
+        window.switchToFlashcards();
+    }
+
+    
+    window.toggleClimbPause = function() {
+        if (!isGameRunning && !isPaused) return;
+        isPaused = !isPaused;
+        const btn = document.getElementById('climb-pause-btn');
+        if (btn) btn.innerText = isPaused ? "Resume" : "Pause";
+        
+        const pauseScreen = document.getElementById('climb-paused-screen');
+        if(pauseScreen) pauseScreen.style.display = isPaused ? 'flex' : 'none';
+    };
+
+    
+    window.resetToClimbMenu = function() {
+        isGameRunning = false;
+        isPaused = false;
+        if(gameLoopId) clearInterval(gameLoopId);
+        
+        document.getElementById('climb-game-ui').style.display = 'flex';
+        document.getElementById('climb-start-screen').style.display = 'flex';
+        document.getElementById('climb-game-over').style.display = 'none';
+        document.getElementById('climb-interaction').style.display = 'none';
+        
+        const pauseScreen = document.getElementById('climb-paused-screen');
+        if(pauseScreen) pauseScreen.style.display = 'none';
+        
+        const pBtn = document.getElementById('climb-pause-btn');
+        if(pBtn) pBtn.innerText = "Pause";
+        
+        const interaction = document.getElementById('climb-interaction');
+        if (interaction) interaction.style.opacity = "1";
+    }
+
+    window.startClimbGame = function() {
+        isPaused = false;
+        const pBtn = document.getElementById('climb-pause-btn');
+        if(pBtn) pBtn.innerText = "Pause";
+        const interaction = document.getElementById('climb-interaction');
+        if (interaction) interaction.style.opacity = "1";
+
+        // Reset State
+        climbScore = 0;
+        climbFuel = 50;
+        
+        playerPosition = 35;
+        isGameRunning = true;
+        
+        document.getElementById('climb-start-screen').style.display = 'none';
+        document.getElementById('climb-game-over').style.display = 'none';
+        document.getElementById('climb-question-area').style.display = 'block';
+        document.getElementById('climb-interaction').style.display = 'flex';
+        
+        updateDisplay();
+        nextClimbQuestion();
+        
+        // Start "Ladder Going Down" Mechanics
+        if(gameLoopId) clearInterval(gameLoopId);
+        gameLoopId = setInterval(gameLoop, TICK_RATE);
+    }
+    
+    function gameLoop() {
+        if(!isGameRunning || isPaused) return;
+        
+        const isBoosting = spacePressed && climbFuel > 0;
+        if(isBoosting) {
+            playerPosition = Math.min(95, playerPosition + 0.5);
+            climbFuel = Math.max(0, climbFuel - 0.2);
+            if(typeof updateFuelDisplay === 'function') updateFuelDisplay();
+        }
+        
+        // Visual Boost Effect
+        const fOut = document.getElementById('climb-flame-outer');
+        const fIn = document.getElementById('climb-flame-inner');
+        if(fOut && fIn) {
+            const scale = isBoosting ? "scale(1.2, 2.0)" : "scale(1, 1)";
+            fOut.style.transform = scale;
+            fIn.style.transform = scale;
+        }
+
+        
+        // Ladder moves down, so character moves down relative to viewport if they don't climb
+        // Or simply: Gravity pulls them down
+        let effectiveFall = FALL_RATE;
+        if (climbFuel <= 0) {
+            downwardAccel += 0.007;
+            effectiveFall += downwardAccel;
+        } else {
+            downwardAccel = 0;
+        }
+        playerPosition -= effectiveFall;
+        climbFuel = Math.max(0, climbFuel - 0.1); // Faster at higher levels?
+        
+        if (playerPosition <= 0) {
+            endGame();
+        }
+        
+        updatePlayerPos();
+        updateFuelDisplay();
+    }
+    
+    function updateDisplay() {
+        document.getElementById('climb-score').innerText = `Score: ${climbScore}`;
+        
+        updatePlayerPos();
+        updateFuelDisplay();
+    }
+    
+        function updateFuelDisplay() {
+        const fill = document.getElementById('climb-fuel-fill');
+        if(fill) fill.style.height = `${climbFuel}%`;
+    }
+    
+    function updatePlayerPos() {
+        const player = document.getElementById('climb-player');
+        if(player) player.style.bottom = `${Math.max(0, playerPosition)}%`;
+    }
+    
+    function nextClimbQuestion() {
+        const feedback = document.getElementById('climb-feedback');
+        feedback.innerText = '';
+        feedback.className = '';
+        
+        if (!window.lessonFlashcards || window.lessonFlashcards.length === 0) {
+            document.getElementById('climb-question-text').innerText = "No flashcards found for this lesson!";
+            return;
+        }
+        
+        // Pick random question
+        const qIdx = Math.floor(Math.random() * window.lessonFlashcards.length);
+        currentQuestion = window.lessonFlashcards[qIdx];
+        
+        document.getElementById('climb-question-text').innerText = currentQuestion.question;
+        
+        // Generate Distractors
+        const options = [currentQuestion.answer];
+        
+        // Try to get 2 unique distractors
+        const maxDistractors = Math.min(2, window.lessonFlashcards.length - 1);
+        const usedIndices = new Set([qIdx]);
+        
+        while(options.length < 1 + maxDistractors) {
+            const dIdx = Math.floor(Math.random() * window.lessonFlashcards.length);
+            if(!usedIndices.has(dIdx)) {
+                options.push(window.lessonFlashcards[dIdx].answer);
+                usedIndices.add(dIdx);
+            }
+        }
+        
+        // Shuffle Options
+        for (let i = options.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [options[i], options[j]] = [options[j], options[i]];
+        }
+        
+        // Render Options
+        const optionsContainer = document.getElementById('climb-options');
+        optionsContainer.innerHTML = '';
+        
+        options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = 'climb-option-btn';
+            btn.innerText = opt;
+            btn.onclick = () => handleClimbAnswer(opt);
+            optionsContainer.appendChild(btn);
+        });
+    }
+    
+    function handleClimbAnswer(selected) { if(isPaused) return;
+        if(!isGameRunning || isPaused) return;
+        
+        const isBoosting = spacePressed && climbFuel > 0;
+        if(isBoosting) {
+            playerPosition = Math.min(95, playerPosition + 0.5);
+            climbFuel = Math.max(0, climbFuel - 0.2);
+            if(typeof updateFuelDisplay === 'function') updateFuelDisplay();
+        }
+        
+        // Visual Boost Effect
+        const fOut = document.getElementById('climb-flame-outer');
+        const fIn = document.getElementById('climb-flame-inner');
+        if(fOut && fIn) {
+            const scale = isBoosting ? "scale(1.2, 2.0)" : "scale(1, 1)";
+            fOut.style.transform = scale;
+            fIn.style.transform = scale;
+        }
+
+        
+        const feedback = document.getElementById('climb-feedback');
+        
+        if(selected === currentQuestion.answer) {
+            // Correct
+            climbScore += 10;
+            climbFuel = Math.min(100, climbFuel + 20);
+            // playerPosition += CLIMB_STEP; // Disabled for manual boost
+            feedback.innerText = "Correct! Adding fuel...";
+            feedback.style.color = "#16a34a";
+            
+            
+            
+        } else {
+            // Incorrect
+            playerPosition -= 5; // Slip down
+            feedback.innerText = "Oops! Slipping down...";
+            feedback.style.color = "#dc2626";
+        }
+        
+        updateDisplay();
+        
+        // Disable buttons temporarily
+        const btns = document.querySelectorAll('.climb-option-btn');
+        btns.forEach(b => b.disabled = true);
+        
+        setTimeout(() => {
+            nextClimbQuestion();
+        }, 1000);
+    }
+    
+        function endGame() {
+        isGameRunning = false;
+        clearInterval(gameLoopId);
+        
+        document.getElementById('climb-question-area').style.display = 'none';
+        document.getElementById('climb-interaction').style.display = 'none';
+        const gameOverScreen = document.getElementById('climb-game-over');
+        gameOverScreen.style.display = 'flex';
+        
+        const title = document.getElementById('climb-result-title');
+        const msg = document.getElementById('climb-final-score');
+        
+        // High Score Logic
+        let storageKey = 'climbHighScore';
+        try {
+            const currentUser = JSON.parse(localStorage.getItem('user'));
+            if(currentUser && currentUser.email) {
+                storageKey = 'climbHighScore_' + currentUser.email;
+            }
+        } catch(e) { console.error(e); }
+
+        let highScore = localStorage.getItem(storageKey) || 0;
+        highScore = parseInt(highScore);
+        if(climbScore > highScore) {
+            highScore = climbScore;
+            localStorage.setItem(storageKey, highScore);
+            title.innerText = "🏆 New High Score! 🏆";
+            title.style.color = "#f59e0b";
+        } else {
+            title.innerText = "Game Over";
+            title.style.color = "#1e293b";
+        }
+        
+        msg.innerHTML = `Score: ${climbScore}<br><span style="font-size:0.9em; color:#64748b">Best: ${highScore}</span>`;
+    }
+})();
 </script>
 
 </body>

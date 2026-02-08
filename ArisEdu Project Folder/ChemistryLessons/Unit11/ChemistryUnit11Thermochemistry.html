@@ -242,6 +242,7 @@ body.dark-mode .course-box {
     }
 
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
  <body class="h-full">
   <nav class="taskbar">
@@ -603,5 +604,346 @@ body.dark-mode .course-box {
     });
   });
 </script>
+
+<script>
+  window.switchToClimb = function() {
+    const flashcardGame = document.querySelector('.flashcard-game');
+    const climbGame = document.getElementById('climb-game-container');
+    if(flashcardGame) flashcardGame.style.display = 'none';
+    if(climbGame) { climbGame.style.display = 'block'; if(window.initClimbGame) window.initClimbGame(); }
+  };
+
+  window.switchToFlashcards = function() {
+    const flashcardGame = document.querySelector('.flashcard-game');
+    const climbGame = document.getElementById('climb-game-container');
+    if(flashcardGame) flashcardGame.style.display = 'flex';
+    if(climbGame) climbGame.style.display = 'none';
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Attach listeners to practice menu items
+    
+    // Climb Link
+    document.querySelectorAll('a[href="#climb"]').forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.switchToClimb();
+        // Close menu if possible
+        if (window.togglePracticesPanel && el.closest('.Practices-menu')) {
+             const btn = el.closest('.Practices-menu').querySelector('.view-other-Practices');
+             if(btn) window.togglePracticesPanel(btn);
+        }
+      });
+    });
+
+    // Flashcard Link
+    document.querySelectorAll('a[href="#flashcard-game"]').forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.switchToFlashcards();
+        // Close menu if possible
+         if (window.togglePracticesPanel && el.closest('.Practices-menu')) {
+             const btn = el.closest('.Practices-menu').querySelector('.view-other-Practices');
+             if(btn) window.togglePracticesPanel(btn);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+// Climb Game Logic
+(function() {
+    let climbScore = 0;
+    let climbLevel = 1;
+    let playerPosition = 35; // percent from bottom
+    let isGameRunning = false; let isPaused = false; let spacePressed = false;
+    let gameLoopId = null;
+    let currentQuestion = null;
+    document.addEventListener('keydown', (e) => { if(e.code === 'Space') { spacePressed = true; if(isGameRunning) e.preventDefault(); } });
+    document.addEventListener('keyup', (e) => { if(e.code === 'Space') spacePressed = false; });
+    let climbFuel = 50; let downwardAccel = 0;
+    
+    // Config
+    const WIN_HEIGHT = 90; // percent
+    const CLIMB_STEP = 15; // percent
+    const FALL_RATE = 0.04; // percent per tick (simulates moving ladder)
+    const TICK_RATE = 20; // ms
+    
+    window.initClimbGame = function() {
+    const bg = document.getElementById('climb-stars');
+    if(bg && bg.innerHTML === '') {
+        for(let i=0; i<60; i++) {
+            const m = document.createElement('div');
+            m.style.position = 'absolute';
+            m.style.left = Math.random()*100 + '%';
+            m.style.top = Math.random()*100 + '%';
+            const size = Math.random()*2 + 1;
+            m.style.width = size + 'px';
+            m.style.height = size + 'px';
+            m.style.background = '#fff';
+            m.style.borderRadius = '50%';
+            m.style.opacity = Math.random()*0.7 + 0.3;
+            m.style.animation = `twinkle ${Math.random()*4+2}s infinite alternate ease-in-out`;
+            bg.appendChild(m);
+        }
+    }
+
+        const ui = document.getElementById('climb-game-ui');
+        if(ui) ui.style.display = 'flex';
+    }
+
+    
+    window.toggleClimbFullscreen = function() {
+        const elem = document.getElementById('climb-game-ui');
+        if (!document.fullscreenElement) {
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen().catch(err => {
+                    console.error(`Error attempting to enable fullscreen: ${err.message}`);
+                });
+            } else if (elem.webkitRequestFullscreen) { /* Safari */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE11 */
+                elem.msRequestFullscreen();
+            }
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) { /* Safari */
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) { /* IE11 */
+                document.msExitFullscreen();
+            }
+        }
+    };
+window.exitClimbGame = function() {
+        const ui = document.getElementById('climb-game-ui');
+        if(ui) ui.style.display = 'none';
+        isGameRunning = false;
+        if(gameLoopId) clearInterval(gameLoopId);
+        window.switchToFlashcards();
+    }
+
+    
+    window.toggleClimbPause = function() {
+        if (!isGameRunning && !isPaused) return;
+        isPaused = !isPaused;
+        const btn = document.getElementById('climb-pause-btn');
+        if (btn) btn.innerText = isPaused ? "Resume" : "Pause";
+        
+        const pauseScreen = document.getElementById('climb-paused-screen');
+        if(pauseScreen) pauseScreen.style.display = isPaused ? 'flex' : 'none';
+    };
+
+    
+    window.resetToClimbMenu = function() {
+        isGameRunning = false;
+        isPaused = false;
+        if(gameLoopId) clearInterval(gameLoopId);
+        
+        document.getElementById('climb-game-ui').style.display = 'flex';
+        document.getElementById('climb-start-screen').style.display = 'flex';
+        document.getElementById('climb-game-over').style.display = 'none';
+        document.getElementById('climb-interaction').style.display = 'none';
+        
+        const pauseScreen = document.getElementById('climb-paused-screen');
+        if(pauseScreen) pauseScreen.style.display = 'none';
+        
+        const pBtn = document.getElementById('climb-pause-btn');
+        if(pBtn) pBtn.innerText = "Pause";
+        
+        const interaction = document.getElementById('climb-interaction');
+        if (interaction) interaction.style.opacity = "1";
+    }
+
+    window.startClimbGame = function() {
+        isPaused = false;
+        const pBtn = document.getElementById('climb-pause-btn');
+        if(pBtn) pBtn.innerText = "Pause";
+        const interaction = document.getElementById('climb-interaction');
+        if (interaction) interaction.style.opacity = "1";
+
+        // Reset State
+        climbScore = 0;
+        climbFuel = 50;
+        climbLevel = 1;
+        playerPosition = 35;
+        isGameRunning = true;
+        
+        document.getElementById('climb-start-screen').style.display = 'none';
+        document.getElementById('climb-game-over').style.display = 'none';
+        document.getElementById('climb-question-area').style.display = 'block';
+        
+        updateDisplay();
+        nextClimbQuestion();
+        
+        // Start "Ladder Going Down" Mechanics
+        if(gameLoopId) clearInterval(gameLoopId);
+        gameLoopId = setInterval(gameLoop, TICK_RATE);
+    }
+    
+    function gameLoop() {
+        if(!isGameRunning || isPaused) return;
+        if(spacePressed && climbFuel > 0) {
+            playerPosition += 0.5;
+            climbFuel = Math.max(0, climbFuel - 0.2);
+            if(typeof updateFuelDisplay === 'function') updateFuelDisplay();
+            if(playerPosition >= WIN_HEIGHT) { endGame(true); return; }
+        }
+        
+        // Ladder moves down, so character moves down relative to viewport if they don't climb
+        // Or simply: Gravity pulls them down
+        let effectiveFall = FALL_RATE * climbLevel;
+        if (climbFuel <= 0) effectiveFall *= 2;
+        playerPosition -= effectiveFall;
+        climbFuel = Math.max(0, climbFuel - 0.1); // Faster at higher levels?
+        
+        if (playerPosition <= 0) {
+            endGame(false);
+        }
+        
+        updatePlayerPos();
+        updateFuelDisplay();
+    }
+    
+    function updateDisplay() {
+        document.getElementById('climb-score').innerText = `Score: ${climbScore}`;
+        document.getElementById('climb-level').innerText = `Level: ${climbLevel}`;
+        updatePlayerPos();
+        updateFuelDisplay();
+    }
+    
+        function updateFuelDisplay() {
+        const fill = document.getElementById('climb-fuel-fill');
+        if(fill) fill.style.height = `${climbFuel}%`;
+    }
+    
+    function updatePlayerPos() {
+        const player = document.getElementById('climb-player');
+        if(player) player.style.bottom = `${Math.max(0, playerPosition)}%`;
+    }
+    
+    function nextClimbQuestion() {
+        const feedback = document.getElementById('climb-feedback');
+        feedback.innerText = '';
+        feedback.className = '';
+        
+        if (!window.lessonFlashcards || window.lessonFlashcards.length === 0) {
+            document.getElementById('climb-question-text').innerText = "No flashcards found for this lesson!";
+            return;
+        }
+        
+        // Pick random question
+        const qIdx = Math.floor(Math.random() * window.lessonFlashcards.length);
+        currentQuestion = window.lessonFlashcards[qIdx];
+        
+        document.getElementById('climb-question-text').innerText = currentQuestion.question;
+        
+        // Generate Distractors
+        const options = [currentQuestion.answer];
+        
+        // Try to get 2 unique distractors
+        const maxDistractors = Math.min(2, window.lessonFlashcards.length - 1);
+        const usedIndices = new Set([qIdx]);
+        
+        while(options.length < 1 + maxDistractors) {
+            const dIdx = Math.floor(Math.random() * window.lessonFlashcards.length);
+            if(!usedIndices.has(dIdx)) {
+                options.push(window.lessonFlashcards[dIdx].answer);
+                usedIndices.add(dIdx);
+            }
+        }
+        
+        // Shuffle Options
+        for (let i = options.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [options[i], options[j]] = [options[j], options[i]];
+        }
+        
+        // Render Options
+        const optionsContainer = document.getElementById('climb-options');
+        optionsContainer.innerHTML = '';
+        
+        options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = 'climb-option-btn';
+            btn.innerText = opt;
+            btn.onclick = () => handleClimbAnswer(opt);
+            optionsContainer.appendChild(btn);
+        });
+    }
+    
+    function handleClimbAnswer(selected) { if(isPaused) return;
+        if(!isGameRunning || isPaused) return;
+        if(spacePressed && climbFuel > 0) {
+            playerPosition += 0.5;
+            climbFuel = Math.max(0, climbFuel - 0.2);
+            if(typeof updateFuelDisplay === 'function') updateFuelDisplay();
+            if(playerPosition >= WIN_HEIGHT) { endGame(true); return; }
+        }
+        
+        const feedback = document.getElementById('climb-feedback');
+        
+        if(selected === currentQuestion.answer) {
+            // Correct
+            climbScore += 10;
+            climbFuel = Math.min(100, climbFuel + 20);
+            // playerPosition += CLIMB_STEP; // Disabled for manual boost
+            feedback.innerText = "Correct! Adding fuel...";
+            feedback.style.color = "#16a34a";
+            
+            // Level Up logic
+            if(climbScore > 0 && climbScore % 50 === 0) {
+                climbLevel++;
+                playerPosition += 5; // Bonus boost
+            }
+            
+            if(playerPosition >= WIN_HEIGHT) {
+                endGame(true);
+                return;
+            }
+            
+        } else {
+            // Incorrect
+            playerPosition -= 5; // Slip down
+            feedback.innerText = "Oops! Slipping down...";
+            feedback.style.color = "#dc2626";
+        }
+        
+        updateDisplay();
+        
+        // Disable buttons temporarily
+        const btns = document.querySelectorAll('.climb-option-btn');
+        btns.forEach(b => b.disabled = true);
+        
+        setTimeout(() => {
+            nextClimbQuestion();
+        }, 1000);
+    }
+    
+    function endGame(win) {
+        isGameRunning = false;
+        clearInterval(gameLoopId);
+        
+        document.getElementById('climb-question-area').style.display = 'none';
+        const gameOverScreen = document.getElementById('climb-game-over');
+        gameOverScreen.style.display = 'block';
+        
+        const title = document.getElementById('climb-result-title');
+        const msg = document.getElementById('climb-final-score');
+        
+        if(win) {
+            title.innerText = "🎉 You Reached the Top! 🎉";
+            title.style.color = "#16a34a";
+            msg.innerText = `Final Score: ${climbScore} | Level Reached: ${climbLevel}`;
+        } else {
+            title.innerText = "Game Over!";
+            title.style.color = "#dc2626";
+            msg.innerText = `You fell off the ladder! Final Score: ${climbScore}`;
+        }
+    }
+})();
+</script>
+
 </body>
 </html>
