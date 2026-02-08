@@ -97,6 +97,7 @@
 <body>
 <nav class="taskbar">
   <div class="taskbar-container">
+      <button class="taskbar-button" id="back-to-courses-btn" style="order:0;">← Back to Courses</button>
     <button class="taskbar-button" id="search-button">🔍 Search</button>
     <a class="taskbar-button" id="homepage-button" href="/index.html">🏠 Homepage</a>
     <a class="taskbar-button" id="course-button" href="/ArisEdu Project Folder/Courses.html">📚 Courses</a>
@@ -128,6 +129,10 @@
   </section>
 </div>
 <script>
+    // Back to Courses button handler
+    document.getElementById('back-to-courses-btn').onclick = function() {
+      window.location.href = '/ArisEdu Project Folder/Courses.html';
+    };
 // Sidebar and taskbar translations
 const sidebarLabels = {
   english: {

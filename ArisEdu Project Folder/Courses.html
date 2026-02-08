@@ -312,14 +312,14 @@
  <body class="h-full"><!-- Taskbar -->
   <nav class="taskbar">
     <div class="taskbar-container">
-    
+        <button class="taskbar-button" id="back-to-courses-btn" style="order:0;">← Back to Courses</button>
+      <button class="taskbar-button" id="back-to-courses-button" style="display:none;">← Back to Courses</button>
       <button class="taskbar-button" id="search-button">🔍 Search</button>
       <a class="taskbar-button" id="homepage-button" href="/index.html">🏠 Homepage</a>
       <a class="taskbar-button" id="course-button" href="/ArisEdu Project Folder/Courses.html">📚 Courses</a>
       <a class="taskbar-button" id="play-button" href="/ArisEdu Project Folder/Play.html">▶️ Play</a>
       <button class="taskbar-button" id="settings-button">⚙️ Settings</button>
       <a class="taskbar-button" id="login-signup-button" href="/ArisEdu Project Folder/LoginSignup.html">🔐 Login/Signup</a>
-
     </div>
     <div class="settings-menu" id="settings-menu" aria-hidden="true">
       <div class="settings-item">
@@ -344,36 +344,73 @@
         <div class="courses-section">
           <h2 class="courses-section-title">Mathematics</h2>
           <div class="courses-grid">
-            <div class="course-box">
-              <a href="algebra1.html">High School Algebra 1(WIP)</a>
-            </div>
-            <div class="course-box">
-              <a href="algebra2.html">High School Algebra 2(WIP)</a>
-            </div>
-            <div class="course-box">
-              <a href="geometry.html">High School Geometry (WIP)</a>
-            </div>
+            <div class="course-box"><a id="algebra1-link" href="algebra1.html">High School Algebra 1(WIP)</a></div>
+            <div class="course-box"><a id="algebra2-link" href="algebra2.html">High School Algebra 2(WIP)</a></div>
+            <div class="course-box"><a id="geometry-link" href="geometry.html">High School Geometry (WIP)</a></div>
           </div>
         </div>
         <!-- Science Section -->
         <div class="courses-section">
           <h2 class="courses-section-title">Science</h2>
           <div class="courses-grid">
-            <div class="course-box">
-              <a href="physics.html">High School Physics</a>
-            </div>
-            <div class="course-box">
-              <a href="chem.html">High School Chemistry</a>
-            </div>
-            <div class="course-box">
-              <a href="bio.html">High School Biology (WIP)</a>
-            </div>
+            <div class="course-box"><a id="physics-link" href="physics.html">High School Physics</a></div>
+            <div class="course-box"><a id="chem-link" href="chem.html">High School Chemistry</a></div>
+            <div class="course-box"><a id="bio-link" href="bio.html">High School Biology (WIP)</a></div>
           </div>
         </div>
       </div>
     </div>
   </main>
   <script>
+            // Back to Courses button handler
+            document.getElementById('back-to-courses-btn').onclick = function() {
+              window.location.href = '/ArisEdu Project Folder/Courses.html';
+            };
+        courseLinks.forEach(({id, file}) => {
+          const link = document.getElementById(id);
+          if (link) {
+            link.addEventListener('click', function(e) {
+              e.preventDefault();
+              fetch(file)
+                .then(response => response.text())
+                .then(html => {
+                  const tempDiv = document.createElement('div');
+                  tempDiv.innerHTML = html;
+                  const courseMain = tempDiv.querySelector('.main-container');
+                  const courseStyle = tempDiv.querySelector('style');
+                  if (courseMain) {
+                    const mainContainer = document.querySelector('.main-container');
+                    // Show Back to Courses button in taskbar
+                    const backBtn = document.getElementById('back-to-courses-button');
+                    if (backBtn) {
+                      backBtn.style.display = '';
+                      backBtn.onclick = function() {
+                        window.location.reload();
+                      };
+                    }
+                    mainContainer.innerHTML = '';
+                    Array.from(courseMain.childNodes).forEach(node => mainContainer.appendChild(node.cloneNode(true)));
+                        // Hide Back to Courses button when not viewing a course
+                        window.addEventListener('DOMContentLoaded', () => {
+                          const backBtn = document.getElementById('back-to-courses-button');
+                          if (backBtn) backBtn.style.display = 'none';
+                        });
+                    // Remove previous course style if exists
+                    const prevStyle = document.getElementById('course-style');
+                    if (prevStyle) prevStyle.remove();
+                    // Inject course style
+                    if (courseStyle) {
+                      courseStyle.id = 'course-style';
+                      document.head.appendChild(courseStyle.cloneNode(true));
+                    }
+                  } else {
+                    alert('Could not load course content.');
+                  }
+                })
+                .catch(() => alert('Failed to load course content.'));
+            });
+          }
+        });
     // Taskbar Button Handlers
     document.getElementById('homepage-button').addEventListener('click', () => {
     
