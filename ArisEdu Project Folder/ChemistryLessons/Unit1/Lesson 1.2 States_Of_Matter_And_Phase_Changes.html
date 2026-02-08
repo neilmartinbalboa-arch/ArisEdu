@@ -2132,6 +2132,19 @@ body.dark-mode #quiz-content-view .quiz-question {
 
 
 <script>
+  const flashcards = [
+    { question: "Which state of matter has a definite shape and volume?", answer: "Solid" },
+    { question: "Which state of matter has a definite volume but takes the shape of its container?", answer: "Liquid" },
+    { question: "Which phase change turns a liquid into a gas?", answer: "Vaporization" },
+    { question: "Which phase change turns a solid directly into a gas?", answer: "Sublimation" },
+    { question: "Which state of matter consists of ionized gas?", answer: "Plasma" },
+    { question: "What is the process of a gas turning into a liquid?", answer: "Condensation" },
+    { question: "What happens to the kinetic energy of particles as temperature increases?", answer: "It increases" },
+    { question: "Which phase change turns a liquid into a solid?", answer: "Freezing" },
+    { question: "Which state of matter expands to fill its container?", answer: "Gas" },
+    { question: "What is the direct transition from gas to solid called?", answer: "Deposition" }
+  ];
+  window.lessonFlashcards = flashcards;
   let flashcardsInitialized = false;
   window.initFlashcards = function() {
       if (flashcardsInitialized) return;

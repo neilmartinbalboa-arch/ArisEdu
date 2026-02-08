@@ -2281,43 +2281,17 @@ body.dark-mode #quiz-content-view .quiz-question {
       if (flashcardsInitialized) return;
       
       const flashcards = [
-          {
-            question: "What are the properties of solids?",
-            answer: "Solids have definite shape and volume."
-          },
-          {
-            question: "What are the properties of liquids?",
-            answer: "Liquids have definite volume but shape depends on container."
-          },
-          {
-            question: "What are the properties of gases?",
-            answer: "Gases have no definite shape or volume."
-          },
-          {
-            question: "How are the atoms arranged in a solid?",
-            answer: "Atoms are packed closely together in fixed positions."
-          },
-          {
-            question: "How are the atoms arranged in a liquid?",
-            answer: "Atoms are close together but not fixed in place. They can move around each other."
-          },
-          {
-            question: "Fixed volume and fixed shape are the properties of a _",
-            answer: "Solid."
-          },
-          {
-            question: "Fixed volume but no fixed shape are the properties of a _",
-            answer: "Liquid."
-          },
-          {
-            question: "No fixed volume or shape are the properties of a _",
-            answer: "Gas."
-          },
-          {
-            question: "What is the only state of matter that is compressable?",
-            answer: "Gas."
-          }
-        ];
+          { question: "What is an intensive property?", answer: "A property that does NOT depend on the amount of matter" },
+          { question: "What is an extensive property?", answer: "A property that DOES depend on the amount of matter" },
+          { question: "Is density intensive or extensive?", answer: "Intensive" },
+          { question: "Is mass intensive or extensive?", answer: "Extensive" },
+          { question: "Is boiling point intensive or extensive?", answer: "Intensive" },
+          { question: "Is volume intensive or extensive?", answer: "Extensive" },
+          { question: "Is color intensive or extensive?", answer: "Intensive" },
+          { question: "Is solubility intensive or extensive?", answer: "Intensive" },
+          { question: "Is length intensive or extensive?", answer: "Extensive" },
+          { question: "Does cutting a wire change its conductivity?", answer: "No, conductivity is intensive" }
+      ];
         window.lessonFlashcards = flashcards; 
       
       let currentFlashcard = 0;

@@ -2063,43 +2063,17 @@ body.dark-mode #quiz-content-view .quiz-question {
       if (flashcardsInitialized) return;
       
       const flashcards = [
-          {
-            question: "What are the properties of solids?",
-            answer: "Solids have definite shape and volume."
-          },
-          {
-            question: "What are the properties of liquids?",
-            answer: "Liquids have definite volume but shape depends on container."
-          },
-          {
-            question: "What are the properties of gases?",
-            answer: "Gases have no definite shape or volume."
-          },
-          {
-            question: "How are the atoms arranged in a solid?",
-            answer: "Atoms are packed closely together in fixed positions."
-          },
-          {
-            question: "How are the atoms arranged in a liquid?",
-            answer: "Atoms are close together but not fixed in place. They can move around each other."
-          },
-          {
-            question: "Fixed volume and fixed shape are the properties of a _",
-            answer: "Solid."
-          },
-          {
-            question: "Fixed volume but no fixed shape are the properties of a _",
-            answer: "Liquid."
-          },
-          {
-            question: "No fixed volume or shape are the properties of a _",
-            answer: "Gas."
-          },
-          {
-            question: "What is the only state of matter that is compressable?",
-            answer: "Gas."
-          }
-        ];
+          { question: "What is a physical change?", answer: "A change that does not alter the composition of the substance" },
+          { question: "What is a chemical change?", answer: "A change that produces new substances" },
+          { question: "Is rusting a physical or chemical change?", answer: "Chemical" },
+          { question: "Is melting ice a physical or chemical change?", answer: "Physical" },
+          { question: "Is burning wood a physical or chemical change?", answer: "Chemical" },
+          { question: "Is dissolving sugar in water a physical or chemical change?", answer: "Physical" },
+          { question: "Name one sign of a chemical change.", answer: "Color change, gas production, or precipitate formation" },
+          { question: "Is digesting food a physical or chemical change?", answer: "Chemical" },
+          { question: "Is boiling water a physical or chemical change?", answer: "Physical" },
+          { question: "Is tarnishing silver a physical or chemical change?", answer: "Chemical" }
+      ];
         window.lessonFlashcards = flashcards; 
       
       let currentFlashcard = 0;

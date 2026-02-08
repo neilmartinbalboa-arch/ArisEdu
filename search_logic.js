@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 'ocean-mist': 'linear-gradient(to right, #001F3F, #3D9970, #E0FFFF)',
                 'lavender': 'linear-gradient(to right, #C8A2C8, #9DC183, #FFFDD0)',
                 'monochrome': 'linear-gradient(to right, #2C2C2C, #C0C0C0, #FFFFFF)',
-                'cyber': 'linear-gradient(to right, #000000, #00FFFF, #FF1493)',
+                'cyber': 'linear-gradient(to right, #000000, #00FFFF)',
                 'horizon': 'linear-gradient(to right, #708090, #4682B4, #FFFFF0)'
             };
 

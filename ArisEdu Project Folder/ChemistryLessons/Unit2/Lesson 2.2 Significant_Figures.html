@@ -2074,43 +2074,14 @@ body.dark-mode #quiz-content-view .quiz-question {
       if (flashcardsInitialized) return;
       
       const flashcards = [
-          {
-            question: "What are the properties of solids?",
-            answer: "Solids have definite shape and volume."
-          },
-          {
-            question: "What are the properties of liquids?",
-            answer: "Liquids have definite volume but shape depends on container."
-          },
-          {
-            question: "What are the properties of gases?",
-            answer: "Gases have no definite shape or volume."
-          },
-          {
-            question: "How are the atoms arranged in a solid?",
-            answer: "Atoms are packed closely together in fixed positions."
-          },
-          {
-            question: "How are the atoms arranged in a liquid?",
-            answer: "Atoms are close together but not fixed in place. They can move around each other."
-          },
-          {
-            question: "Fixed volume and fixed shape are the properties of a _",
-            answer: "Solid."
-          },
-          {
-            question: "Fixed volume but no fixed shape are the properties of a _",
-            answer: "Liquid."
-          },
-          {
-            question: "No fixed volume or shape are the properties of a _",
-            answer: "Gas."
-          },
-          {
-            question: "What is the only state of matter that is compressable?",
-            answer: "Gas."
-          }
-        ];
+          { question: "How many sig figs in 0.0050?", answer: "2" },
+          { question: "How many sig figs in 100.0?", answer: "4" },
+          { question: "How many sig figs in 405?", answer: "3" },
+          { question: "How many sig figs in 1000?", answer: "1 (ambiguous, usually 1 unless marked)" },
+          { question: "Rule for multiplying sig figs?", answer: "Answer limited by term with fewest sig figs" },
+          { question: "Rule for adding sig figs?", answer: "Answer limited by least precise decimal place" },
+          { question: "How many sig figs in 0.02020?", answer: "4" }
+      ];
         window.lessonFlashcards = flashcards; 
       
       let currentFlashcard = 0;
