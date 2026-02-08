@@ -3,140 +3,28 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>High School Chemistry</title>
+  <title>High School: Chemistry</title>
   <script src="/_sdk/element_sdk.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&amp;display=swap" rel="stylesheet">
   <style>
-    :root {
-      --flask-border: #22223b;
-      --flask-bg: #f8fafc;
-    }
-    body.dark-mode {
-      --flask-border: #f8fafc;
-      --flask-bg: #273244;
-    }
-            .unit1-title {
-                position: static;
-                margin-bottom: 0.5rem;
-                text-align: left;
-                align-self: flex-start;
-              font-weight: 700;
-              font-size: 1.3rem;
-              color: inherit;
-              background: transparent;
-              padding: 0.15rem 1.2rem;
-              border-radius: 1rem;
-              z-index: 10;
-              pointer-events: auto;
-              box-shadow: none;
-            }
-        /* Chemistry flask shape for Unit 1 */
-        .flask-container {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          /* Remove position:absolute; */
-        }
-        .flask-neck {
-          width: 60px;
-          height: 30px;
-          background: var(--flask-bg);
-          border: 2px solid var(--flask-border);
-          border-radius: 20px 20px 20px 20px;
-          margin-bottom: -10px;
-          z-index: 2;
-          box-shadow: 0 2px 8px rgba(59,130,246,0.15);
-        }
-        .flask-body {
-          /* ...existing code... */
-                  .flask-liquid {
-                    position: absolute;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    height: 91.4%;
-                    background: #b0b0b0;
-                    border-radius: 0 0 110px 110px;
-                    z-index: 1;
-                    opacity: 0.7;
-                    overflow: hidden;
-                  }
-                  .flask-liquid-wave {
-                    position: absolute;
-                    left: 0;
-                    right: 0;
-                    top: 0;
-                    width: 100%;
-                    height: 40px;
-                    pointer-events: none;
-                    background: transparent;
-                  }
-                  .wave-svg {
-                    width: 100%;
-                    height: 100%;
-                    display: block;
-                  }
-                  .wave-path {
-                    animation: waveMove 2.5s linear infinite;
-                    fill: #b0b0b0;
-                    opacity: 0.7;
-                  }
-                  @keyframes waveMove {
-                    0% { transform: translateX(0); }
-                    100% { transform: translateX(-40px); }
-                  }
-          width: 7rem;
-          min-height: 70px;
-          height: 30rem;
-          background: var(--flask-bg);
-          border: 2px solid var(--flask-border);
-          border-bottom-width: 12px;
-          border-radius: 0 0 110px 110px;
-          box-shadow: 0 6px 24px rgba(59,130,246,0.18);
-          padding: 2rem 1rem 1.5rem 1rem;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          position: relative;
-          z-index: 1;
-        }
-        .lesson-links {
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          gap: 0.5rem;
-        }
-        .lesson-link {
-          background: rgba(255,255,255,0.85);
-          color: #3b82f6;
-          border-radius: 0.5rem;
-          padding: 0.5rem 1rem;
-          font-weight: 600;
-          text-align: center;
-          text-decoration: none;
-          transition: background 0.2s, color 0.2s;
-          box-shadow: 0 2px 8px rgba(59,130,246,0.08);
-        }
-        .lesson-link:hover {
-          background: #3b82f6;
-          color: #fff;
-        }
     body {
       box-sizing: border-box;
+      background-color: white;
       color: #0f172a;
     }
-    
+
     .logo-font {
       font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
-    
+
     .main-container {
       height: 100%;
       width: 100%;
       padding: 5rem 2rem 2rem 2rem;
       overflow: auto;
     }
+
     .company-title {
       font-size: 5rem;
       font-weight: 700;
@@ -146,6 +34,7 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
+
     .taskbar {
       position: fixed;
       top: 0;
@@ -158,7 +47,7 @@
       flex-direction: column;
       align-items: center;
     }
-    
+
     .taskbar-container {
       display: flex;
       justify-content: center;
@@ -168,7 +57,7 @@
       max-width: 1200px;
       width: 100%;
     }
-    
+
     .taskbar-button {
       padding: 0.5rem 1rem;
       border-radius: 0.5rem;
@@ -183,7 +72,7 @@
       align-items: center;
       gap: 0.5rem;
     }
-    
+
     .taskbar-button:hover {
       opacity: 0.9;
       scale: 1.05;
@@ -217,14 +106,18 @@
       color: #e2e8f0;
     }
     .courses-container {
-      background: #f8fafc;
+      background: rgba(255, 255, 255, 0.95);
       border-radius: 2rem;
-      border: 2px solid rgba(226, 232, 240, 0.8);
-      min-height: 70rem;
+      height:32rem;
       padding: 2rem;
       margin-bottom: 2rem;
-      position: relative;
     }
+    body.dark-mode .courses-container {
+      background: #273244;
+      border: 2px solid rgba(226, 232, 240, 0.22);
+    }
+
+
 
     .courses-section {
       margin-bottom: 2rem;
@@ -233,65 +126,40 @@
     .courses-section-title {
       font-size: 1.5rem;
       font-weight: 700;
-      color: #1e293b;
+      color: white;
       margin-bottom: 1rem;
-    }
-
-    body.dark-mode .courses-container {
-      background: #273244;
-      border: 2px solid rgba(226, 232, 240, 0.22);
-    }
-
-    body.dark-mode .courses-section-title {
-      color: #f8fafc;
     }
 
     .courses-grid {
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 1rem;
     }
-
     .course-box {
-      background: #fff !important;
+      background: linear-gradient(#3b82f6 0%, #10b981 50%, #8b5cf6 100%);
       border-radius: 0.75rem;
       padding: 1.5rem;
       text-align: center;
       transition: all 0.3s ease;
       cursor: pointer;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      color: #f8fafc;
+      color: #ffffff;
     }
-
     .course-box:hover {
       transform: translateY(-4px);
       box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-      background: #e0e7ef !important;
+      background: linear-gradient(#3b82f6 0%, #10b981 50%, #8b5cf6 100%);
+      filter: brightness(1.05);
     }
-
     .course-box a {
       text-decoration: none;
-      color: #f8fafc;
+      color: #ffffff;
       font-size: 1.125rem;
       font-weight: 600;
       display: block;
     }
-
     .course-box a:hover {
-      color: #e2e8f0;
-    }
-
-    body.dark-mode .course-box {
-      background: #273244 !important;
-      color: #f8fafc;
-    }
-
-    body.dark-mode .course-box a {
-      color: #f8fafc;
-    }
-
-    body.dark-mode .course-box a:hover {
-      color: #e2e8f0;
+      color: #ffffff;
     }
 
   </style>
@@ -299,365 +167,68 @@
  <body class="h-full">
   <nav class="taskbar">
     <div class="taskbar-container">
-      <button class="taskbar-button" id="back-to-courses-btn" style="order:0;">← Back to Courses</button>
       <button class="taskbar-button" id="search-button">🔍 Search</button>
       <a class="taskbar-button" id="homepage-button" href="/index.html">🏠 Homepage</a>
       <a class="taskbar-button" id="course-button" href="/ArisEdu Project Folder/Courses.html">📚 Courses</a>
       <a class="taskbar-button" id="play-button" href="/ArisEdu Project Folder/Play.html">▶️ Play</a>
       <button class="taskbar-button" id="settings-button">⚙️ Settings</button>
       <a class="taskbar-button" id="login-signup-button" href="/ArisEdu Project Folder/LoginSignup.html">🔐 Login/Signup</a>
-
     </div>
     <div class="settings-menu" id="settings-menu" aria-hidden="true">
       <div class="settings-item">
         <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;">
           <input type="checkbox" id="dark-mode-checkbox" />
           <span>Dark Mode</span>
-        </label> 
+        </label>
       </div>
       <a class="settings-item" href="/ArisEdu Project Folder/Preferences.html">Preferences</a>
     </div>
   </nav>
   <main class="main-container">
     <div class="logo-title-wrapper">
-    <h1 id="company-name" class="logo-font company-title">High School: Chemistry</h1>
+      <h1 id="company-name" class="logo-font company-title">High School: Chemistry</h1>
     </div>
     <div class="courses-container">
       <div class="courses-section">
-        
+        <h2 class="courses-section-title">Chemistry Curriculum</h2>
         <div class="courses-grid">
-          <div class="flask-container" style="grid-column: 1; grid-row: 1;">
-            <div class="unit1-title">Unit 1</div>
-            <div class="flask-body">
-              <div class="flask-liquid"></div>
-              <div class="flask-liquid-wave" style="top:0;bottom:auto;height:40px;">
-                <svg class="wave-svg" viewBox="0 0 120 40" preserveAspectRatio="none">
-                  <path class="wave-path" d="M0 20 Q 30 10 60 20 T 120 20 V40 H0 Z" />
-                </svg>
-              </div>
-              <div style="position:relative;width:100%;height:100%;">
-                <div style="position:absolute;left:-14px;right:-14px;top:7%;height:0;border-top:4px solid var(--flask-border);z-index:10;"></div>
-                <div style="position:absolute;left:-14px;right:-14px;top:21%;height:0;border-top:4px solid var(--flask-border);z-index:10;"></div>
-                <div style="position:absolute;left:-14px;right:-14px;top:35%;height:0;border-top:4px solid var(--flask-border);z-index:10;"></div>
-                <div style="position:absolute;left:-14px;right:-14px;top:49%;height:0;border-top:4px solid var(--flask-border);z-index:10;"></div>
-                <div style="position:absolute;left:-14px;right:-14px;top:63%;height:0;border-top:4px solid var(--flask-border);z-index:10;"></div>
-                <div style="position:absolute;left:-14px;right:-14px;top:77%;height:0;border-top:4px solid var(--flask-border);z-index:10;"></div>
-                <div style="position:absolute;left:-14px;right:-14px;top:91%;height:0;border-top:4px solid var(--flask-border);z-index:10;"></div>
-              </div>
-            </div>
-          </div>
-          <div class="flask-container" style="grid-column: 2; grid-row: 1;">
-            <div class="unit1-title">Unit 2</div>
-            <div class="flask-body">
-              <div class="flask-liquid">
-                <div class="flask-liquid-wave">
-                  <svg class="wave-svg" viewBox="0 0 120 40" preserveAspectRatio="none">
-                    <path class="wave-path" d="M0 20 Q 30 10 60 20 T 120 20 V40 H0 Z" />
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="flask-container" style="grid-column: 3; grid-row: 1;">
-            <div class="unit1-title">Unit 3</div>
-            <div class="flask-body">
-              <div class="flask-liquid"></div>
-              <div class="flask-liquid-wave" style="top:0;bottom:auto;height:40px;">
-                <svg class="wave-svg" viewBox="0 0 120 40" preserveAspectRatio="none">
-                  <path class="wave-path" d="M0 20 Q 30 10 60 20 T 120 20 V40 H0 Z" />
-                </svg>
-              </div>
-              <div style="position:relative;width:100%;height:100%;">
-                <div style="position:absolute;left:-14px;right:-14px;top:7%;height:0;border-top:4px solid var(--flask-border);z-index:10;"></div>
-                <div style="position:absolute;left:-14px;right:-14px;top:21%;height:0;border-top:4px solid var(--flask-border);z-index:10;"></div>
-                <div style="position:absolute;left:-14px;right:-14px;top:35%;height:0;border-top:4px solid var(--flask-border);z-index:10;"></div>
-                <div style="position:absolute;left:-14px;right:-14px;top:49%;height:0;border-top:4px solid var(--flask-border);z-index:10;"></div>
-                <div style="position:absolute;left:-14px;right:-14px;top:63%;height:0;border-top:4px solid var(--flask-border);z-index:10;"></div>
-                <div style="position:absolute;left:-14px;right:-14px;top:77%;height:0;border-top:4px solid var(--flask-border);z-index:10;"></div>
-                <div style="position:absolute;left:-14px;right:-14px;top:91%;height:0;border-top:4px solid var(--flask-border);z-index:10;"></div>
-              </div>
-            </div>
-          </div>
-          <div class="flask-container" style="grid-column: 4; grid-row: 1;">
-            <div class="unit1-title">Unit 4</div>
-            <div class="flask-body">
-              <div class="flask-liquid"></div>
-            </div>
-          </div>
-          <div class="flask-container" style="grid-column: 5; grid-row: 1;">
-            <div class="unit1-title">Unit 5</div>
-            <div class="flask-body">
-              <div class="flask-liquid"></div>
-            </div>
-          </div>
-          <div class="flask-container" style="grid-column: 6; grid-row: 1;">
-            <div class="unit1-title">Unit 6</div>
-            <div class="flask-body">
-              <div class="flask-liquid"></div>
-            </div>
-          </div>
-          <div class="flask-container" style="grid-column: 1; grid-row: 2;">
-            <div class="unit1-title">Unit 7</div>
-            <div class="flask-body">
-              <div class="flask-liquid"></div>
-            </div>
-          </div>
-          <div class="flask-container" style="grid-column: 2; grid-row: 2;">
-            <div class="unit1-title">Unit 8</div>
-            <div class="flask-body">
-              <div class="flask-liquid"></div>
-            </div>
-          </div>
-          <div class="flask-container" style="grid-column: 3; grid-row: 2;">
-            <div class="unit1-title">Unit 9</div>
-            <div class="flask-body">
-              <div class="flask-liquid"></div>
-              <div style="position:relative;width:100%;height:100%;">
-              </div>
-            </div>
-          </div>
-          <div class="flask-container" style="grid-column: 4; grid-row: 2;">
-            <div class="unit1-title">Unit 10</div>
-            <div class="flask-body">
-              <div class="flask-liquid"></div>
-              <div style="position:relative;width:100%;height:100%;">
-                <div style="position:absolute;left:-14px;right:-14px;top:7%;height:0;border-top:4px solid var(--flask-border);z-index:10;"></div>
-                <div style="position:absolute;left:-14px;right:-14px;top:21%;height:0;border-top:4px solid var(--flask-border);z-index:10;"></div>
-                <div style="position:absolute;left:-14px;right:-14px;top:35%;height:0;border-top:4px solid var(--flask-border);z-index:10;"></div>
-                <div style="position:absolute;left:-14px;right:-14px;top:49%;height:0;border-top:4px solid var(--flask-border);z-index:10;"></div>
-                <div style="position:absolute;left:-14px;right:-14px;top:63%;height:0;border-top:4px solid var(--flask-border);z-index:10;"></div>
-                <div style="position:absolute;left:-14px;right:-14px;top:77%;height:0;border-top:4px solid var(--flask-border);z-index:10;"></div>
-                <div style="position:absolute;left:-14px;right:-14px;top:91%;height:0;border-top:4px solid var(--flask-border);z-index:10;"></div>
-              </div>
-            </div>
-          </div>
-          <div class="flask-container" style="grid-column: 5; grid-row: 2;">
-            <div class="unit1-title">Unit 11</div>
-            <div class="flask-body">
-              <div class="flask-liquid"></div>
-            </div>
-          </div>
-          <div class="flask-container" style="grid-column: 6; grid-row: 2;">
-            <div class="unit1-title">Unit 12</div>
-            <div class="flask-body">
-              <div class="flask-liquid"></div>
-            </div>
-          </div>
+          <div class="course-box"><a href="ChemistryLessons/Unit1/ChemistryUnit1Matter.html">Unit 1: Matter (Classification, properties, and changes)</a></div>
+          <div class="course-box"><a href="ChemistryLessons/Unit2/ChemistryUnit2Measurement.html">Unit 2: Measurement (Mathematical notations and conversions)</a></div>
+          <div class="course-box"><a href="ChemistryLessons/Unit3/ChemistryUnit3TheAtom.html">Unit 3: The Atom (Structure and nuclear reactions)</a></div>
+          <div class="course-box"><a href="ChemistryLessons/Unit4/ChemistryUnit4ThePeriodicTable.html">Unit 4: The Periodic Table (Periodicity and periodic trends)</a></div>
+          <div class="course-box"><a href="ChemistryLessons/Unit5/ChemistryUnit5Namingcompoundsformulas.html">Unit 5: Naming compounds &amp; formulas</a></div>
+          <div class="course-box"><a href="ChemistryLessons/Unit6/ChemistryUnit6Chemicalreactions.html">Unit 6: Chemical reactions</a></div>
+          <div class="course-box"><a href="ChemistryLessons/Unit7/ChemistryUnit7Massandmolerelationships.html">Unit 7: Mass and mole relationships</a></div>
+          <div class="course-box"><a href="ChemistryLessons/Unit8/ChemistryUnit8GasLaws.html">Unit 8: Gas Laws</a></div>
+          <div class="course-box"><a href="ChemistryLessons/Unit9/ChemistryUnit9Solutions.html">Unit 9: Solutions</a></div>
+          <div class="course-box"><a href="ChemistryLessons/Unit10/ChemistryUnit10Acidsandbases.html">Unit 10: Acids and bases</a></div>
+          <div class="course-box"><a href="ChemistryLessons/Unit11/ChemistryUnit11Thermochemistry.html">Unit 11: Thermochemistry</a></div>
+          <div class="course-box"><a href="ChemistryLessons/Unit12/ChemistryUnit12NuclearChemistry.html">Unit 12: Nuclear Chemistry</a></div>
         </div>
       </div>
     </div>
   </main>
   <script>
-                            // Dynamic loader for Unit 1 lessons
-                            const lessonLinks = [
-                              {id: 'lesson1.1-link', file: 'ChemistryLessons/Unit1/Lesson 1.1 Types_Of_Matter_And_Composition.html'},
-                              {id: 'lesson1.2-link', file: 'ChemistryLessons/Unit1/Lesson 1.2 States_Of_Matter_And_Phase_Changes.html'},
-                              {id: 'lesson1.3-link', file: 'ChemistryLessons/Unit1/Lesson 1.3 Intensive_And_Extensive_Properties.html'},
-                              {id: 'lesson1.4-link', file: 'ChemistryLessons/Unit1/Lesson 1.4 Mass_Volume_And_Density.html'},
-                              {id: 'lesson1.5-link', file: 'ChemistryLessons/Unit1/Lesson 1.5 Heterogeneous_And_Homogeneous_Mixtures.html'},
-                              {id: 'lesson1.6-link', file: 'ChemistryLessons/Unit1/Lesson 1.6 Physical_And_Chemical_Properties.html'},
-                              {id: 'lesson1.7-link', file: 'ChemistryLessons/Unit1/Lesson 1.7 Physical_And_Chemical_Changes.html'}
-                            ];
-                            lessonLinks.forEach(({id, file}) => {
-                              const link = document.getElementById(id);
-                              if (link) {
-                                link.addEventListener('click', function(e) {
-                                  e.preventDefault();
-                                  fetch(file)
-                                    .then(response => response.text())
-                                    .then(lessonHtml => {
-                                      const lessonDiv = document.createElement('div');
-                                      lessonDiv.innerHTML = lessonHtml;
-                                      const lessonMain = lessonDiv.querySelector('.main-container');
-                                      const lessonStyle = lessonDiv.querySelector('style');
-                                      if (lessonMain) {
-                                        const mainContainer = document.querySelector('.main-container');
-                                        // Add Back to Chemistry button
-                                        let taskbarContainer = document.querySelector('.taskbar-container');
-                                        let searchBtn = document.getElementById('search-button');
-                                        let backBtn = document.getElementById('back-to-chemistry-btn');
-                                        if (!backBtn) {
-                                          backBtn = document.createElement('button');
-                                          backBtn.id = 'back-to-chemistry-btn';
-                                          backBtn.textContent = '← Back to Chemistry';
-                                          backBtn.className = 'taskbar-button';
-                                          backBtn.style.order = '0';
-                                          backBtn.onclick = function() {
-                                            // Restore units grid dynamically
-                                            const mainContainer = document.querySelector('.main-container');
-                                            mainContainer.innerHTML = `
-                                              <div class="logo-title-wrapper">
-                                                <h1 id="company-name" class="logo-font company-title">High School: Chemistry</h1>
-                                              </div>
-                                              <div class="courses-container">
-                                                <div class="courses-section">
-                                                  <h2 class="courses-section-title">Chemistry Units</h2>
-                                                  <div class="courses-grid">
-                                                    <div class="course-box"><a id="unit2-link" href="ChemistryLessons/Unit2/ChemistryUnit2Measurement.html">Unit 2: Measurement (Mathematical notations and conversions)</a></div>
-                                                    <div class="course-box"><a id="unit3-link" href="ChemistryLessons/Unit3/ChemistryUnit3TheAtom.html">Unit 3: The Atom (Structure and nuclear reactions)</a></div>
-                                                    <div class="course-box"><a id="unit4-link" href="ChemistryLessons/Unit4/ChemistryUnit4ThePeriodicTable.html">Unit 4: The Periodic Table (Periodicity and periodic trends)</a></div>
-                                                    <div class="course-box"><a id="unit5-link" href="ChemistryLessons/Unit5/ChemistryUnit5Namingcompoundsformulas.html">Unit 5: Naming Compounds & Formulas</a></div>
-                                                    <div class="course-box"><a id="unit6-link" href="ChemistryLessons/Unit6/ChemistryUnit6Chemicalreactions.html">Unit 6: Chemical Reactions</a></div>
-                                                    <div class="course-box"><a id="unit7-link" href="ChemistryLessons/Unit7/ChemistryUnit7Massandmolerelationships.html">Unit 7: Mass and Mole Relationships</a></div>
-                                                    <div class="course-box"><a id="unit8-link" href="ChemistryLessons/Unit8/ChemistryUnit8GasLaws.html">Unit 8: Gas Laws</a></div>
-                                                    <div class="course-box"><a id="unit9-link" href="ChemistryLessons/Unit9/ChemistryUnit9Solutions.html">Unit 9: Solutions</a></div>
-                                                    <div class="course-box"><a id="unit10-link" href="ChemistryLessons/Unit10/ChemistryUnit10Acidsandbases.html">Unit 10: Acids and Bases</a></div>
-                                                    <div class="course-box"><a id="unit11-link" href="ChemistryLessons/Unit11/ChemistryUnit11Thermochemistry.html">Unit 11: Thermochemistry</a></div>
-                                                    <div class="course-box"><a id="unit12-link" href="ChemistryLessons/Unit12/ChemistryUnit12NuclearChemistry.html">Unit 12: Nuclear Chemistry</a></div>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            `;
-                                            attachUnitLinkHandlers();
-                                            // Remove Back to Chemistry button from taskbar
-                                            if (backBtn && backBtn.parentNode) backBtn.parentNode.removeChild(backBtn);
-                                            // Show Back to Courses button
-                                            let coursesBtn = document.getElementById('back-to-courses-btn');
-                                            if (coursesBtn) coursesBtn.style.display = '';
-                                          };
-                                          taskbarContainer.insertBefore(backBtn, searchBtn);
-                                        }
-                                        // Hide Back to Courses button
-                                        let coursesBtn = document.getElementById('back-to-courses-btn');
-                                        if (coursesBtn) coursesBtn.style.display = 'none';
-                                        // Insert lesson content
-                                        mainContainer.innerHTML = '';
-                                        Array.from(lessonMain.childNodes).forEach(node => mainContainer.appendChild(node.cloneNode(true)));
-                                        const prevLessonStyle = document.getElementById('lesson-style');
-                                        if (prevLessonStyle) prevLessonStyle.remove();
-                                        if (lessonStyle) {
-                                          lessonStyle.id = 'lesson-style';
-                                          document.head.appendChild(lessonStyle.cloneNode(true));
-                                        }
-                                      } else {
-                                        alert('Could not load lesson content.');
-                                      }
-                                    })
-                                    .catch(() => alert('Failed to load lesson content.'));
-                                });
-                              }
-                            });
-                // Back to Courses button handler
-                document.getElementById('back-to-courses-btn').onclick = function() {
-                  window.location.href = '/ArisEdu Project Folder/Courses.html';
-                };
-            // Dynamic Chemistry unit loader with Back to Units button
-            const unitLinks = [
-              {id: 'unit1-link', file: 'ChemistryLessons/Unit1/ChemistryUnit1Matter.html'},
-              {id: 'unit2-link', file: 'ChemistryLessons/Unit2/ChemistryUnit2Measurement.html'},
-              {id: 'unit3-link', file: 'ChemistryLessons/Unit3/ChemistryUnit3TheAtom.html'},
-              {id: 'unit4-link', file: 'ChemistryLessons/Unit4/ChemistryUnit4ThePeriodicTable.html'},
-              {id: 'unit5-link', file: 'ChemistryLessons/Unit5/ChemistryUnit5Namingcompoundsformulas.html'},
-              {id: 'unit6-link', file: 'ChemistryLessons/Unit6/ChemistryUnit6Chemicalreactions.html'},
-              {id: 'unit7-link', file: 'ChemistryLessons/Unit7/ChemistryUnit7Massandmolerelationships.html'},
-              {id: 'unit8-link', file: 'ChemistryLessons/Unit8/ChemistryUnit8GasLaws.html'},
-              {id: 'unit9-link', file: 'ChemistryLessons/Unit9/ChemistryUnit9Solutions.html'},
-              {id: 'unit10-link', file: 'ChemistryLessons/Unit10/ChemistryUnit10Acidsandbases.html'},
-              {id: 'unit11-link', file: 'ChemistryLessons/Unit11/ChemistryUnit11Thermochemistry.html'},
-              {id: 'unit12-link', file: 'ChemistryLessons/Unit12/ChemistryUnit12NuclearChemistry.html'}
-            ];
-            function attachUnitLinkHandlers() {
-              unitLinks.forEach(({id, file}) => {
-                const link = document.getElementById(id);
-                if (link) {
-                  link.addEventListener('click', function unitClickHandler(e) {
-                    e.preventDefault();
-                    fetch(file)
-                      .then(response => response.text())
-                      .then(unitHtml => {
-                        const unitDiv = document.createElement('div');
-                        unitDiv.innerHTML = unitHtml;
-                        const unitMain = unitDiv.querySelector('.main-container');
-                        const unitStyle = unitDiv.querySelector('style');
-                        if (unitMain) {
-                          const mainContainer = document.querySelector('.main-container');
-                          // Add Back to Units button to taskbar
-                          let taskbarContainer = document.querySelector('.taskbar-container');
-                          let searchBtn = document.getElementById('search-button');
-                          let backBtn = document.getElementById('back-to-chemistry-btn');
-                          if (!backBtn) {
-                            backBtn = document.createElement('button');
-                            backBtn.id = 'back-to-chemistry-btn';
-                            backBtn.textContent = '← Back to Chemistry';
-                            backBtn.className = 'taskbar-button';
-                            backBtn.style.order = '0';
-                            backBtn.onclick = function() {
-                              // Restore units grid dynamically
-                              const mainContainer = document.querySelector('.main-container');
-                              mainContainer.innerHTML = `
-                                <div class="logo-title-wrapper">
-                                  <h1 id="company-name" class="logo-font company-title">High School: Chemistry</h1>
-                                </div>
-                                <div class="courses-container">
-                                  <div class="courses-section">
-                                    <h2 class="courses-section-title">Chemistry Units</h2>
-                                    <div class="courses-grid">
-                                      <div class="course-box"><a id="unit1-link" href="ChemistryLessons/Unit1/ChemistryUnit1Matter.html">Unit 1: Matter (Classification, properties, and changes)</a></div>
-                                      <div class="course-box"><a id="unit2-link" href="ChemistryLessons/Unit2/ChemistryUnit2Measurement.html">Unit 2: Measurement (Mathematical notations and conversions)</a></div>
-                                      <div class="course-box"><a id="unit3-link" href="ChemistryLessons/Unit3/ChemistryUnit3TheAtom.html">Unit 3: The Atom (Structure and nuclear reactions)</a></div>
-                                      <div class="course-box"><a id="unit4-link" href="ChemistryLessons/Unit4/ChemistryUnit4ThePeriodicTable.html">Unit 4: The Periodic Table (Periodicity and periodic trends)</a></div>
-                                      <div class="course-box"><a id="unit5-link" href="ChemistryLessons/Unit5/ChemistryUnit5Namingcompoundsformulas.html">Unit 5: Naming Compounds & Formulas</a></div>
-                                      <div class="course-box"><a id="unit6-link" href="ChemistryLessons/Unit6/ChemistryUnit6Chemicalreactions.html">Unit 6: Chemical Reactions</a></div>
-                                      <div class="course-box"><a id="unit7-link" href="ChemistryLessons/Unit7/ChemistryUnit7Massandmolerelationships.html">Unit 7: Mass and Mole Relationships</a></div>
-                                      <div class="course-box"><a id="unit8-link" href="ChemistryLessons/Unit8/ChemistryUnit8GasLaws.html">Unit 8: Gas Laws</a></div>
-                                      <div class="course-box"><a id="unit9-link" href="ChemistryLessons/Unit9/ChemistryUnit9Solutions.html">Unit 9: Solutions</a></div>
-                                      <div class="course-box"><a id="unit10-link" href="ChemistryLessons/Unit10/ChemistryUnit10Acidsandbases.html">Unit 10: Acids and Bases</a></div>
-                                      <div class="course-box"><a id="unit11-link" href="ChemistryLessons/Unit11/ChemistryUnit11Thermochemistry.html">Unit 11: Thermochemistry</a></div>
-                                      <div class="course-box"><a id="unit12-link" href="ChemistryLessons/Unit12/ChemistryUnit12NuclearChemistry.html">Unit 12: Nuclear Chemistry</a></div>
-                                    </div>
-                                  </div>
-                                </div>
-                              `;
-                              attachUnitLinkHandlers();
-                              // Remove Back to Chemistry button from taskbar
-                              if (backBtn && backBtn.parentNode) backBtn.parentNode.removeChild(backBtn);
-                              // Show Back to Courses button
-                              let coursesBtn = document.getElementById('back-to-courses-btn');
-                              if (coursesBtn) coursesBtn.style.display = '';
-                            };
-                            taskbarContainer.insertBefore(backBtn, searchBtn);
-                          }
-                          // Hide Back to Courses button
-                          let coursesBtn = document.getElementById('back-to-courses-btn');
-                          if (coursesBtn) coursesBtn.style.display = 'none';
-                          // Insert unit content
-                          mainContainer.innerHTML = '';
-                          Array.from(unitMain.childNodes).forEach(node => mainContainer.appendChild(node.cloneNode(true)));
-                          const prevUnitStyle = document.getElementById('unit-style');
-                          if (prevUnitStyle) prevUnitStyle.remove();
-                          if (unitStyle) {
-                            unitStyle.id = 'unit-style';
-                            document.head.appendChild(unitStyle.cloneNode(true));
-                          }
-                        } else {
-                          alert('Could not load unit content.');
-                        }
-                      })
-                      .catch(() => alert('Failed to load unit content.'));
-                  });
-                }
-              });
-            }
-            attachUnitLinkHandlers();
+        // ...existing code...
     // Taskbar Button Handlers
     document.getElementById('homepage-button').addEventListener('click', () => {
-    
+
     });
 
     document.getElementById('course-button').addEventListener('click', () => {
-   
+
     });
 
     document.getElementById('play-button').addEventListener('click', () => {
-    
+
     });
 
     document.getElementById('search-button').addEventListener('click', () => {
-    
+
     });
 
     document.getElementById('login-signup-button').addEventListener('click', () => {
-    
+
     });
 
     document.getElementById('settings-button').addEventListener('click', () => {

@@ -312,8 +312,6 @@
  <body class="h-full"><!-- Taskbar -->
   <nav class="taskbar">
     <div class="taskbar-container">
-        <button class="taskbar-button" id="back-to-courses-btn" style="order:0;">← Back to Courses</button>
-      <button class="taskbar-button" id="back-to-courses-button" style="display:none;">← Back to Courses</button>
       <button class="taskbar-button" id="search-button">🔍 Search</button>
       <a class="taskbar-button" id="homepage-button" href="/index.html">🏠 Homepage</a>
       <a class="taskbar-button" id="course-button" href="/ArisEdu Project Folder/Courses.html">📚 Courses</a>
@@ -362,55 +360,7 @@
     </div>
   </main>
   <script>
-            // Back to Courses button handler
-            document.getElementById('back-to-courses-btn').onclick = function() {
-              window.location.href = '/ArisEdu Project Folder/Courses.html';
-            };
-        courseLinks.forEach(({id, file}) => {
-          const link = document.getElementById(id);
-          if (link) {
-            link.addEventListener('click', function(e) {
-              e.preventDefault();
-              fetch(file)
-                .then(response => response.text())
-                .then(html => {
-                  const tempDiv = document.createElement('div');
-                  tempDiv.innerHTML = html;
-                  const courseMain = tempDiv.querySelector('.main-container');
-                  const courseStyle = tempDiv.querySelector('style');
-                  if (courseMain) {
-                    const mainContainer = document.querySelector('.main-container');
-                    // Show Back to Courses button in taskbar
-                    const backBtn = document.getElementById('back-to-courses-button');
-                    if (backBtn) {
-                      backBtn.style.display = '';
-                      backBtn.onclick = function() {
-                        window.location.reload();
-                      };
-                    }
-                    mainContainer.innerHTML = '';
-                    Array.from(courseMain.childNodes).forEach(node => mainContainer.appendChild(node.cloneNode(true)));
-                        // Hide Back to Courses button when not viewing a course
-                        window.addEventListener('DOMContentLoaded', () => {
-                          const backBtn = document.getElementById('back-to-courses-button');
-                          if (backBtn) backBtn.style.display = 'none';
-                        });
-                    // Remove previous course style if exists
-                    const prevStyle = document.getElementById('course-style');
-                    if (prevStyle) prevStyle.remove();
-                    // Inject course style
-                    if (courseStyle) {
-                      courseStyle.id = 'course-style';
-                      document.head.appendChild(courseStyle.cloneNode(true));
-                    }
-                  } else {
-                    alert('Could not load course content.');
-                  }
-                })
-                .catch(() => alert('Failed to load course content.'));
-            });
-          }
-        });
+            // ...existing code...
     // Taskbar Button Handlers
     document.getElementById('homepage-button').addEventListener('click', () => {
     
