@@ -300,6 +300,27 @@
       justify-content: flex-end;
     }
 
+    /* Scaled Quiz Styles */
+    #quiz-content-view .quiz-question p {
+      font-size: 1.45rem !important; /* Scaled from 1.1rem */
+    }
+    #quiz-content-view label {
+      font-size: 1.3rem !important; /* Scaled from base */
+    }
+    #quiz-content-view .side-button {
+      font-size: 1.3rem !important;
+    }
+    #quiz-content-view input[type="radio"] {
+      transform: scale(1.3);
+      margin-right: 0.75rem !important;
+    }
+    #quiz-content-view .attempts-indicator {
+      font-size: 1.25rem !important;
+      color: #64748b;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
     .Practices-menu {
       position: relative;
     }
@@ -1548,6 +1569,198 @@
               </div>
             </div>
           </div>
+          <button class="side-button" onclick="toggleToQuiz(event)" style="margin-left: 1rem;">Next Up: Quiz</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quiz View (Hidden by default) -->
+    <div id="quiz-content-view" style="display: none;">
+      <h2 class="page-title">Lesson 1.1: Quiz</h2>
+      <div class="diagram-card">
+        <div class="quiz-container" style="padding: 2rem; width: 100%; height: 75vh; overflow-y: auto;">
+          <form id="quiz-form">
+            <!-- Question 1 -->
+            <div class="quiz-question" style="margin-bottom: 2rem;" data-attempts="2">
+              <div class="attempts-indicator">Attempts left: 2</div>
+              <p style="font-weight: 700; font-size: 1.1rem; margin-bottom: 1rem;">1. Which of the following best describes a solid?</p>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q1" value="a" style="margin-right:0.5rem;"> Definite shape, indefinite volume
+              </label>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q1" value="b" style="margin-right:0.5rem;"> Indefinite shape, definite volume
+              </label>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q1" value="c" style="margin-right:0.5rem;"> Definite shape, definite volume
+              </label>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q1" value="d" style="margin-right:0.5rem;"> Indefinite shape, indefinite volume
+              </label>
+              <button type="button" class="side-button" style="margin-top:0.5rem; font-size:1rem; padding:0.5rem 1rem; min-width:auto;" onclick="checkQuizAnswer('q1', 'c', this)">Check Answer</button>
+              <button type="button" class="side-button" style="margin-top:0.5rem; font-size:1rem; padding:0.5rem 1rem; min-width:auto; margin-left:0.5rem; background: #64748b;" onclick="getAnotherQuestion(this)">Get another question</button>
+            </div>
+
+            <!-- Question 2 -->
+             <div class="quiz-question" style="margin-bottom: 2rem;" data-attempts="2">
+              <div class="attempts-indicator">Attempts left: 2</div>
+              <p style="font-weight: 700; font-size: 1.1rem; margin-bottom: 1rem;">2. What is an example of an extensive property?</p>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q2" value="a" style="margin-right:0.5rem;"> Density
+              </label>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q2" value="b" style="margin-right:0.5rem;"> Boiling Point
+              </label>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q2" value="c" style="margin-right:0.5rem;"> Mass
+              </label>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q2" value="d" style="margin-right:0.5rem;"> Color
+              </label>
+              <button type="button" class="side-button" style="margin-top:0.5rem; font-size:1rem; padding:0.5rem 1rem; min-width:auto;" onclick="checkQuizAnswer('q2', 'c', this)">Check Answer</button>
+              <button type="button" class="side-button" style="margin-top:0.5rem; font-size:1rem; padding:0.5rem 1rem; min-width:auto; margin-left:0.5rem; background: #64748b;" onclick="getAnotherQuestion(this)">Get another question</button>
+            </div>
+            
+             <!-- Question 3 -->
+             <div class="quiz-question" style="margin-bottom: 2rem;" data-attempts="2">
+              <div class="attempts-indicator">Attempts left: 2</div>
+              <p style="font-weight: 700; font-size: 1.1rem; margin-bottom: 1rem;">3. True or False: A homogeneous mixture has a uniform composition.</p>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q3" value="a" style="margin-right:0.5rem;"> True
+              </label>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q3" value="b" style="margin-right:0.5rem;"> False
+              </label>
+              <button type="button" class="side-button" style="margin-top:0.5rem; font-size:1rem; padding:0.5rem 1rem; min-width:auto;" onclick="checkQuizAnswer('q3', 'a', this)">Check Answer</button>
+              <button type="button" class="side-button" style="margin-top:0.5rem; font-size:1rem; padding:0.5rem 1rem; min-width:auto; margin-left:0.5rem; background: #64748b;" onclick="getAnotherQuestion(this)">Get another question</button>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="quiz-question" style="margin-bottom: 2rem;" data-attempts="2">
+              <div class="attempts-indicator">Attempts left: 2</div>
+              <p style="font-weight: 700; font-size: 1.1rem; margin-bottom: 1rem;">4. Which state of matter has an indefinite shape and indefinite volume?</p>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q4" value="a" style="margin-right:0.5rem;"> Solid
+              </label>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q4" value="b" style="margin-right:0.5rem;"> Liquid
+              </label>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q4" value="c" style="margin-right:0.5rem;"> Plasma only
+              </label>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q4" value="d" style="margin-right:0.5rem;"> Gas
+              </label>
+              <button type="button" class="side-button" style="margin-top:0.5rem; font-size:1rem; padding:0.5rem 1rem; min-width:auto;" onclick="checkQuizAnswer('q4', 'd', this)">Check Answer</button>
+              <button type="button" class="side-button" style="margin-top:0.5rem; font-size:1rem; padding:0.5rem 1rem; min-width:auto; margin-left:0.5rem; background: #64748b;" onclick="getAnotherQuestion(this)">Get another question</button>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="quiz-question" style="margin-bottom: 2rem;" data-attempts="2">
+              <div class="attempts-indicator">Attempts left: 2</div>
+              <p style="font-weight: 700; font-size: 1.1rem; margin-bottom: 1rem;">5. Which of the following is a PHYSICAL change?</p>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q5" value="a" style="margin-right:0.5rem;"> Melting ice
+              </label>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q5" value="b" style="margin-right:0.5rem;"> Burning wood
+              </label>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q5" value="c" style="margin-right:0.5rem;"> Rusting iron
+              </label>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q5" value="d" style="margin-right:0.5rem;"> Cooking an egg
+              </label>
+              <button type="button" class="side-button" style="margin-top:0.5rem; font-size:1rem; padding:0.5rem 1rem; min-width:auto;" onclick="checkQuizAnswer('q5', 'a', this)">Check Answer</button>
+              <button type="button" class="side-button" style="margin-top:0.5rem; font-size:1rem; padding:0.5rem 1rem; min-width:auto; margin-left:0.5rem; background: #64748b;" onclick="getAnotherQuestion(this)">Get another question</button>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="quiz-question" style="margin-bottom: 2rem;" data-attempts="2">
+              <div class="attempts-indicator">Attempts left: 2</div>
+              <p style="font-weight: 700; font-size: 1.1rem; margin-bottom: 1rem;">6. A compound is defined as...</p>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q6" value="a" style="margin-right:0.5rem;"> A mixture of two or more substances physically combined.
+              </label>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q6" value="b" style="margin-right:0.5rem;"> Two or more elements chemically combined.
+              </label>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q6" value="c" style="margin-right:0.5rem;"> A substance that cannot be broken down.
+              </label>
+              <button type="button" class="side-button" style="margin-top:0.5rem; font-size:1rem; padding:0.5rem 1rem; min-width:auto;" onclick="checkQuizAnswer('q6', 'b', this)">Check Answer</button>
+              <button type="button" class="side-button" style="margin-top:0.5rem; font-size:1rem; padding:0.5rem 1rem; min-width:auto; margin-left:0.5rem; background: #64748b;" onclick="getAnotherQuestion(this)">Get another question</button>
+            </div>
+
+             <!-- Question 7 -->
+             <div class="quiz-question" style="margin-bottom: 2rem;" data-attempts="2">
+              <div class="attempts-indicator">Attempts left: 2</div>
+              <p style="font-weight: 700; font-size: 1.1rem; margin-bottom: 1rem;">7. Which method is best for separating a solid from a liquid in a heterogeneous mixture?</p>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q7" value="a" style="margin-right:0.5rem;"> Filtration
+              </label>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q7" value="b" style="margin-right:0.5rem;"> Distillation
+              </label>
+               <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q7" value="c" style="margin-right:0.5rem;"> Chromatography
+              </label>
+              <button type="button" class="side-button" style="margin-top:0.5rem; font-size:1rem; padding:0.5rem 1rem; min-width:auto;" onclick="checkQuizAnswer('q7', 'a', this)">Check Answer</button>
+              <button type="button" class="side-button" style="margin-top:0.5rem; font-size:1rem; padding:0.5rem 1rem; min-width:auto; margin-left:0.5rem; background: #64748b;" onclick="getAnotherQuestion(this)">Get another question</button>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="quiz-question" style="margin-bottom: 2rem;" data-attempts="2">
+              <div class="attempts-indicator">Attempts left: 2</div>
+              <p style="font-weight: 700; font-size: 1.1rem; margin-bottom: 1rem;">8. The Law of Conservation of Mass states that:</p>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q8" value="a" style="margin-right:0.5rem;"> Mass can be created but not destroyed.
+              </label>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q8" value="b" style="margin-right:0.5rem;"> Mass is destroyed during chemical reactions.
+              </label>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q8" value="c" style="margin-right:0.5rem;"> Mass is neither created nor destroyed.
+              </label>
+              <button type="button" class="side-button" style="margin-top:0.5rem; font-size:1rem; padding:0.5rem 1rem; min-width:auto;" onclick="checkQuizAnswer('q8', 'c', this)">Check Answer</button>
+              <button type="button" class="side-button" style="margin-top:0.5rem; font-size:1rem; padding:0.5rem 1rem; min-width:auto; margin-left:0.5rem; background: #64748b;" onclick="getAnotherQuestion(this)">Get another question</button>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="quiz-question" style="margin-bottom: 2rem;" data-attempts="2">
+              <div class="attempts-indicator">Attempts left: 2</div>
+              <p style="font-weight: 700; font-size: 1.1rem; margin-bottom: 1rem;">9. What is the smallest unit of an element that retains its properties?</p>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q9" value="a" style="margin-right:0.5rem;"> Atom
+              </label>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q9" value="b" style="margin-right:0.5rem;"> Molecule
+              </label>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q9" value="c" style="margin-right:0.5rem;"> Neutron
+              </label>
+              <button type="button" class="side-button" style="margin-top:0.5rem; font-size:1rem; padding:0.5rem 1rem; min-width:auto;" onclick="checkQuizAnswer('q9', 'a', this)">Check Answer</button>
+              <button type="button" class="side-button" style="margin-top:0.5rem; font-size:1rem; padding:0.5rem 1rem; min-width:auto; margin-left:0.5rem; background: #64748b;" onclick="getAnotherQuestion(this)">Get another question</button>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="quiz-question" style="margin-bottom: 2rem;" data-attempts="2">
+              <div class="attempts-indicator">Attempts left: 2</div>
+              <p style="font-weight: 700; font-size: 1.1rem; margin-bottom: 1rem;">10. Which is a Chemical Property?</p>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q10" value="a" style="margin-right:0.5rem;"> Color
+              </label>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q10" value="b" style="margin-right:0.5rem;"> Flammability
+              </label>
+              <label style="display:block; margin-bottom:0.5rem; cursor:pointer;">
+                <input type="radio" name="q10" value="c" style="margin-right:0.5rem;"> Density
+              </label>
+              <button type="button" class="side-button" style="margin-top:0.5rem; font-size:1rem; padding:0.5rem 1rem; min-width:auto;" onclick="checkQuizAnswer('q10', 'b', this)">Check Answer</button>
+              <button type="button" class="side-button" style="margin-top:0.5rem; font-size:1rem; padding:0.5rem 1rem; min-width:auto; margin-left:0.5rem; background: #64748b;" onclick="getAnotherQuestion(this)">Get another question</button>
+            </div>
+
+          </form>
+          <div id="quiz-results" style="margin-top: 2rem; font-weight: bold; display:none; padding: 1rem; border-radius: 0.5rem;"></div>
         </div>
       </div>
     </div>
@@ -2063,9 +2276,11 @@
     const lessonView = document.getElementById('lesson-content-view');
     const practiceView = document.getElementById('practice-content-view');
     const summaryView = document.getElementById('summary-content-view');
+    const quizView = document.getElementById('quiz-content-view');
     
     if (lessonView) lessonView.style.display = 'none';
     if (practiceView) practiceView.style.display = 'none';
+    if (quizView) quizView.style.display = 'none';
     if (summaryView) summaryView.style.display = 'block';
     
     // Update Back Button
@@ -2101,9 +2316,11 @@
     const lessonView = document.getElementById('lesson-content-view');
     const practiceView = document.getElementById('practice-content-view');
     const summaryView = document.getElementById('summary-content-view');
+    const quizView = document.getElementById('quiz-content-view');
 
     if (lessonView) lessonView.style.display = 'none';
     if (summaryView) summaryView.style.display = 'none';
+    if (quizView) quizView.style.display = 'none';
     if (practiceView) practiceView.style.display = 'block';
     
     // Initialize flashcards if not already done
@@ -2129,6 +2346,190 @@
         }
     }
     window.scrollTo(0, 0);
+  };
+
+  window.toggleToQuiz = function(event) {
+    if (event) event.preventDefault();
+    const lessonView = document.getElementById('lesson-content-view');
+    const practiceView = document.getElementById('practice-content-view');
+    const summaryView = document.getElementById('summary-content-view');
+    const quizView = document.getElementById('quiz-content-view');
+    
+    if (lessonView) lessonView.style.display = 'none';
+    if (practiceView) practiceView.style.display = 'none';
+    if (summaryView) summaryView.style.display = 'none';
+    if (quizView) quizView.style.display = 'block';
+    
+    // Update Back Button
+    const backBtn = document.getElementById('back-button');
+    if (backBtn) {
+        backBtn.innerText = "← Back to Practice";
+        const newBackBtn = backBtn.cloneNode(true);
+        if (backBtn.parentNode) {
+            backBtn.parentNode.replaceChild(newBackBtn, backBtn);
+            newBackBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.toggleToPractice(e);
+            });
+        }
+    }
+    window.scrollTo(0, 0);
+  };
+    
+  window.checkQuizAnswer = function(name, correct, btn) {
+    const parent = btn.closest('.quiz-question');
+    if(!parent) return;
+
+    // Get or Init Attempts
+    let attemptsElem = parent.querySelector('.attempts-indicator');
+    if (!attemptsElem) return;
+    
+    let attempts = parseInt(parent.dataset.attempts || '2');
+
+    const selected = parent.querySelector(`input[name="${name}"]:checked`);
+    let feedback = parent.querySelector('.feedback');
+    if(!feedback) {
+        feedback = document.createElement('div');
+        feedback.className = 'feedback';
+        feedback.style.marginTop = '1rem';
+        feedback.style.fontWeight = 'bold';
+        feedback.style.padding = '0.5rem';
+        feedback.style.borderRadius = '0.5rem';
+        parent.appendChild(feedback);
+    }
+    
+    if (!selected) {
+        feedback.textContent = "Please select an answer first.";
+        feedback.style.color = "#ea580c";
+        feedback.style.background = "#fff7ed";
+        return;
+    }
+
+    if (attempts <= 0 || btn.disabled) return;
+    
+    if (selected.value === correct) {
+        feedback.textContent = "Correct! Great job.";
+        feedback.style.color = "#16a34a"; 
+        feedback.style.background = "#dcfce7";
+        btn.disabled = true;
+        const inputs = parent.querySelectorAll('input');
+        inputs.forEach(i => i.disabled = true);
+        attemptsElem.style.display = 'none';
+    } else {
+        attempts--;
+        parent.dataset.attempts = attempts;
+        attemptsElem.textContent = `Attempts left: ${attempts}`;
+
+        if (attempts <= 0) {
+             feedback.textContent = `Incorrect. The correct answer was option ${correct.toUpperCase()}.`;
+             feedback.style.color = "#dc2626";
+             feedback.style.background = "#fee2e2";
+             btn.disabled = true;
+             const inputs = parent.querySelectorAll('input');
+             inputs.forEach(i => i.disabled = true);
+        } else {
+             feedback.textContent = "Incorrect. Try again!";
+             feedback.style.color = "#dc2626";
+             feedback.style.background = "#fee2e2";
+        }
+    }
+  };
+
+  window.getAnotherQuestion = function(btn) {
+    // Ensure flashcards exist
+    if ((!window.lessonFlashcards || window.lessonFlashcards.length === 0) && window.initFlashcards) {
+        window.initFlashcards();
+    }
+    if (!window.lessonFlashcards || window.lessonFlashcards.length === 0) {
+        alert("No other questions available.");
+        return;
+    }
+
+    const parent = btn.closest('.quiz-question');
+    if(!parent) return;
+    
+    // Reset UI
+    const feedback = parent.querySelector('.feedback');
+    if(feedback) feedback.remove();
+    
+    const attemptsElem = parent.querySelector('.attempts-indicator');
+    if(attemptsElem) {
+        attemptsElem.textContent = 'Attempts left: 2';
+        attemptsElem.style.display = 'block';
+    }
+    parent.dataset.attempts = '2';
+    
+    const checkBtn = parent.querySelector('button[onclick^="checkQuizAnswer"]');
+    if(checkBtn) checkBtn.disabled = false;
+
+    // 1. Pick Random Question
+    const qIdx = Math.floor(Math.random() * window.lessonFlashcards.length);
+    const q = window.lessonFlashcards[qIdx];
+    
+    // 2. Update Text
+    const p = parent.querySelector('p');
+    // Preserve numbering "1. ", "10. "
+    const currentNum = p.textContent.match(/^\d+\./) ? p.textContent.match(/^\d+\./)[0] : "";
+    p.textContent = currentNum + " " + q.question;
+
+    // 3. Generate Options
+    const answers = [q.answer];
+    const pool = window.lessonFlashcards.filter((_, i) => i !== qIdx);
+    
+    // Shuffle pool to pick distractors
+    for (let i = pool.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [pool[i], pool[j]] = [pool[j], pool[i]];
+    }
+    // Take 3 distractors (total 4 options)
+    pool.slice(0, 3).forEach(c => answers.push(c.answer));
+    
+    // Shuffle answers for display
+    for (let i = answers.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [answers[i], answers[j]] = [answers[j], answers[i]];
+    }
+    
+    const letters = ['a', 'b', 'c', 'd'];
+    const correctIndex = answers.indexOf(q.answer);
+    const correctLetter = letters[correctIndex];
+    
+    // 4. Update DOM Labels
+    let labels = Array.from(parent.querySelectorAll('label'));
+     // Get the input name from the first input found
+    const firstInput = parent.querySelector('input');
+    const name = firstInput ? firstInput.name : ('q_dynamic_' + Date.now());
+
+    // Make sure we have enough labels
+    while(labels.length < answers.length) {
+        const newLabel = document.createElement('label');
+        newLabel.style.display = 'block';
+        newLabel.style.marginBottom = '0.5rem';
+        newLabel.style.cursor = 'pointer';
+        newLabel.style.fontSize = '1.3rem'; // Match scaled style
+        // Insert before check button
+        parent.insertBefore(newLabel, checkBtn);
+        labels.push(newLabel);
+    }
+
+    answers.forEach((ans, i) => {
+        const label = labels[i];
+        label.style.display = 'block';
+        // Re-create inner HTML with new values
+        // Note: scaling style is applied via CSS ID, but inline style on input was manually set in previous turns?
+        // Let's stick to the structure: <input ...> Text
+        label.innerHTML = `<input type="radio" name="${name}" value="${letters[i]}" style="margin-right:0.75rem; transform: scale(1.3);"> ${ans}`;
+        const input = label.querySelector('input');
+        input.disabled = false;
+    });
+
+    // Hide unused labels
+    for(let i=answers.length; i<labels.length; i++) {
+        labels[i].style.display = 'none';
+    }
+
+    // 5. Update Check Button Logic
+    checkBtn.setAttribute('onclick', `checkQuizAnswer('${name}', '${correctLetter}', this)`);
   };
 
   // Flashcard Logic

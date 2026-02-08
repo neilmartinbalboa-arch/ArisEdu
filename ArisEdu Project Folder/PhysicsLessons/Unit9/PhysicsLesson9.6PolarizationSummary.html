@@ -140,6 +140,33 @@
   </style>
   <style>@view-transition { navigation: auto; }</style>
  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+/* Quiz View Styles */
+#quiz-content-view .quiz-container {
+    padding: 2rem;
+    width: 100%;
+    height: 75vh;
+    overflow-y: auto;
+}
+#quiz-content-view .quiz-question {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+body.dark-mode #quiz-content-view .quiz-question {
+    background: rgba(0, 0, 0, 0.2);
+    border-color: rgba(255,255,255,0.1);
+}
+#quiz-content-view .attempts-indicator {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-bottom: 0.5rem;
+    font-style: italic;
+}
+</style>
+
 </head>
  <body class="h-full">
   <nav class="taskbar">
@@ -168,7 +195,22 @@
         Summary placeholder. Add the summary content here.
       </div>
     </div>
-  </main>
+  
+    <!-- Quiz View (Hidden by default) -->
+    <div id="quiz-content-view" style="display: none;">
+      <h2 class="page-title">Unit Quiz</h2>
+      <div class="diagram-card">
+        <div class="quiz-container">
+          <form id="quiz-form">
+             <!-- Questions will be auto-generated here -->
+             <div style="text-align:center; padding:2rem;">Loading Quiz...</div>
+          </form>
+          <div id="quiz-results" style="margin-top: 2rem; font-weight: bold; display:none; padding: 1rem; border-radius: 0.5rem;"></div>
+        </div>
+      </div>
+    </div>
+
+</main>
   <script>
     document.getElementById('back-button').addEventListener('click', () => {
       window.location.href = 'PhysicsLesson9.6Polarization.html';
@@ -448,5 +490,251 @@
     <!-- ArisEdu Global Search -->
     <script src="../../../search_data.js"></script>
     <script src="../../../search_logic.js"></script>
+
+<script>
+  // Quiz Feature Logic
+  window.quizInitialized = false;
+
+  window.toggleToQuiz = function(event) {
+    if (event) event.preventDefault();
+    const lessonView = document.getElementById('lesson-content-view');
+    const practiceView = document.getElementById('practice-content-view');
+    const summaryView = document.getElementById('summary-content-view');
+    const quizView = document.getElementById('quiz-content-view');
+    
+    if (lessonView) lessonView.style.display = 'none';
+    if (practiceView) practiceView.style.display = 'none';
+    if (summaryView) summaryView.style.display = 'none';
+    if (quizView) quizView.style.display = 'block';
+    
+    // Auto-populate if not initialized
+    if (!window.quizInitialized) {
+        window.populateInitialQuiz();
+        window.quizInitialized = true;
+    }
+
+    // Update Back Button
+    const backBtn = document.getElementById('back-button');
+    if (backBtn) {
+        backBtn.innerText = "← Back to Practice";
+        const newBackBtn = backBtn.cloneNode(true);
+        if (backBtn.parentNode) {
+            backBtn.parentNode.replaceChild(newBackBtn, backBtn);
+            newBackBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.toggleToPractice(e);
+            });
+        }
+    }
+    window.scrollTo(0, 0);
+  };
+
+  window.populateInitialQuiz = function() {
+      // If flashcards aren't ready, try init
+      if ((!window.lessonFlashcards || window.lessonFlashcards.length === 0) && typeof window.initFlashcards === 'function') {
+          window.initFlashcards();
+      }
+      
+      const form = document.getElementById('quiz-form');
+      if (!form) return;
+      if (!window.lessonFlashcards || window.lessonFlashcards.length === 0) {
+          form.innerHTML = '<p>No quiz questions available for this lesson yet.</p>';
+          return;
+      }
+
+      form.innerHTML = ''; // Clear template
+
+      // Generate 10 questions (or max available)
+      for (let i = 1; i <= 10; i++) {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'quiz-question';
+          wrapper.style.marginBottom = '2rem';
+          wrapper.dataset.attempts = '2';
+          
+          wrapper.innerHTML = `
+            <div class="attempts-indicator">Attempts left: 2</div>
+            <p style="font-weight: 700; font-size: 1.1rem; margin-bottom: 1rem;">${i}. Loading...</p>
+            <button type="button" class="side-button" style="margin-top:0.5rem; font-size:1rem; padding:0.5rem 1rem; min-width:auto;" onclick="checkQuizAnswer(null, null, this)">Check Answer</button>
+            <button type="button" class="side-button" style="margin-top:0.5rem; font-size:1rem; padding:0.5rem 1rem; min-width:auto; margin-left:0.5rem; background: #64748b;" onclick="getAnotherQuestion(this)">Get another question</button>
+          `;
+          
+          form.appendChild(wrapper);
+          // Use getAnotherQuestion logic to fill it
+          // We pass the "Get another" button to the function to simulate a click
+          window.getAnotherQuestion(wrapper.querySelector('button:last-of-type'), i); 
+      }
+  };
+
+  window.checkQuizAnswer = function(name, correct, btn) {
+    const parent = btn.closest('.quiz-question');
+    if(!parent) return;
+
+    // Get or Init Attempts
+    let attemptsElem = parent.querySelector('.attempts-indicator');
+    if (!attemptsElem) return;
+    
+    let attempts = parseInt(parent.dataset.attempts || '2');
+
+    // Dynamically find name if not passed (for re-generated questions)
+    if (!name) {
+        const input = parent.querySelector('input[type="radio"]');
+        if (input) name = input.name;
+    }
+
+    const selected = parent.querySelector(`input[name="${name}"]:checked`);
+    
+    let feedback = parent.querySelector('.feedback');
+    if(!feedback) {
+        feedback = document.createElement('div');
+        feedback.className = 'feedback';
+        feedback.style.marginTop = '1rem';
+        feedback.style.fontWeight = 'bold';
+        feedback.style.padding = '0.5rem';
+        feedback.style.borderRadius = '0.5rem';
+        parent.appendChild(feedback);
+    }
+    
+    if (!selected) {
+        feedback.textContent = "Please select an answer first.";
+        feedback.style.color = "#ea580c";
+        feedback.style.background = "#fff7ed";
+        return;
+    }
+    
+    // Detect correct answer from value if checking against 'correct' param is complex
+    // But our generation logic embeds the correct letter in the onclick.
+    // However, for the initial load, I need to make sure the onclick is updated correctly.
+
+    if (attempts <= 0 || btn.disabled) return;
+    
+    // If correct is null, try to retrieve it from the button's onclick attribute or dataset
+    if (!correct) {
+       // This is a fallback if the inline handler didn't have it
+       // But getAnotherQuestion updates the handler.
+    }
+    
+    if (selected.value === correct) {
+        feedback.textContent = "Correct! Great job.";
+        feedback.style.color = "#16a34a"; 
+        feedback.style.background = "#dcfce7";
+        btn.disabled = true;
+        const inputs = parent.querySelectorAll('input');
+        inputs.forEach(i => i.disabled = true);
+        attemptsElem.style.display = 'none';
+    } else {
+        attempts--;
+        parent.dataset.attempts = attempts;
+        attemptsElem.textContent = `Attempts left: ${attempts}`;
+
+        if (attempts <= 0) {
+             feedback.textContent = `Incorrect. The correct answer was option ${correct.toUpperCase()}.`;
+             feedback.style.color = "#dc2626";
+             feedback.style.background = "#fee2e2";
+             btn.disabled = true;
+             const inputs = parent.querySelectorAll('input');
+             inputs.forEach(i => i.disabled = true);
+        } else {
+             feedback.textContent = "Incorrect. Try again!";
+             feedback.style.color = "#dc2626";
+             feedback.style.background = "#fee2e2";
+        }
+    }
+  };
+
+  window.getAnotherQuestion = function(btn, forceNum) {
+    if ((!window.lessonFlashcards || window.lessonFlashcards.length === 0) && typeof window.initFlashcards === 'function') {
+        window.initFlashcards();
+    }
+    if (!window.lessonFlashcards || window.lessonFlashcards.length === 0) {
+        // console.log("No flashcards");
+        return;
+    }
+
+    const parent = btn.closest('.quiz-question');
+    if(!parent) return;
+    
+    // Cleanup old feedback
+    const feedback = parent.querySelector('.feedback');
+    if(feedback) feedback.remove();
+    const oldLabels = parent.querySelectorAll('label');
+    oldLabels.forEach(l => l.remove());
+    
+    // Reset attempts
+    const attemptsElem = parent.querySelector('.attempts-indicator');
+    if(attemptsElem) {
+        attemptsElem.textContent = 'Attempts left: 2';
+        attemptsElem.style.display = 'block';
+    }
+    parent.dataset.attempts = '2';
+    
+    const checkBtn = parent.querySelector('button[onclick^="checkQuizAnswer"]');
+    if(checkBtn) checkBtn.disabled = false;
+
+    // 1. Pick Random
+    const qIdx = Math.floor(Math.random() * window.lessonFlashcards.length);
+    const q = window.lessonFlashcards[qIdx];
+    
+    // 2. Update Question Text
+    const p = parent.querySelector('p');
+    let numPrefix = "";
+    if (forceNum) {
+        numPrefix = forceNum + ". ";
+    } else {
+        const match = p.textContent.match(/^\d+\./);
+        if (match) numPrefix = match[0] + " ";
+    }
+    p.textContent = numPrefix + q.question;
+
+    // 3. Generate Options
+    const answers = [q.answer];
+    // Filter out current answer to pool distractors
+    const pool = window.lessonFlashcards.filter(f => f.answer !== q.answer);
+    
+    // Shuffle pool
+    for (let i = pool.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [pool[i], pool[j]] = [pool[j], pool[i]];
+    }
+    // Take up to 3 distractors
+    pool.slice(0, 3).forEach(c => answers.push(c.answer));
+    
+    // Shuffle final answers
+    for (let i = answers.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [answers[i], answers[j]] = [answers[j], answers[i]];
+    }
+    
+    const letters = ['a', 'b', 'c', 'd'];
+    const correctIndex = answers.indexOf(q.answer);
+    const correctLetter = letters[correctIndex];
+    
+    // 4. Create DOM
+    const name = 'q_' + Math.random().toString(36).substr(2, 9);
+    
+    // Insert labels before buttons
+    // Find where buttons start (checkBtn or the first button)
+    const refNode = checkBtn || btn;
+
+    answers.forEach((ans, i) => {
+        const label = document.createElement('label');
+        label.style.display = 'block';
+        label.style.marginBottom = '0.5rem';
+        label.style.cursor = 'pointer';
+        label.style.fontSize = '1.1rem'; 
+        
+        // Input with scaling
+        label.innerHTML = `<input type="radio" name="${name}" value="${letters[i]}" style="margin-right:0.75rem; transform: scale(1.3);"> ${ans}`;
+        
+        parent.insertBefore(label, refNode);
+    });
+
+    // 5. Update Check Button
+    if (checkBtn) {
+        checkBtn.setAttribute('onclick', `checkQuizAnswer('${name}', '${correctLetter}', this)`);
+        checkBtn.onclick = function() { window.checkQuizAnswer(name, correctLetter, this); }; // Direct bind for safety
+    }
+  };
+</script>
+
 </body>
 </html>
