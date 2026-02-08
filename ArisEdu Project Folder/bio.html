@@ -179,7 +179,6 @@
       <button class="taskbar-button" id="search-button">🔍 Search</button>
       <a href = "http://127.0.0.1:3000/index.html?serverWindowId=f88a7adf-8413-4e39-a575-08c292f83a93" <button class="taskbar-button" id="homepage-button">🏠 Homepage</button></a>
       <a href = "http://127.0.0.1:3000/ArisEdu Project Folder/Courses.html?serverWindowId=ce1e8a4e-6de8-4546-a1b5-4ec029832ded" <button class="taskbar-button" id="course-button">📚 Courses</button></a>
-      <a href = "http://127.0.0.1:3000/ArisEdu Project Folder/Play.html?serverWindowId=ce1e8a4e-6de8-4546-a1b5-4ec029832ded" <button class="taskbar-button" id="play-button"></button>▶️ Play</button></a>
       <button class="taskbar-button" id="settings-button">⚙️ Settings</button>
       <a href = "http://127.0.0.1:3000/ArisEdu Project Folder/LoginSignup.html?serverWindowId=ce1e8a4e-6de8-4546-a1b5-4ec029832ded" <button class="taskbar-button" id="login-signup-button">🔐 Login/Signup</button></a>
 
@@ -229,9 +228,7 @@
    
     });
 
-    document.getElementById('play-button').addEventListener('click', () => {
     
-    });
 
     document.getElementById('search-button').addEventListener('click', () => {
     
@@ -514,5 +511,9 @@
   observer.observe(document.body, { childList: true, subtree: true });
 })();
 </script>
+
+    <!-- ArisEdu Global Search -->
+    <script src="../search_data.js"></script>
+    <script src="../search_logic.js"></script>
 </body>
 </html>

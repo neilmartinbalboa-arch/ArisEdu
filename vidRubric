@@ -832,9 +832,7 @@ function initResize(e) {
    
     });
 
-    document.getElementById('play-button').addEventListener('click', () => {
     
-    });
 
     document.getElementById('search-button').addEventListener('click', () => {
     

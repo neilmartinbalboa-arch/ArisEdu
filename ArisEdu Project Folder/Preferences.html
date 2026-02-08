@@ -101,7 +101,6 @@
     <button class="taskbar-button" id="search-button">🔍 Search</button>
     <a class="taskbar-button" id="homepage-button" href="/index.html">🏠 Homepage</a>
     <a class="taskbar-button" id="course-button" href="/ArisEdu Project Folder/Courses.html">📚 Courses</a>
-    <a class="taskbar-button" id="play-button" href="/ArisEdu Project Folder/Play.html">▶️ Play</a>
     <button class="taskbar-button" id="settings-button">⚙️ Settings</button>
     <a class="taskbar-button" id="login-signup-button" href="/ArisEdu Project Folder/LoginSignup.html">🔐 Login/Signup</a>
   </div>
@@ -175,7 +174,7 @@ function updateSidebarLanguage() {
   document.getElementById('search-button').textContent = labels.search;
   document.getElementById('homepage-button').textContent = labels.homepage;
   document.getElementById('course-button').textContent = labels.courses;
-  document.getElementById('play-button').textContent = labels.play;
+  
   document.getElementById('settings-button').textContent = labels.settingsBtn;
   document.getElementById('login-signup-button').textContent = labels.loginSignup;
   // Settings menu
@@ -649,5 +648,9 @@ document.addEventListener('change', function(e) {
   observer.observe(document.body, { childList: true, subtree: true });
 })();
 </script>
+
+    <!-- ArisEdu Global Search -->
+    <script src="../search_data.js"></script>
+    <script src="../search_logic.js"></script>
 </body>
 </html>

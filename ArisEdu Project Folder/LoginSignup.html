@@ -723,7 +723,6 @@
       <button class="taskbar-button" id="search-button">🔍 Search</button>
       <a class="taskbar-button" id="homepage-button" href="http://127.0.0.1:3000/index.html">🏠 Homepage</a>
       <a class="taskbar-button" id="course-button" href="http://127.0.0.1:3000/ArisEdu Project Folder/Courses.html">📚 Courses</a>
-      <a class="taskbar-button" id="play-button" href="http://127.0.0.1:3000/ArisEdu Project Folder/Play.html">▶️ Play</a>
       <button class="taskbar-button" id="settings-button">⚙️ Settings</button>
     </div>
     <div class="settings-menu" id="settings-menu" aria-hidden="true">
@@ -1375,6 +1374,10 @@
   observer.observe(document.body, { childList: true, subtree: true });
 })();
 </script>
+
+    <!-- ArisEdu Global Search -->
+    <script src="../search_data.js"></script>
+    <script src="../search_logic.js"></script>
 </body>
 </html>
 
