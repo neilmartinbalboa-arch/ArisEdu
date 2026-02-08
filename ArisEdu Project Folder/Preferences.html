@@ -11,7 +11,7 @@
       transition: background 0.3s;
     }
     body.dark-mode {
-      background: #0f172a !important;
+      background: #0f172a;
     }
     .taskbar {
       position: fixed;
@@ -322,7 +322,7 @@ const settingsOptions = {
                     <span class="custom-option" data-value="sunrise" style="background: linear-gradient(to right, #FFDAB9, #FF7F50, #FFFACD);">Sunrise</span>
                     <span class="custom-option" data-value="lavender" style="background: linear-gradient(to right, #C8A2C8, #9DC183, #FFFDD0);">Lavender</span>
                     <span class="custom-option" data-value="monochrome" style="background: linear-gradient(to right, #2C2C2C, #C0C0C0, #FFFFFF);">Monochrome</span>
-                    <span class="custom-option" data-value="cyber" style="background: linear-gradient(to right, #000000, #00FFFF, #FF1493);">Cyber</span>
+                    <span class="custom-option" data-value="cyber" style="background: linear-gradient(to right, #000000, #00FFFF);">Cyber</span>
                     <span class="custom-option" data-value="horizon" style="background: linear-gradient(to right, #708090, #4682B4, #FFFFF0);">Horizon</span>
                 </div>
             </div>
@@ -370,7 +370,7 @@ const settingsOptions = {
                     <span class="custom-option" data-value="sunrise" style="background: linear-gradient(to right, #FFDAB9, #FF7F50, #FFFACD);">日出</span>
                     <span class="custom-option" data-value="lavender" style="background: linear-gradient(to right, #C8A2C8, #9DC183, #FFFDD0);">薰衣草</span>
                     <span class="custom-option" data-value="monochrome" style="background: linear-gradient(to right, #2C2C2C, #C0C0C0, #FFFFFF);">单色</span>
-                    <span class="custom-option" data-value="cyber" style="background: linear-gradient(to right, #000000, #00FFFF, #FF1493);">赛博</span>
+                    <span class="custom-option" data-value="cyber" style="background: linear-gradient(to right, #000000, #00FFFF);">赛博</span>
                     <span class="custom-option" data-value="horizon" style="background: linear-gradient(to right, #708090, #4682B4, #FFFFF0);">地平线</span>
                 </div>
             </div>
@@ -648,7 +648,7 @@ function applyDarkMode(darkMode) {
     'ocean-mist': 'linear-gradient(to right, #001F3F, #3D9970, #E0FFFF)',
     'lavender': 'linear-gradient(to right, #C8A2C8, #9DC183, #FFFDD0)',
     'monochrome': 'linear-gradient(to right, #2C2C2C, #C0C0C0, #FFFFFF)',
-    'cyber': 'linear-gradient(to right, #000000, #00FFFF, #FF1493)',
+    'cyber': 'linear-gradient(to right, #000000, #00FFFF)',
     'horizon': 'linear-gradient(to right, #708090, #4682B4, #FFFFF0)'
   };
 
@@ -656,39 +656,42 @@ function applyDarkMode(darkMode) {
   document.body.classList.remove('aurora-mode');
   let activeGradient = gradients[colorTheme] || gradients['blue-green'];
 
-  // Theme Logic
+  // Theme Logic: Apply gradient to Body
   if (colorTheme === 'blue-green') {
     document.body.classList.add('aurora-mode');
-    document.body.style.background = ''; // Use CSS default
+    document.body.style.background = ''; // Use CSS default (Blue-Green or Dark Mode #0f172a)
   } else {
+    // For custom themes, we likely want the gradient to be visible as the "Wallpaper"
     document.body.style.background = activeGradient;
-    // For other themes, apply the active gradient
   }
   
+  // Settings Container Logic
   if (settingsContainer) {
-       settingsContainer.style.background = darkMode ? '#1e293b' : activeGradient;
+       if (colorTheme === 'blue-green') {
+           // Default behavior
+           settingsContainer.style.background = darkMode ? '#1e293b' : activeGradient;
+           settingsContainer.style.backdropFilter = 'none';
+       } else {
+           if (darkMode) {
+               // In dark mode with custom theme, use translucent dark panel to show gradient but ensure readability
+               settingsContainer.style.background = 'rgba(15, 23, 42, 0.9)'; 
+               settingsContainer.style.backdropFilter = 'blur(10px)';
+               settingsContainer.style.border = '1px solid rgba(255,255,255,0.1)';
+           } else {
+               // In light mode, use the gradient fully? Or keeping it solid/gradient
+               settingsContainer.style.background = activeGradient;
+               settingsContainer.style.backdropFilter = 'none';
+               settingsContainer.style.border = 'none';
+           }
+       }
   }
   
   // Apply Common Styles
   document.body.style.color = darkMode ? '#e2e8f0' : '#0f172a';
 
-  if (taskbar) {
-    taskbar.style.background = activeGradient;
-  }
-
-  if (sidebarTitle) {
-      sidebarTitle.style.background = activeGradient;
-      sidebarTitle.style.webkitBackgroundClip = 'text';
-      sidebarTitle.style.webkitTextFillColor = 'transparent';
-      sidebarTitle.style.backgroundClip = 'text';
-      sidebarTitle.style.color = 'transparent';
-  }
-  
-  // Apply to sidebar buttons if they are active
+  // Apply to sidebar buttons
   document.querySelectorAll('.settings-category').forEach(btn => {
-      // If button is active (blue/selected), change its background
-      // Note: This relies on the inline style being set to '#dbeafe' or dark mode
-      // But we might want to highlight the active tab with the gradient in future
+      // Logic handled in click handler, but updates colors here
   });
   
   if (sidebar) {
@@ -720,20 +723,44 @@ function applyDarkMode(darkMode) {
       btn.textContent.trim() === 'Account' ||
       btn.textContent.trim() === 'Notifications'
     ) {
-      btn.style.background = darkMode ? '#273244' : '#fff';
+      if (!btn.style.background.includes('dbeafe')) { // If not selected (approx check)
+         btn.style.background = darkMode ? '#273244' : '#fff';
+      }
     }
   });
+
   const languageBox = document.getElementById('languageSelect');
   if (languageBox) languageBox.style.background = darkMode ? '#273244' : '#fff';
   languageBox && (languageBox.style.color = darkMode ? '#e2e8f0' : '#0f172a');
+  
   const colorThemeBox = document.getElementById('colorThemeSelect');
   if (colorThemeBox) colorThemeBox.style.background = darkMode ? '#273244' : '#fff';
   colorThemeBox && (colorThemeBox.style.color = darkMode ? '#e2e8f0' : '#0f172a');
+  
   // Set checkbox state
   const darkModeCheckbox = document.getElementById('darkModeToggle');
   if (darkModeCheckbox) darkModeCheckbox.checked = !!darkMode;
-  // Debug log for darkMode
-  console.log('applyDarkMode called. darkMode:', darkMode);
+
+  // Taskbar Background - Must be applied last to ensure it overrides defaults
+  if (taskbar) {
+    taskbar.style.background = activeGradient;
+    
+    // Explicitly handle text contrast on taskbar if using dark theme like Cyber
+    // Cyber is Black -> Cyan. White text is okay on Black, iffy on Cyan.
+    // Taskbar buttons have background-color (rgba).
+    // Let's ensure taskbar looks intended.
+  }
+
+  // Handle Sidebar Title Gradient matching
+  if (sidebarTitle) {
+      sidebarTitle.style.background = activeGradient;
+      sidebarTitle.style.webkitBackgroundClip = 'text';
+      sidebarTitle.style.webkitTextFillColor = 'transparent';
+      sidebarTitle.style.backgroundClip = 'text';
+      sidebarTitle.style.color = 'transparent';
+  }
+
+  console.log('applyDarkMode called. darkMode:', darkMode, 'Theme:', colorTheme);
 }
 
 // On load, apply dark mode if stored

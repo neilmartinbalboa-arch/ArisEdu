@@ -1557,6 +1557,8 @@
         </div></div>
         </div>
 <div class="Practice-actions" style="margin-top:2rem;display:flex;justify-content:flex-end;width:100%;">
+          <button class="side-button" onclick="toggleToQuiz(event)" style="margin-right: 1rem;">Next Up: Quiz</button>
+          
           <div class="Practices-menu" style="position:relative;">
             <button class="side-button view-other-Practices" type="button" onclick="togglePracticesPanel(this)">Other games</button>
             <div class="Practices-panel" aria-hidden="true">
@@ -1569,7 +1571,6 @@
               </div>
             </div>
           </div>
-          <button class="side-button" onclick="toggleToQuiz(event)" style="margin-left: 1rem;">Next Up: Quiz</button>
         </div>
       </div>
     </div>
@@ -2308,6 +2309,7 @@
         }
     }
     
+    if(window.randomizeQuizQuestions) window.randomizeQuizQuestions();
     window.scrollTo(0, 0);
   };
 
@@ -2322,17 +2324,8 @@
     if (summaryView) summaryView.style.display = 'none';
     if (quizView) quizView.style.display = 'none';
     if (practiceView) practiceView.style.display = 'block';
-    
-    // Initialize flashcards if not already done
-    if (typeof initFlashcards === 'function') {
-        try {
-            initFlashcards();
-        } catch (err) {
-            console.error("Error initializing flashcards:", err);
-        }
-    }
 
-    // Update Back Button
+    // Update Back Button first to ensure navigation works
     const backBtn = document.getElementById('back-button');
     if (backBtn) {
         backBtn.innerText = "← Back to Summary";
@@ -2345,10 +2338,60 @@
             });
         }
     }
+
+    // Initialize flashcards last
+    if (typeof initFlashcards === 'function') {
+        try {
+            initFlashcards();
+        } catch (err) {
+            console.error("Error initializing flashcards:", err);
+        }
+    }
+    
+    if(window.randomizeQuizQuestions) window.randomizeQuizQuestions();
     window.scrollTo(0, 0);
   };
 
+  
+  window.randomizeQuizQuestions = function() {
+    const form = document.getElementById('quiz-form');
+    if (!form) return;
+    
+    // Collect questions
+    let questions = Array.from(form.querySelectorAll('.quiz-question'));
+    if (questions.length === 0) return;
+    
+    // If we already have 5 or less, we might not need to do anything, 
+    // UNLESS we want to shuffle static ones.
+    // If dataset.shuffled is true, skip.
+    if (form.dataset.shuffled === 'true') return;
+
+    // Shuffle
+    for (let i = questions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [questions[i], questions[j]] = [questions[j], questions[i]];
+    }
+
+    // Limit to 5
+    const selected = questions.slice(0, 5);
+    
+    // Clear and Append
+    form.innerHTML = '';
+    selected.forEach((q, index) => {
+        // Fix Numbering
+        const p = q.querySelector('p');
+        if (p) {
+            p.textContent = p.textContent.replace(/^\d+\.\s*/, `${index + 1}. `);
+        }
+        form.appendChild(q);
+    });
+    
+    form.dataset.shuffled = 'true';
+  };
+
+
   window.toggleToQuiz = function(event) {
+    window.usedFlashcardIndices = [];
     if (event) event.preventDefault();
     const lessonView = document.getElementById('lesson-content-view');
     const practiceView = document.getElementById('practice-content-view');
@@ -2373,6 +2416,7 @@
             });
         }
     }
+    if(window.randomizeQuizQuestions) window.randomizeQuizQuestions();
     window.scrollTo(0, 0);
   };
     
@@ -2463,7 +2507,32 @@
     if(checkBtn) checkBtn.disabled = false;
 
     // 1. Pick Random Question
-    const qIdx = Math.floor(Math.random() * window.lessonFlashcards.length);
+        // Unique Question Logic
+    if (!window.usedFlashcardIndices) window.usedFlashcardIndices = [];
+    
+    // Safety check for flashcards
+    if (!window.lessonFlashcards) {
+        if (typeof window.initFlashcards === 'function') window.initFlashcards();
+    }
+    
+    // Filter available indices
+    let availablePool = [];
+    if (window.lessonFlashcards) {
+        availablePool = window.lessonFlashcards
+            .map((_, i) => i)
+            .filter(i => !window.usedFlashcardIndices.includes(i));
+    }
+    
+    let qIdx;
+    if (availablePool.length > 0) {
+        const randomPoolIdx = Math.floor(Math.random() * availablePool.length);
+        qIdx = availablePool[randomPoolIdx];
+    } else {
+        // Reset if exhausted to avoid infinite loops or empty
+        window.usedFlashcardIndices = [];
+        qIdx = Math.floor(Math.random() * (window.lessonFlashcards ? window.lessonFlashcards.length : 0));
+    }
+    window.usedFlashcardIndices.push(qIdx);
     const q = window.lessonFlashcards[qIdx];
     
     // 2. Update Text
@@ -3119,7 +3188,32 @@ window.exitClimbGame = function() {
         }
         
         // Pick random question
-        const qIdx = Math.floor(Math.random() * window.lessonFlashcards.length);
+            // Unique Question Logic
+    if (!window.usedFlashcardIndices) window.usedFlashcardIndices = [];
+    
+    // Safety check for flashcards
+    if (!window.lessonFlashcards) {
+        if (typeof window.initFlashcards === 'function') window.initFlashcards();
+    }
+    
+    // Filter available indices
+    let availablePool = [];
+    if (window.lessonFlashcards) {
+        availablePool = window.lessonFlashcards
+            .map((_, i) => i)
+            .filter(i => !window.usedFlashcardIndices.includes(i));
+    }
+    
+    let qIdx;
+    if (availablePool.length > 0) {
+        const randomPoolIdx = Math.floor(Math.random() * availablePool.length);
+        qIdx = availablePool[randomPoolIdx];
+    } else {
+        // Reset if exhausted to avoid infinite loops or empty
+        window.usedFlashcardIndices = [];
+        qIdx = Math.floor(Math.random() * (window.lessonFlashcards ? window.lessonFlashcards.length : 0));
+    }
+    window.usedFlashcardIndices.push(qIdx);
         currentQuestion = window.lessonFlashcards[qIdx];
         
         document.getElementById('climb-question-text').innerText = currentQuestion.question;

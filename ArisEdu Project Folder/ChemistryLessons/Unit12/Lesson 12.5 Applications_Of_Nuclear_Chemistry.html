@@ -1374,13 +1374,14 @@ body.dark-mode #quiz-content-view .quiz-question {
         </div></div>
         </div>
 <div class="Practice-actions" style="margin-top:2rem;display:flex;justify-content:flex-end;width:100%;">
+          <button class="side-button" onclick="toggleToQuiz(event)" style="margin-right: 1rem;">Next Up: Quiz</button>
           <div class="Practices-menu" style="position:relative;">
             <button class="side-button view-other-Practices" type="button" onclick="window.togglePracticesPanel(this)">Other games</button>
             <div class="Practices-panel" aria-hidden="true">
               <div class="Practices-panel-item">
                 <a href="#flashcard-game">Flashcard Game</a>
               
-          <button class="side-button" onclick="toggleToQuiz(event)" style="margin-left: 1rem;">Next Up: Quiz</button>
+          
 </div>
               <div class="Practices-panel-item">
                 <a href="#climb">Boost</a>
@@ -1878,6 +1879,7 @@ body.dark-mode #quiz-content-view .quiz-question {
     const lessonView = document.getElementById('lesson-content-view');
     const practiceView = document.getElementById('practice-content-view');
     const summaryView = document.getElementById('summary-content-view');
+    const quizView = document.getElementById('quiz-content-view');
     
     if (lessonView) lessonView.style.display = 'none';
     if (practiceView) practiceView.style.display = 'none';
@@ -1906,6 +1908,7 @@ body.dark-mode #quiz-content-view .quiz-question {
             newBackBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 if (summaryView) summaryView.style.display = 'none';
+    if (quizView) quizView.style.display = 'none';
                 if (lessonView) lessonView.style.display = 'block';
                 
                 // Restore original Back Button behavior for Unit
@@ -1966,6 +1969,7 @@ body.dark-mode #quiz-content-view .quiz-question {
         }
     }
     
+    if(window.randomizeQuizQuestions) window.randomizeQuizQuestions();
     window.scrollTo(0, 0);
   };
 
@@ -1974,9 +1978,11 @@ body.dark-mode #quiz-content-view .quiz-question {
     const lessonView = document.getElementById('lesson-content-view');
     const practiceView = document.getElementById('practice-content-view');
     const summaryView = document.getElementById('summary-content-view');
+    const quizView = document.getElementById('quiz-content-view');
 
     if (lessonView) lessonView.style.display = 'none';
     if (summaryView) summaryView.style.display = 'none';
+    if (quizView) quizView.style.display = 'none';
     if (practiceView) practiceView.style.display = 'block';
     
     // Initialize flashcards if not already done
@@ -2001,6 +2007,7 @@ body.dark-mode #quiz-content-view .quiz-question {
             });
         }
     }
+    if(window.randomizeQuizQuestions) window.randomizeQuizQuestions();
     window.scrollTo(0, 0);
   };
   
@@ -2526,7 +2533,32 @@ window.exitClimbGame = function() {
         }
         
         // Pick random question
-        const qIdx = Math.floor(Math.random() * window.lessonFlashcards.length);
+            // Unique Question Logic
+    if (!window.usedFlashcardIndices) window.usedFlashcardIndices = [];
+    
+    // Safety check for flashcards
+    if (!window.lessonFlashcards) {
+        if (typeof window.initFlashcards === 'function') window.initFlashcards();
+    }
+    
+    // Filter available indices
+    let availablePool = [];
+    if (window.lessonFlashcards) {
+        availablePool = window.lessonFlashcards
+            .map((_, i) => i)
+            .filter(i => !window.usedFlashcardIndices.includes(i));
+    }
+    
+    let qIdx;
+    if (availablePool.length > 0) {
+        const randomPoolIdx = Math.floor(Math.random() * availablePool.length);
+        qIdx = availablePool[randomPoolIdx];
+    } else {
+        // Reset if exhausted to avoid infinite loops or empty
+        window.usedFlashcardIndices = [];
+        qIdx = Math.floor(Math.random() * (window.lessonFlashcards ? window.lessonFlashcards.length : 0));
+    }
+    window.usedFlashcardIndices.push(qIdx);
         currentQuestion = window.lessonFlashcards[qIdx];
         
         document.getElementById('climb-question-text').innerText = currentQuestion.question;
@@ -2662,7 +2694,46 @@ window.exitClimbGame = function() {
   // Quiz Feature Logic
   window.quizInitialized = false;
 
+  
+  window.randomizeQuizQuestions = function() {
+    const form = document.getElementById('quiz-form');
+    if (!form) return;
+    
+    // Collect questions
+    let questions = Array.from(form.querySelectorAll('.quiz-question'));
+    if (questions.length === 0) return;
+    
+    // If we already have 5 or less, we might not need to do anything, 
+    // UNLESS we want to shuffle static ones.
+    // If dataset.shuffled is true, skip.
+    if (form.dataset.shuffled === 'true') return;
+
+    // Shuffle
+    for (let i = questions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [questions[i], questions[j]] = [questions[j], questions[i]];
+    }
+
+    // Limit to 5
+    const selected = questions.slice(0, 5);
+    
+    // Clear and Append
+    form.innerHTML = '';
+    selected.forEach((q, index) => {
+        // Fix Numbering
+        const p = q.querySelector('p');
+        if (p) {
+            p.textContent = p.textContent.replace(/^\d+\.\s*/, `${index + 1}. `);
+        }
+        form.appendChild(q);
+    });
+    
+    form.dataset.shuffled = 'true';
+  };
+
+
   window.toggleToQuiz = function(event) {
+    window.usedFlashcardIndices = [];
     if (event) event.preventDefault();
     const lessonView = document.getElementById('lesson-content-view');
     const practiceView = document.getElementById('practice-content-view');
@@ -2672,6 +2743,7 @@ window.exitClimbGame = function() {
     if (lessonView) lessonView.style.display = 'none';
     if (practiceView) practiceView.style.display = 'none';
     if (summaryView) summaryView.style.display = 'none';
+    if (quizView) quizView.style.display = 'none';
     if (quizView) quizView.style.display = 'block';
     
     // Auto-populate if not initialized
@@ -2693,6 +2765,7 @@ window.exitClimbGame = function() {
             });
         }
     }
+    if(window.randomizeQuizQuestions) window.randomizeQuizQuestions();
     window.scrollTo(0, 0);
   };
 
@@ -2712,7 +2785,7 @@ window.exitClimbGame = function() {
       form.innerHTML = ''; // Clear template
 
       // Generate 10 questions (or max available)
-      for (let i = 1; i <= 10; i++) {
+      for (let i = 1; i <= 5 ; i++) {
           const wrapper = document.createElement('div');
           wrapper.className = 'quiz-question';
           wrapper.style.marginBottom = '2rem';
@@ -2838,7 +2911,32 @@ window.exitClimbGame = function() {
     if(checkBtn) checkBtn.disabled = false;
 
     // 1. Pick Random
-    const qIdx = Math.floor(Math.random() * window.lessonFlashcards.length);
+        // Unique Question Logic
+    if (!window.usedFlashcardIndices) window.usedFlashcardIndices = [];
+    
+    // Safety check for flashcards
+    if (!window.lessonFlashcards) {
+        if (typeof window.initFlashcards === 'function') window.initFlashcards();
+    }
+    
+    // Filter available indices
+    let availablePool = [];
+    if (window.lessonFlashcards) {
+        availablePool = window.lessonFlashcards
+            .map((_, i) => i)
+            .filter(i => !window.usedFlashcardIndices.includes(i));
+    }
+    
+    let qIdx;
+    if (availablePool.length > 0) {
+        const randomPoolIdx = Math.floor(Math.random() * availablePool.length);
+        qIdx = availablePool[randomPoolIdx];
+    } else {
+        // Reset if exhausted to avoid infinite loops or empty
+        window.usedFlashcardIndices = [];
+        qIdx = Math.floor(Math.random() * (window.lessonFlashcards ? window.lessonFlashcards.length : 0));
+    }
+    window.usedFlashcardIndices.push(qIdx);
     const q = window.lessonFlashcards[qIdx];
     
     // 2. Update Question Text
