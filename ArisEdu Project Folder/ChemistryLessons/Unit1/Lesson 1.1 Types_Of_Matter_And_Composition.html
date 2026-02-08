@@ -118,6 +118,7 @@
       margin-bottom: 2rem;
     }
 
+
     .lesson-layout {
       display: flex;
       gap: 1.5rem;
@@ -125,6 +126,75 @@
       width: 100%;
     }
 
+    /* Embedded Summary Styles */
+    .lesson-notes {
+      margin-top: 1.5rem;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 1rem;
+      padding: 1.5rem 1.75rem;
+      box-shadow: 0 10px 18px rgba(15, 23, 42, 0.12);
+      color: #0f172a;
+    }
+
+    .lesson-notes h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 0.5rem;
+    }
+
+    .lesson-notes p {
+      margin-bottom: 1rem;
+      color: #1e293b;
+    }
+
+    .lesson-notes ul {
+      margin: 0 0 1.25rem 1.25rem;
+      color: #1e293b;
+      list-style: disc;
+    }
+
+    .lesson-notes li {
+      margin-bottom: 0.35rem;
+    }
+    
+    .diagram-card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      margin-top: 1.5rem;
+      position: relative;
+    }
+
+    body.dark-mode .lesson-notes {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      box-shadow: 0 10px 18px rgba(2, 6, 23, 0.35);
+      color: #e2e8f0;
+    }
+
+    body.dark-mode .lesson-notes h3 {
+      color: #f8fafc;
+    }
+
+    body.dark-mode .lesson-notes p,
+    body.dark-mode .lesson-notes ul {
+      color: #e2e8f0;
+    }
+
+    body.dark-mode .diagram-card {
+      background: rgba(15, 23, 42, 0.85);
+    }
+    
+    .summary-actions {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
 
     .side-buttons {
       position: absolute;
@@ -136,6 +206,49 @@
       z-index: 30;
       align-items: flex-end;
       pointer-events: auto;
+    }
+
+    /* Flashcard Styles */
+    body.dark-mode .flashcard-box {
+      background: #1e293b !important;
+      color: #e2e8f0 !important;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.35) !important;
+      border: 1.5px solid #334155;
+    }
+    body.dark-mode #prev-flashcard {
+      background: #b91c1c !important;
+      color: #fff !important;
+    }
+    body.dark-mode #next-flashcard {
+      background: #059669 !important;
+      color: #fff !important;
+    }
+    body.dark-mode .flashcard-box svg {
+      filter: drop-shadow(0 0 2px #0f172a);
+    }
+    #shuffle-flashcard {
+      background: #6366f1;
+      color: #fff;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      cursor: pointer;
+      font-weight: 600;
+      margin-left: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      transition: background 0.2s;
+    }
+    #shuffle-flashcard:hover {
+      background: #4f46e5;
+    }
+    body.dark-mode #shuffle-flashcard {
+      background: #3730a3;
+    }
+    body.dark-mode #shuffle-flashcard:hover {
+      background: #312e81;
     }
 
     .side-button {
@@ -179,6 +292,57 @@
       visibility: visible;
       pointer-events: auto;
       animation: panelFadeIn 0.25s ease-out;
+    }
+
+    .Practice-actions {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .Practices-menu {
+      position: relative;
+    }
+
+    .Practices-panel {
+      width: 12rem;
+      min-height: 3rem;
+      background: #0f172a;
+      border: 2px solid #334155;
+      border-radius: 0.75rem;
+      position: absolute;
+      right: 0;
+      bottom: calc(100% + 0.25rem);
+      z-index: 10;
+      opacity: 0;
+      transform: scale(0.95);
+      transform-origin: bottom right;
+      visibility: hidden;
+      pointer-events: none;
+      padding: 0.6rem;
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    }
+
+    .Practices-panel.is-open {
+      opacity: 0.95;
+      visibility: visible;
+      pointer-events: auto;
+      transform: scale(1);
+    }
+    
+    .Practices-panel a {
+      display: block;
+      color: #e2e8f0;
+      text-decoration: none;
+      padding: 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    
+    .Practices-panel a:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
     }
     
 
@@ -590,6 +754,88 @@
     }
 
   
+
+    .lesson-notes {
+      margin-top: 1.5rem;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 1rem;
+      padding: 1.5rem 1.75rem;
+      box-shadow: 0 10px 18px rgba(15, 23, 42, 0.12);
+      color: #0f172a;
+    }
+
+    .lesson-notes h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 0.5rem;
+    }
+
+    .lesson-notes p {
+      margin-bottom: 1rem;
+      color: #1e293b;
+    }
+
+    .lesson-notes ul {
+      margin: 0 0 1.25rem 1.25rem;
+      color: #1e293b;
+      list-style: disc;
+    }
+
+    .lesson-notes li {
+      margin-bottom: 0.35rem;
+    }
+
+    body.dark-mode .lesson-notes {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      box-shadow: 0 10px 18px rgba(2, 6, 23, 0.35);
+      color: #e2e8f0;
+    }
+
+    body.dark-mode .lesson-notes h3 {
+      color: #f8fafc;
+    }
+
+    body.dark-mode .lesson-notes p,
+    body.dark-mode .lesson-notes ul {
+      color: #e2e8f0;
+    }
+
+    body.dark-mode .diagram-card {
+      background: rgba(15, 23, 42, 0.85);
+    }
+
+    .diagram-placeholder {
+      border: 2px dashed rgba(59, 130, 246, 0.6);
+      border-radius: 0.75rem;
+      padding: 2.5rem;
+      text-align: center;
+      color: #475569;
+    }
+
+    body.dark-mode .diagram-placeholder {
+      color: #cbd5e1;
+      border-color: rgba(148, 163, 184, 0.6);
+    }
+    
+    .diagram-card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      margin-top: 1.5rem;
+      position: relative;
+    }
+    .summary-actions {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
     /* videos-panel-overrides */
     .side-buttons {
       z-index: 30;
@@ -900,6 +1146,7 @@
     </div>
   </nav>
   <main class="main-container">
+    <div id="lesson-content-view">
     <h2 class="page-title">Lesson 1.1: Types of Matter & Composition</h2>
     <div class="courses-container">
       <div class="lesson-layout">
@@ -971,7 +1218,7 @@
               </div>
             </div>
           </div>
-          <a class="side-button" href="Lesson 1.1 Types_Of_Matter_And_CompositionSummary.html">Next Up: Summary</a>
+          <button class="side-button" onclick="toggleToSummary(event)">Next Up: Summary</button>
         </div>
       </div>
       <div class="rubric-box">
@@ -1013,6 +1260,98 @@
               </div>
             </div>
           </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Embedded Summary View (Hidden by default) -->
+    <div id="summary-content-view" style="display: none;">
+        <h2 class="page-title">Lesson 1.1: Types of Matter &amp; Composition Summary</h2>
+        <div class="diagram-card">
+          <div class="lesson-notes">
+            <h3>Solid</h3>
+            <ul>
+              <li>Atoms are packed closely together in fixed positions.</li>
+              <li>Particles vibrate in place but do not move freely.</li>
+              <li>Definite shape and definite volume.</li>
+              <li>Lowest particle motion (kinetic energy).</li>
+            </ul>
+
+            <h3>Liquid</h3>
+            <ul>
+              <li>Atoms are close together but not fixed in place.</li>
+              <li>Particles slide past one another, allowing flow.</li>
+              <li>Definite volume but shape depends on container.</li>
+              <li>Intermediate particle motion.</li>
+            </ul>
+
+            <h3>Gas</h3>
+            <ul>
+              <li>Atoms are far apart and move freely.</li>
+              <li>Particles spread out to fill the entire container.</li>
+              <li>Particles spread out to fill the entire container.</li>
+              <li>No definite shape or volume.</li>
+              <li>Highest particle motion.</li>
+            </ul>
+
+            <h3>Key Concept</h3>
+            <p>The atoms themselves remain the same across all states. What changes is their spacing and movement.</p>
+            <p>Example: Water (H2O) -> ice, liquid water, steam - same atoms, different arrangements.</p>
+
+            <h3>Study Tip</h3>
+            <p>Visualize particle diagrams:</p>
+            <ul>
+              <li>Solid -> tightly packed dots.</li>
+              <li>Liquid -> clustered but flowing dots.</li>
+              <li>Gas -> widely spaced dots moving randomly.</li>
+            </ul>
+        </div>
+
+
+          <div class="summary-actions">
+            <button class="side-button" onclick="toggleToPractice(event)">Next Up: Play</button>
+          </div>
+        </div>
+    </div>
+    
+    <!-- Embedded Practice View (Hidden by default) -->
+    <div id="practice-content-view" style="display: none;">
+      <h2 class="page-title">Lesson 1.1: Types of Matter & Composition Practice</h2>
+      <div class="diagram-card">
+        <div class="flashcard-game" style="margin-top:2rem;display:flex;flex-direction:column;align-items:center;">
+          <div id="flashcard" class="flashcard-box" style="background:#fff;border-radius:1rem;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:2rem 3rem;display:flex;align-items:center;justify-content:center;text-align:center;min-width:calc(320px + 56rem);min-height:calc(120px + 24rem);font-weight:600;color:#0f172a;margin-bottom:1rem;cursor:pointer;transition:background 0.2s, color 0.2s;">
+            <span id="flashcard-content" style="width:100%;display:block;"></span>
+          </div>
+          <div style="display:flex;gap:1rem;">
+            <button id="prev-flashcard" style="background:#ef4444;padding:0.75rem 1.5rem;border:none;border-radius:0.5rem;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24">
+                <path d="M15 6l-6 6 6 6" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <button id="next-flashcard" style="background:#10b981;padding:0.75rem 1.5rem;border:none;border-radius:0.5rem;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24">
+                <path d="M9 6l6 6-6 6" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <button id="shuffle-flashcard" title="Shuffle flashcards">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path d="M4 4h7l-1.5 1.5M20 20h-7l1.5-1.5M4 20l16-16" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Shuffle
+            </button>
+          </div>
+        </div>
+        <div class="Practice-actions" style="margin-top:2rem;display:flex;justify-content:flex-end;width:100%;">
+          <div class="Practices-menu" style="position:relative;">
+            <button class="side-button view-other-Practices" type="button" onclick="togglePracticesPanel(this)">Other practices</button>
+            <div class="Practices-panel" aria-hidden="true">
+              <!-- Only show flashcard game entry -->
+              <div class="Practices-panel-item">
+                <a href="#flashcard-game">Flashcard Game</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </main>
@@ -1502,6 +1841,228 @@
       }
     });
   })();
+</script>
+<script>
+  window.togglePracticesPanel = function(button) {
+    if (!button) return;
+    const menu = button.closest('.Practices-menu') || button.closest('.side-buttons'); 
+    if (!menu) return;
+    const panel = menu.querySelector('.Practices-panel');
+    if (!panel) return;
+    const isOpen = panel.classList.toggle('is-open');
+    panel.setAttribute('aria-hidden', (!isOpen).toString());
+  };
+
+  function attachPracticeListeners() {
+      document.querySelectorAll('.view-other-Practices').forEach((button) => {
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+        window.togglePracticesPanel(button);
+      });
+    });
+  }
+
+
+  window.toggleToSummary = function(event) {
+    if (event) event.preventDefault();
+    const lessonView = document.getElementById('lesson-content-view');
+    const practiceView = document.getElementById('practice-content-view');
+    const summaryView = document.getElementById('summary-content-view');
+    
+    if (lessonView) lessonView.style.display = 'none';
+    if (practiceView) practiceView.style.display = 'none';
+    if (summaryView) summaryView.style.display = 'block';
+    
+    // Update Back Button
+    const backBtn = document.getElementById('back-button');
+    if (backBtn) {
+        backBtn.innerText = "← Back to Lesson 1.1";
+        // Clone to clear previous listeners
+        const newBackBtn = backBtn.cloneNode(true);
+        if (backBtn.parentNode) {
+            backBtn.parentNode.replaceChild(newBackBtn, backBtn);
+            newBackBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (summaryView) summaryView.style.display = 'none';
+                if (lessonView) lessonView.style.display = 'block';
+                
+                // Restore original Back Button behavior for Unit 1
+                const restoreBtn = newBackBtn.cloneNode(true);
+                newBackBtn.parentNode.replaceChild(restoreBtn, newBackBtn);
+                restoreBtn.innerText = "← Back to Unit 1";
+                restoreBtn.addEventListener('click', (ev) => {
+                    ev.preventDefault();
+                    window.location.href = 'ChemistryUnit1Matter.html';
+                });
+            });
+        }
+    }
+    
+    window.scrollTo(0, 0);
+  };
+
+  window.toggleToPractice = function(event) {
+    if (event) event.preventDefault();
+    const lessonView = document.getElementById('lesson-content-view');
+    const practiceView = document.getElementById('practice-content-view');
+    const summaryView = document.getElementById('summary-content-view');
+
+    if (lessonView) lessonView.style.display = 'none';
+    if (summaryView) summaryView.style.display = 'none';
+    if (practiceView) practiceView.style.display = 'block';
+    
+    // Initialize flashcards if not already done
+    if (typeof initFlashcards === 'function') {
+        try {
+            initFlashcards();
+        } catch (err) {
+            console.error("Error initializing flashcards:", err);
+        }
+    }
+
+    // Update Back Button
+    const backBtn = document.getElementById('back-button');
+    if (backBtn) {
+        backBtn.innerText = "← Back to Summary";
+        const newBackBtn = backBtn.cloneNode(true);
+        if (backBtn.parentNode) {
+            backBtn.parentNode.replaceChild(newBackBtn, backBtn);
+            newBackBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.toggleToSummary(e);
+            });
+        }
+    }
+    window.scrollTo(0, 0);
+  };
+
+  // Flashcard Logic
+  let flashcardsInitialized = false;
+  window.initFlashcards = function() {
+      if (flashcardsInitialized) return;
+      
+        const flashcards = [
+          {
+            question: "What are the properties of solids?",
+            answer: "Solids have definite shape and volume."
+          },
+          {
+            question: "What are the properties of liquids?",
+            answer: "Liquids have definite volume but shape depends on container."
+          },
+          {
+            question: "What are the properties of gases?",
+            answer: "Gases have no definite shape or volume."
+          },
+          {
+            question: "How are the atoms arranged in a solid?",
+            answer: "Atoms are packed closely together in fixed positions."
+          },
+          {
+            question: "How are the atoms arranged in a liquid?",
+            answer: "Atoms are close together but not fixed in place. They can move around each other."
+          },
+          {
+            question: "Fixed volume and fixed shape are the properties of a _",
+            answer: "Solid."
+          },
+          {
+            question: "Fixed volume but no fixed shape are the properties of a _",
+            answer: "Liquid."
+          },
+          {
+            question: "No fixed volume or shape are the properties of a _",
+            answer: "Gas."
+          },
+          {
+            question: "What is the only state of matter that is compressable?",
+            answer: "Gas."
+          }
+        ];
+        
+        let currentFlashcard = 0;
+        let flashcardOrder = [...Array(flashcards.length).keys()];
+        
+        const flashcardContent = document.getElementById('flashcard-content');
+        const flashcardDiv = document.getElementById('flashcard');
+        const nextFlashcardBtn = document.getElementById('next-flashcard');
+        const prevFlashcardBtn = document.getElementById('prev-flashcard');
+        const shuffleFlashcardBtn = document.getElementById('shuffle-flashcard');
+        
+        if (!flashcardContent || !flashcardDiv || !nextFlashcardBtn || !prevFlashcardBtn || !shuffleFlashcardBtn) {
+            console.error("Flashcard elements not found");
+            return;
+        }
+
+        let showingAnswer = false;
+
+        function updateFlashcard() {
+          showingAnswer = false;
+          const idx = flashcardOrder[currentFlashcard];
+          const text = flashcards[idx].question;
+          flashcardContent.textContent = text;
+          autoAdjustFontSize(text);
+        }
+
+        function autoAdjustFontSize(text) {
+          if (!flashcardContent) return;
+          // Estimate font size based on text length
+          let baseSize = 1.25; // rem
+          let minSize = 0.8; // rem
+          let maxSize = 2.5; // rem
+          let length = text.length;
+          let size = baseSize;
+          if (length < 60) {
+            size = maxSize;
+          } else if (length < 120) {
+            size = 1.5;
+          } else if (length < 200) {
+            size = 1.1;
+          } else {
+            size = minSize;
+          }
+          flashcardContent.style.fontSize = size + 'rem';
+        }
+
+        flashcardDiv.addEventListener('click', () => {
+          const idx = flashcardOrder[currentFlashcard];
+          if (!showingAnswer) {
+            const answer = flashcards[idx].answer;
+            flashcardContent.textContent = answer;
+            autoAdjustFontSize(answer);
+            showingAnswer = true;
+          } else {
+            const question = flashcards[idx].question;
+            flashcardContent.textContent = question;
+            autoAdjustFontSize(question);
+            showingAnswer = false;
+          }
+        });
+        nextFlashcardBtn.addEventListener('click', () => {
+          currentFlashcard = (currentFlashcard + 1) % flashcardOrder.length;
+          updateFlashcard();
+        });
+        prevFlashcardBtn.addEventListener('click', () => {
+          currentFlashcard = (currentFlashcard - 1 + flashcardOrder.length) % flashcardOrder.length;
+          updateFlashcard();
+        });
+        shuffleFlashcardBtn.addEventListener('click', () => {
+          function shuffleArray(array) {
+            let arr = array.slice();
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+          }
+          flashcardOrder = shuffleArray(flashcardOrder);
+          currentFlashcard = 0;
+          updateFlashcard();
+        });
+
+        updateFlashcard();
+        flashcardsInitialized = true;
+  };
 </script>
 <script>
 (function(){

@@ -213,40 +213,7 @@ body.dark-mode .course-box {
     </div>
   </nav>
   <main class="main-container">
-        <style id="lesson-style">
-          /* Custom lesson content styles for dynamic load */
-          .lesson-content h2, .lesson-content h3 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 2rem;
-            font-weight: 700;
-            color: #3b82f6;
-            margin-bottom: 1rem;
-          }
-          .lesson-content p {
-            font-size: 1.1rem;
-            color: #1e293b;
-            margin-bottom: 1rem;
-          }
-          .lesson-content ul, .lesson-content ol {
-            margin-left: 2rem;
-            font-size: 1rem;
-            color: #334155;
-          }
-          .lesson-content {
-            background: #f8fafc;
-            border-radius: 1.5rem;
-            padding: 2rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-          }
-          .lesson-content img, .lesson-content iframe {
-            max-width: 100%;
-            border-radius: 1rem;
-            margin-bottom: 1rem;
-          }
-          .lesson-content .side-buttons, .lesson-content .rubric-box {
-            display: none !important;
-          }
-        </style>
+
     <h2 class="page-title">Unit 1: Matter (Classification, properties, and changes)</h2>
     <div class="courses-container">
       <div class="courses-section">
@@ -265,54 +232,7 @@ body.dark-mode .course-box {
     </div>
   </main>
   <script>
-        // Generic dynamic loader for lessons 1.3 to 1.8
-        const lessonLinks = [
-          {id: 'lesson1-3-link', file: 'Lesson 1.3 Intensive_And_Extensive_Properties.html'},
-          {id: 'lesson1-4-link', file: 'Lesson 1.4 Mass_Volume_And_Density.html'},
-          {id: 'lesson1-5-link', file: 'Lesson 1.5 Heterogeneous_And_Homogeneous_Mixtures.html'},
-          {id: 'lesson1-6-link', file: 'Lesson 1.6 Physical_And_Chemical_Properties.html'},
-          {id: 'lesson1-7-link', file: 'Lesson 1.7 Physical_And_Chemical_Changes.html'},
-          {id: 'lesson1-8-link', file: 'Lesson 1.8 Endothermic_And_Exothermic_Reactions.html'}
-        ];
-        lessonLinks.forEach(({id, file}) => {
-          const link = document.getElementById(id);
-          if (link) {
-            link.addEventListener('click', function(e) {
-              e.preventDefault();
-              fetch(file)
-                .then(response => response.text())
-                .then(html => {
-                  const tempDiv = document.createElement('div');
-                  tempDiv.innerHTML = html;
-                  const lessonMain = tempDiv.querySelector('.main-container');
-                  const lessonStyle = tempDiv.querySelector('style');
-                  if (lessonMain) {
-                    const mainContainer = document.querySelector('.main-container');
-                    mainContainer.innerHTML = lessonMain.innerHTML;
-                    // Remove previous lesson style if exists
-                    const prevStyle = document.getElementById('lesson-style');
-                    if (prevStyle) prevStyle.remove();
-                    // Inject lesson style
-                    if (lessonStyle) {
-                      lessonStyle.id = 'lesson-style';
-                      document.head.appendChild(lessonStyle.cloneNode(true));
-                    }
-                    // Update back button
-                    const backBtn = document.getElementById('back-button');
-                    if (backBtn) {
-                      backBtn.textContent = '← Back to Unit 1';
-                      backBtn.onclick = function() {
-                        window.location.href = '/ArisEdu Project Folder/ChemistryLessons/Unit1/ChemistryUnit1Matter.html';
-                      };
-                    }
-                  } else {
-                    alert('Could not load lesson content.');
-                  }
-                })
-                .catch(() => alert('Failed to load lesson content.'));
-            });
-          }
-        });
+
     // Taskbar Button Handlers
     document.getElementById('back-button').addEventListener('click', () => {
       window.location.href = '../../chem.html';
@@ -322,76 +242,7 @@ body.dark-mode .course-box {
     document.getElementById('play-button').addEventListener('click', () => {});
     document.getElementById('search-button').addEventListener('click', () => {});
 
-    // Lesson 1.1 dynamic load
-        // Lesson 1.2 dynamic load
-        document.getElementById('lesson1-2-link').addEventListener('click', function(e) {
-          e.preventDefault();
-          fetch('Lesson 1.2 States_Of_Matter_And_Phase_Changes.html')
-            .then(response => response.text())
-            .then(html => {
-              const tempDiv = document.createElement('div');
-              tempDiv.innerHTML = html;
-              const lessonMain = tempDiv.querySelector('.main-container');
-              const lessonStyle = tempDiv.querySelector('style');
-              if (lessonMain) {
-                const mainContainer = document.querySelector('.main-container');
-                mainContainer.innerHTML = lessonMain.innerHTML;
-                // Remove previous lesson style if exists
-                const prevStyle = document.getElementById('lesson-style');
-                if (prevStyle) prevStyle.remove();
-                // Inject lesson style
-                if (lessonStyle) {
-                  lessonStyle.id = 'lesson-style';
-                  document.head.appendChild(lessonStyle.cloneNode(true));
-                }
-                // Update back button
-                const backBtn = document.getElementById('back-button');
-                if (backBtn) {
-                  backBtn.textContent = '← Back to Unit 1';
-                  backBtn.onclick = function() {
-                    window.location.href = '/ArisEdu Project Folder/ChemistryLessons/Unit1/ChemistryUnit1Matter.html';
-                  };
-                }
-              } else {
-                alert('Could not load lesson content.');
-              }
-            })
-            .catch(() => alert('Failed to load lesson content.'));
-        });
-    document.getElementById('lesson1-1-link').addEventListener('click', function(e) {
-      e.preventDefault();
-      fetch('Lesson 1.1 Types_Of_Matter_And_Composition.html')
-        .then(response => response.text())
-        .then(html => {
-          const tempDiv = document.createElement('div');
-          tempDiv.innerHTML = html;
-          const lessonMain = tempDiv.querySelector('.main-container');
-          const lessonStyle = tempDiv.querySelector('style');
-          if (lessonMain) {
-            const mainContainer = document.querySelector('.main-container');
-            mainContainer.innerHTML = lessonMain.innerHTML;
-            // Remove previous lesson style if exists
-            const prevStyle = document.getElementById('lesson-style');
-            if (prevStyle) prevStyle.remove();
-            // Inject lesson style
-            if (lessonStyle) {
-              lessonStyle.id = 'lesson-style';
-              document.head.appendChild(lessonStyle.cloneNode(true));
-            }
-            // Update back button
-            const backBtn = document.getElementById('back-button');
-            if (backBtn) {
-              backBtn.textContent = '← Back to Unit 1';
-              backBtn.onclick = function() {
-                window.location.href = '/ArisEdu Project Folder/ChemistryLessons/Unit1/ChemistryUnit1Matter.html';
-              };
-            }
-          } else {
-            alert('Could not load lesson content.');
-          }
-        })
-        .catch(() => alert('Failed to load lesson content.'));
-    });
+
     document.getElementById('login-signup-button').addEventListener('click', () => {});
     document.getElementById('settings-button').addEventListener('click', () => {
       // Toggle settings menu

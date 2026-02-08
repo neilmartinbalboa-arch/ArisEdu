@@ -837,7 +837,197 @@
       pointer-events: auto;
     }
 
-  </style>
+  
+    body {
+      box-sizing: border-box;
+      background-color: white;
+      color: #0f172a;
+    }
+
+    .logo-font {
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    .main-container {
+      height: 100%;
+      width: 100%;
+      padding: 5rem 2rem 2rem 2rem;
+      overflow: auto;
+    }
+
+    .taskbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%);
+      z-index: 1000;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .taskbar-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.5rem 1rem;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    .taskbar-button {
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      color: white;
+      font-size: 0.875rem;
+      transition: opacity 0.3s, transform 0.2s;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .taskbar-button:hover {
+      opacity: 0.9;
+      scale: 1.05;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .settings-menu {
+      width: 13rem;
+      padding: 0.5rem;
+      background: #ffffff;
+      border-radius: 0.5rem;
+      box-shadow: 0 8px 20px rgba(2,6,23,0.12);
+      color: #0f172a;
+      font-size: 0.95rem;
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+      position: absolute;
+      top: 100%;
+      right: 1rem;
+    }
+
+    body.dark-mode .settings-menu {
+      background: #0f172a;
+      color: #cbd5e1;
+    }
+
+    body.dark-mode {
+      background-color: #1e293b;
+      color: #e2e8f0;
+    }
+
+    .page-title {
+      font-size: 2.25rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+
+    .diagram-card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      margin-top: 1.5rem;
+    }
+
+    body.dark-mode .diagram-card {
+      background: rgba(15, 23, 42, 0.85);
+    }
+
+    .diagram-placeholder {
+      border: 2px dashed rgba(59, 130, 246, 0.6);
+      border-radius: 0.75rem;
+      padding: 2.5rem;
+      text-align: center;
+      color: #475569;
+    }
+
+    body.dark-mode .diagram-placeholder {
+      color: #cbd5e1;
+      border-color: rgba(148, 163, 184, 0.6);
+    }
+
+    .side-buttons {
+      position: absolute;
+      right: 2rem;
+      bottom: 9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .side-button {
+      padding: 1rem 1.5rem;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      color: #ffffff;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, #8b5cf6 0%, #10b981 50%, #3b82f6 100%);
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.2);
+      min-width: 11rem;
+      text-align: center;
+      text-decoration: none;
+      display: inline-flex;
+      justify-content: center;
+    }
+
+    .side-button:hover {
+      opacity: 0.92;
+    }
+
+    .Practice-actions {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .Practices-menu {
+      position: relative;
+    }
+
+    .Practices-panel {
+      width: 12rem;
+      min-height: 3rem;
+      background: #0f172a;
+      border: 2px solid #334155;
+      border-radius: 0.75rem;
+      position: absolute;
+      right: 0;
+      bottom: calc(100% + 0.25rem);
+      z-index: 10;
+      opacity: 0;
+      transform: scale(0.95);
+      transform-origin: bottom right;
+      visibility: hidden;
+      pointer-events: none;
+      padding: 0.6rem;
+    }
+
+    .Practices-panel.is-open {
+      opacity: 0.95;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+</style>
    <style>@view-transition { navigation: auto; }</style>
 </head>
  <body class="h-full">
@@ -864,6 +1054,8 @@
     </div>
   </nav>
   <main class="main-container">
+    <div id="lesson-content-view">
+
     <h2 class="page-title">Lesson 1.2: States of Matter & Phase Changes</h2>
     <div class="courses-container">
       <div class="lesson-layout">
@@ -905,7 +1097,7 @@
               </div>
             </div>
           </div>
-          <a class="side-button" href="Lesson 1.2 States_Of_Matter_And_Phase_ChangesSummary.html">Next Up: Summary</a>
+          <button class="side-button" onclick="toggleToSummary(event)">Next Up: Summary</button>
         </div>
       </div>
       <div class="rubric-box">
@@ -949,7 +1141,42 @@
           </div>
       </div>
     </div>
-  </main>
+  
+    </div>
+
+    <!-- Embedded Summary View -->
+    <div id="summary-content-view" style="display: none;">
+        <h2 class="page-title">Lesson 1.2 States Of Matter And Phase Changes Summary</h2>
+        <div class="diagram-card">
+          <div class="diagram-placeholder">
+        Summary placeholder. Add the summary content here.
+</div>
+          <div class="summary-actions">
+            <button class="side-button" onclick="toggleToPractice(event)">Next Up: Play</button>
+          </div>
+        </div>
+    </div>
+
+
+    <!-- Embedded Practice View -->
+    <div id="practice-content-view" style="display: none;">
+      <h2 class="page-title">Lesson 1.2 States Of Matter And Phase Changes Practice</h2>
+      <div class="diagram-card">
+        <p>Practice content could not be parsed.</p>
+        <div class="Practice-actions" style="margin-top:2rem;display:flex;justify-content:flex-end;width:100%;">
+          <div class="Practices-menu" style="position:relative;">
+            <button class="side-button view-other-Practices" type="button" onclick="window.togglePracticesPanel(this)">Other practices</button>
+            <div class="Practices-panel" aria-hidden="true">
+              <div class="Practices-panel-item">
+                <a href="#flashcard-game">Flashcard Game</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</main>
   <script>
 
     function toggleVideosPanel(button) {
@@ -1416,5 +1643,248 @@
   observer.observe(document.body, { childList: true, subtree: true });
 })();
 </script>
+<script> window.originalBackLink = 'ChemistryUnit1Matter.html'; </script>
+
+<script>
+  window.togglePracticesPanel = function(button) {
+    if (!button) return;
+    const menu = button.closest('.Practices-menu') || button.closest('.side-buttons'); 
+    if (!menu) return;
+    const panel = menu.querySelector('.Practices-panel');
+    if (!panel) return;
+    const isOpen = panel.classList.toggle('is-open');
+    panel.setAttribute('aria-hidden', (!isOpen).toString());
+  };
+
+  function attachPracticeListeners() {
+      document.querySelectorAll('.view-other-Practices').forEach((button) => {
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+        window.togglePracticesPanel(button);
+      });
+    });
+  }
+
+
+  window.toggleToSummary = function(event) {
+    if (event) event.preventDefault();
+    const lessonView = document.getElementById('lesson-content-view');
+    const practiceView = document.getElementById('practice-content-view');
+    const summaryView = document.getElementById('summary-content-view');
+    
+    if (lessonView) lessonView.style.display = 'none';
+    if (practiceView) practiceView.style.display = 'none';
+    if (summaryView) summaryView.style.display = 'block';
+    
+    // Update Back Button
+    const backBtn = document.getElementById('back-button');
+    if (backBtn) {
+        // Store original text if not already stored
+        if (!backBtn.dataset.originalText) {
+            backBtn.dataset.originalText = backBtn.innerText;
+        }
+        
+        // Get the lesson name for the back button, e.g. "Lesson 2.1"
+        // Try to parse from title or use generic
+        const title = document.title;
+        const lessonMatch = title.match(/Lesson\s+\d+\.\d+/);
+        const lessonName = lessonMatch ? lessonMatch[0] : "Lesson";
+        
+        backBtn.innerText = "← Back to " + lessonName;
+        
+        // Clone to clear previous listeners
+        const newBackBtn = backBtn.cloneNode(true);
+        if (backBtn.parentNode) {
+            backBtn.parentNode.replaceChild(newBackBtn, backBtn);
+            newBackBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (summaryView) summaryView.style.display = 'none';
+                if (lessonView) lessonView.style.display = 'block';
+                
+                // Restore original Back Button behavior for Unit
+                const restoreBtn = newBackBtn.cloneNode(true);
+                newBackBtn.parentNode.replaceChild(restoreBtn, newBackBtn);
+                
+                // We need to know where the unit page is. 
+                // Usually it is ChemistryUnitXMeasure.html or similar.
+                // We can just reload the page to be safe if we don't know the unit link, 
+                // BUT the original back button had a listener or href.
+                // Let's try to extract the original HREF from the HTML source if possible, 
+                // but since we are replacing the logic, we might need a smart way to go back.
+                // Actually, the original back button usually changes window.location.href.
+                // We should probably just reload to be safe or try to go back in history?
+                // No, the original listener is gone.
+                // Let's assume the user wants to go to the Unit page.
+                // Best bet: finding the unit file name from the path.
+                
+                // Simpler approach: Just reload the page? No, that stays on Lesson.
+                // We need the Unit Hub link.
+                // In Lesson 1.1 logic, we hardcoded 'ChemistryUnit1Matter.html'.
+                // Here we can try to guess or just use history.back() if safe?
+                // Let's try to grab the Unit text from the original button text?
+                // "Back to Unit 1"
+                
+                // Re-read strictly:
+                // The original code had: window.location.href = '/ArisEdu Project Folder/ChemistryLessons/Unit2/ChemicalUnit2.html' (example)
+                // We can't easily parse that strictly from js logic without parsing the original file content.
+                // HOWEVER, we can just grab the 'href' if it was an <a> tag?
+                // The original back button is often a <button> with a JS listener.
+                
+                // Let's rely on the fact that we are just hiding/showing divs. 
+                // Initial state: Lesson View visible.
+                // If we hit back from Summary -> Show Lesson View.
+                // Now we are at Lesson View. The "Back" button should do what it originally did.
+                // Problem: We replaced the node, so we lost the original event listener!
+                
+                // FIX: Instead of replacing the node when going back to lesson, we should 
+                // RE-ADD the original listener? Or just reload the page?
+                // Reloading is safe but slow.
+                // Better: When initializing initJS, we can store the original click handler? No, can't easily extracting allow.
+                
+                // ALTERNATIVE: Don't replace the button node. Just change onclick.
+                // But the original might be addEventListener.
+                
+                // OK, strategy: In the Python script, I will extract the original Back Button Logic (href) 
+                // and inject it into a variable `window.originalBackLink`.
+                if (window.originalBackLink) {
+                    restoreBtn.innerText = "← Back to Unit"; 
+                    restoreBtn.addEventListener('click', () => {
+                        window.location.href = window.originalBackLink;
+                    });
+                } else {
+                     restoreBtn.innerText = "← Back";
+                     restoreBtn.addEventListener('click', () => history.back());
+                }
+            });
+        }
+    }
+    
+    window.scrollTo(0, 0);
+  };
+
+  window.toggleToPractice = function(event) {
+    if (event) event.preventDefault();
+    const lessonView = document.getElementById('lesson-content-view');
+    const practiceView = document.getElementById('practice-content-view');
+    const summaryView = document.getElementById('summary-content-view');
+
+    if (lessonView) lessonView.style.display = 'none';
+    if (summaryView) summaryView.style.display = 'none';
+    if (practiceView) practiceView.style.display = 'block';
+    
+    // Initialize flashcards if not already done
+    if (typeof initFlashcards === 'function') {
+        try {
+            initFlashcards();
+        } catch (err) {
+            console.error("Error initializing flashcards:", err);
+        }
+    }
+
+    // Update Back Button
+    const backBtn = document.getElementById('back-button');
+    if (backBtn) {
+        backBtn.innerText = "← Back to Summary";
+        const newBackBtn = backBtn.cloneNode(true);
+        if (backBtn.parentNode) {
+            backBtn.parentNode.replaceChild(newBackBtn, backBtn);
+            newBackBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.toggleToSummary(e);
+            });
+        }
+    }
+    window.scrollTo(0, 0);
+  };
+  
+</script>
+
+
+<script>
+  let flashcardsInitialized = false;
+  window.initFlashcards = function() {
+      if (flashcardsInitialized) return;
+      
+      
+      
+      let currentFlashcard = 0;
+      let flashcardOrder = [...Array(flashcards.length).keys()];
+      
+      const flashcardContent = document.getElementById('flashcard-content');
+      const flashcardDiv = document.getElementById('flashcard');
+      const nextFlashcardBtn = document.getElementById('next-flashcard');
+      const prevFlashcardBtn = document.getElementById('prev-flashcard');
+      const shuffleFlashcardBtn = document.getElementById('shuffle-flashcard');
+      
+      if (!flashcardContent || !flashcardDiv) return;
+
+      let showingAnswer = false;
+
+      function updateFlashcard() {
+          showingAnswer = false;
+          const idx = flashcardOrder[currentFlashcard];
+          const text = flashcards[idx].question;
+          flashcardContent.textContent = text;
+          autoAdjustFontSize(text);
+      }
+
+      function autoAdjustFontSize(text) {
+          if (!flashcardContent) return;
+          let baseSize = 1.25; 
+          let minSize = 0.8; 
+          let maxSize = 2.5; 
+          let length = text.length;
+          let size = baseSize;
+          if (length < 60) size = maxSize;
+          else if (length < 120) size = 1.5;
+          else if (length < 200) size = 1.1;
+          else size = minSize;
+          flashcardContent.style.fontSize = size + 'rem';
+      }
+
+      flashcardDiv.addEventListener('click', () => {
+          const idx = flashcardOrder[currentFlashcard];
+          if (!showingAnswer) {
+            const answer = flashcards[idx].answer;
+            flashcardContent.textContent = answer;
+            autoAdjustFontSize(answer);
+            showingAnswer = true;
+          } else {
+            const question = flashcards[idx].question;
+            flashcardContent.textContent = question;
+            autoAdjustFontSize(question);
+            showingAnswer = false;
+          }
+      });
+      
+      if (nextFlashcardBtn) nextFlashcardBtn.addEventListener('click', () => {
+          currentFlashcard = (currentFlashcard + 1) % flashcardOrder.length;
+          updateFlashcard();
+      });
+      
+      if (prevFlashcardBtn) prevFlashcardBtn.addEventListener('click', () => {
+          currentFlashcard = (currentFlashcard - 1 + flashcardOrder.length) % flashcardOrder.length;
+          updateFlashcard();
+      });
+      
+      if (shuffleFlashcardBtn) shuffleFlashcardBtn.addEventListener('click', () => {
+          function shuffleArray(array) {
+            let arr = array.slice();
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+          }
+          flashcardOrder = shuffleArray(flashcardOrder);
+          currentFlashcard = 0;
+          updateFlashcard();
+      });
+
+      updateFlashcard();
+      flashcardsInitialized = true;
+  };
+</script>
+
 </body>
 </html>
