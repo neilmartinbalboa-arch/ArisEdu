@@ -1046,7 +1046,7 @@
     <div id="practice-content-view" style="display: none;">
       <h2 class="page-title">Lesson 5.7 Crisscross Method Practice</h2>
       <div class="diagram-card">
-        <div class="flashcard-game" style="margin-top:2rem;display:flex;flex-direction:column;align-items:center;">
+        <div class="flashcard-game" style="perspective:1000px;overflow:hidden;margin-top:2rem;display:flex;flex-direction:column;align-items:center;">
         <div id="flashcard" class="flashcard-box" style="background:#fff;border-radius:1rem;box-shadow:0 2px 8px rgba(0,0,0,0.12);padding:2rem 3rem;display:flex;align-items:center;justify-content:center;text-align:center;min-width:calc(320px + 56rem);min-height:calc(120px + 24rem);font-weight:600;color:#0f172a;margin-bottom:1rem;cursor:pointer;transition:background 0.2s, color 0.2s;">
           <span id="flashcard-content" style="width:100%;display:block;"></span>
                 <style>
@@ -1946,30 +1946,108 @@
           flashcardContent.style.fontSize = size + 'rem';
       }
 
-      flashcardDiv.addEventListener('click', () => {
-          const idx = flashcardOrder[currentFlashcard];
-          if (!showingAnswer) {
-            const answer = flashcards[idx].answer;
-            flashcardContent.textContent = answer;
-            autoAdjustFontSize(answer);
-            showingAnswer = true;
-          } else {
-            const question = flashcards[idx].question;
-            flashcardContent.textContent = question;
-            autoAdjustFontSize(question);
-            showingAnswer = false;
-          }
-      });
+      let isFlipping = false;
+        flashcardDiv.addEventListener('click', () => {
+          if (isFlipping) return;
+          isFlipping = true;
+          
+          // Direction: Q->A (Bottom-to-Up = +1), A->Q (Up-to-Bottom = -1)
+          const direction = !showingAnswer ? 1 : -1;
+          
+          flashcardDiv.style.transition = "transform 0.15s ease-in, background 0.2s, color 0.2s";
+          flashcardDiv.style.transform = `rotateX(${90 * direction}deg)`;
+          
+          setTimeout(() => {
+              const idx = flashcardOrder[currentFlashcard];
+              if (!showingAnswer) {
+                const answer = flashcards[idx].answer;
+                flashcardContent.textContent = answer;
+                autoAdjustFontSize(answer);
+                showingAnswer = true;
+              } else {
+                const question = flashcards[idx].question;
+                flashcardContent.textContent = question;
+                autoAdjustFontSize(question);
+                showingAnswer = false;
+              }
+              
+              // Complete the full flip illusion
+              flashcardDiv.style.transition = "none";
+              flashcardDiv.style.transform = `rotateX(${-90 * direction}deg)`;
+              
+              // Force reflow
+              void flashcardDiv.offsetWidth;
+              
+              flashcardDiv.style.transition = "transform 0.15s ease-out, background 0.2s, color 0.2s";
+              flashcardDiv.style.transform = "rotateX(0deg)";
+              
+              setTimeout(() => {
+                  isFlipping = false;
+              }, 150);
+          }, 150);
+        });
       
       if (nextFlashcardBtn) nextFlashcardBtn.addEventListener('click', () => {
-          currentFlashcard = (currentFlashcard + 1) % flashcardOrder.length;
-          updateFlashcard();
-      });
+          if (isFlipping) return;
+          isFlipping = true;
+
+          // Swipe Left Animation
+          flashcardDiv.style.transition = "transform 0.25s ease-in, opacity 0.25s ease-in";
+          flashcardDiv.style.transform = "translateX(-120%) rotate(-10deg)";
+          flashcardDiv.style.opacity = "0";
+
+          setTimeout(() => {
+              currentFlashcard = (currentFlashcard + 1) % flashcardOrder.length;
+              updateFlashcard();
+              
+              // Reset to right side (hidden)
+              flashcardDiv.style.transition = "none";
+              flashcardDiv.style.transform = "translateX(120%) rotate(10deg)";
+              
+              // Force reflow
+              void flashcardDiv.offsetWidth;
+              
+              // Animate in from right
+              flashcardDiv.style.transition = "transform 0.25s ease-out, opacity 0.25s ease-out, background 0.2s, color 0.2s";
+              flashcardDiv.style.transform = "translateX(0) rotate(0)";
+              flashcardDiv.style.opacity = "1";
+              
+              setTimeout(() => {
+                  isFlipping = false;
+              }, 250);
+          }, 250);
+        });
       
       if (prevFlashcardBtn) prevFlashcardBtn.addEventListener('click', () => {
-          currentFlashcard = (currentFlashcard - 1 + flashcardOrder.length) % flashcardOrder.length;
-          updateFlashcard();
-      });
+          if (isFlipping) return;
+          isFlipping = true;
+
+          // Swipe Right Animation (Exit to Right)
+          flashcardDiv.style.transition = "transform 0.25s ease-in, opacity 0.25s ease-in";
+          flashcardDiv.style.transform = "translateX(120%) rotate(10deg)";
+          flashcardDiv.style.opacity = "0";
+
+          setTimeout(() => {
+              currentFlashcard = (currentFlashcard - 1 + flashcardOrder.length) % flashcardOrder.length;
+              updateFlashcard();
+              
+              // Reset to left side (hidden)
+              flashcardDiv.style.transition = "none";
+              flashcardDiv.style.transform = "translateX(-120%) rotate(-10deg)";
+              
+              // Force reflow
+              void flashcardDiv.offsetWidth;
+              
+              // Animate in from left
+              flashcardDiv.style.transition = "transform 0.25s ease-out, opacity 0.25s ease-out, background 0.2s, color 0.2s";
+              flashcardDiv.style.transform = "translateX(0) rotate(0)";
+              flashcardDiv.style.opacity = "1";
+              
+              setTimeout(() => {
+                  isFlipping = false;
+              }, 250);
+          }, 250);
+        });
       
       if (shuffleFlashcardBtn) shuffleFlashcardBtn.addEventListener('click', () => {
           function shuffleArray(array) {
