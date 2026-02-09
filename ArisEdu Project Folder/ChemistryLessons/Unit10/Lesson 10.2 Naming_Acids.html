@@ -2073,7 +2073,13 @@ body.dark-mode #quiz-content-view .quiz-question {
       const flashcards = [
           { question: "Naming binary acids (HCl)?", answer: "Hydro[root]ic acid" },
           { question: "Naming oxyacids ending in -ate?", answer: "[Root]ic acid" },
-          { question: "Naming oxyacids ending in -ite?", answer: "[Root]ous acid" }
+          { question: "Naming oxyacids ending in -ite?", answer: "[Root]ous acid" },
+          // From Lesson 10.1 (Previous)
+          { question: "Taste of acids?", answer: "Sour" },
+          { question: "Taste of bases?", answer: "Bitter" },
+          // From Lesson 10.3 (Next)
+          { question: "pH range for acids? <span style='position:absolute;bottom:0.5rem;right:0.5rem;font-size:0.6em;opacity:0.7;font-style:italic;'>*Next lesson's questions</span>", answer: "0 to 7" },
+          { question: "pH range for bases? <span style='position:absolute;bottom:0.5rem;right:0.5rem;font-size:0.6em;opacity:0.7;font-style:italic;'>*Next lesson's questions</span>", answer: "7 to 14" }
       ];
         window.lessonFlashcards = flashcards; 
       
@@ -2082,6 +2088,8 @@ body.dark-mode #quiz-content-view .quiz-question {
       
       const flashcardContent = document.getElementById('flashcard-content');
       const flashcardDiv = document.getElementById('flashcard');
+      if(flashcardDiv) flashcardDiv.style.position = 'relative'; // Ensure relative for absolute child
+
       const nextFlashcardBtn = document.getElementById('next-flashcard');
       const prevFlashcardBtn = document.getElementById('prev-flashcard');
       const shuffleFlashcardBtn = document.getElementById('shuffle-flashcard');
@@ -2094,8 +2102,8 @@ body.dark-mode #quiz-content-view .quiz-question {
           showingAnswer = false;
           const idx = flashcardOrder[currentFlashcard];
           const text = flashcards[idx].question;
-          flashcardContent.textContent = text;
-          autoAdjustFontSize(text);
+          flashcardContent.innerHTML = text;
+          autoAdjustFontSize(text.replace(/<[^>]*>/g, ''));
       }
 
       function autoAdjustFontSize(text) {
@@ -2127,13 +2135,13 @@ body.dark-mode #quiz-content-view .quiz-question {
               const idx = flashcardOrder[currentFlashcard];
               if (!showingAnswer) {
                 const answer = flashcards[idx].answer;
-                flashcardContent.textContent = answer;
-                autoAdjustFontSize(answer);
+                flashcardContent.innerHTML = answer; // Use innerHTML
+                autoAdjustFontSize(answer.replace(/<[^>]*>/g, ''));
                 showingAnswer = true;
               } else {
                 const question = flashcards[idx].question;
-                flashcardContent.textContent = question;
-                autoAdjustFontSize(question);
+                flashcardContent.innerHTML = question; // Use innerHTML
+                autoAdjustFontSize(question.replace(/<[^>]*>/g, ''));
                 showingAnswer = false;
               }
               
@@ -2579,7 +2587,11 @@ window.exitClimbGame = function() {
     window.usedFlashcardIndices.push(qIdx);
         currentQuestion = window.lessonFlashcards[qIdx];
         
-        document.getElementById('climb-question-text').innerText = currentQuestion.question;
+        const qText = document.getElementById('climb-question-text');
+        if(qText) {
+            qText.innerHTML = currentQuestion.question;
+            qText.style.position = 'relative'; // Ensure relative for absolute child
+        }
         
         // Generate Distractors
         const options = [currentQuestion.answer];
@@ -2966,7 +2978,9 @@ window.exitClimbGame = function() {
         const match = p.textContent.match(/^\d+\./);
         if (match) numPrefix = match[0] + " ";
     }
-    p.textContent = numPrefix + q.question;
+    p.innerHTML = numPrefix + q.question;
+    parent.style.position = 'relative'; // Ensure relative for absolute child
+
 
     // 3. Generate Options
     const answers = [q.answer];

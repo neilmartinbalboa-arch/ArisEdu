@@ -149,6 +149,77 @@
       cursor: pointer;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       color: #f8fafc;
+      position: relative;
+    }
+
+    /* Rubric Info Button Styles */
+    .rubric-hover-wrap {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 20;
+    }
+
+    .rubric-hover-dot {
+      scale: 1.5; /* Reduced scale to fit better in box */
+      width: 1.4rem;
+      height: 1.4rem;
+      border-radius: 999px;
+      margin-right: 0.5rem; /* Adjusted margin */
+      margin-top: 0.5rem; /* Adjusted margin to be inside top-right */
+      border: 2px solid #1f2937;
+      background: #0f172a;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.35);
+      cursor: pointer;
+      position: relative;
+      z-index: 21;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .rubric-hover-dot span {
+      font-family: 'Playfair Display', 'Poppins', serif;
+      background: linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #8b5cf6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .rubric-hover-panel {
+      position: absolute;
+      margin-right: 1.5rem;
+      scale: 1.2; /* Adjusted scale */
+      right: 0;
+      bottom: 100%; /* Position above the dot */
+      width: 10rem;
+      min-height: 3rem;
+      background: #0f172a;
+      border: 2px solid #334155;
+      border-radius: 0.75rem;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-0.5rem);
+      transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+      z-index: 30;
+      pointer-events: none; /* Prevent interfering with hover on dot if overlapping */
+    }
+
+    .rubric-hover-panel p {
+      font-size: 0.7rem;
+      line-height: 1.2;
+      margin: 0.25rem 0;
+      color: #cbd5e1;
+    }
+
+    .rubric-hover-wrap:hover .rubric-hover-panel {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      pointer-events: auto;
     }
 
     .course-box:hover {
@@ -301,8 +372,30 @@ body.dark-mode #quiz-content-view .quiz-question {
             <div class="course-box"><a href="Lesson 12.1 Nuclear_Fusion_And_Fission.html">Lesson 1: Nuclear Fusion and Fission</a></div>
             <div class="course-box"><a href="Lesson 12.2 Alpha_Beta_And_Gamma_Decay.html">Lesson 2: Alpha, Beta, & Gamma Decay</a></div>
             <div class="course-box"><a href="Lesson 12.3 Nuclear_Reactions.html">Lesson 3: Nuclear Reactions</a></div>
-            <div class="course-box"><a href="Lesson 12.4 Half_Life_Calculations.html">Lesson 4: ⭐ Half-Life Calculations</a></div>
-            <div class="course-box"><a href="Lesson 12.5 Applications_Of_Nuclear_Chemistry.html">Lesson 5: ⭐ Applications of Nuclear Chemistry (medicine, dating, energy)</a></div>
+            <div class="course-box">
+              <div class="rubric-hover-wrap">
+                <div class="rubric-hover-dot" aria-hidden="true"><span>i</span></div>
+                <div class="rubric-hover-panel" aria-hidden="true">
+                  <p>Difficulty (How hard it is to understand)</p>
+                  <p>Detail (Depth of lessons)</p>
+                  <p>Speed (How long the video is)</p>
+                  <p>Pace (How fast detail is covered)</p>
+                </div>
+              </div>
+              <a href="Lesson 12.4 Half_Life_Calculations.html">Lesson 4: ⭐ Half-Life Calculations</a>
+            </div>
+            <div class="course-box">
+              <div class="rubric-hover-wrap">
+                <div class="rubric-hover-dot" aria-hidden="true"><span>i</span></div>
+                <div class="rubric-hover-panel" aria-hidden="true">
+                  <p>Difficulty (How hard it is to understand)</p>
+                  <p>Detail (Depth of lessons)</p>
+                  <p>Speed (How long the video is)</p>
+                  <p>Pace (How fast detail is covered)</p>
+                </div>
+              </div>
+              <a href="Lesson 12.5 Applications_Of_Nuclear_Chemistry.html">Lesson 5: ⭐ Applications of Nuclear Chemistry (medicine, dating, energy)</a>
+            </div>
           </div>
         </div>
       </div>
